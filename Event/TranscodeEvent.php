@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  *  Transcode events are fired before and after a transcode process on an individual file, and in the case of exceptions thrown.
  */
-abstract class TranscodeEvent extends Event
+class TranscodeEvent extends Event
 {
     protected $inFile;
     protected $preset;
