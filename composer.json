@@ -1,0 +1,34 @@
+{
+    "name": "ac/transcoding",
+    "type": "library",
+    "description": "File transcoding abstraction component for PHP 5.3+.",
+    "keywords": ["file", "convert", "transcode"],
+    "homepage": "http://github.com/americancouncils/transcoding",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evan Villemez",
+            "email": "evan.villemez@americancouncils.org"
+        },
+        {
+            "name": "Andrew Freix"
+        },
+        {
+            "name": "Jay Hebert"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "ext-fileinfo": "*",
+        "symfony/event-dispatcher": "2.1.*"
+    },
+    "suggest" : {
+        "symfony/process": "dev-master",
+        "symfony/finder": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "target-dir": "AC/Component/Transcoding",
+    "autoload": {
+        "psr-0": { "AC\\Component\\Transcoding": "" }
+    }
+}
