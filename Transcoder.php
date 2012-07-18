@@ -161,7 +161,7 @@ class Transcoder extends EventDispatcher
         try {
 
             //notify listeners of transcode start
-            $this->dispatch(TranscodeEvents::BEFORE, new TranscodeEvent($inFile, $preset, $outFilePath));
+            $this->dispatch(TranscodeEvents::BEFORE, new TranscodeEvent($inputPath, $presetKey, $outFilePath));
 
             //run the transcode
             $return = $adapter->transcodeFile($inFile, $preset, $outFilePath);
@@ -173,12 +173,14 @@ class Transcoder extends EventDispatcher
             $preset->validateOutputFile($return);
             $adapter->validateOutputFile($return);
             $this->cleanOutputFile($return);
+            
+            $returnPath = $return->getRealPath();
 
             //notify listeners of completion
-            $this->dispatch(TranscodeEvents::AFTER, new TranscodeEvent($inFile, $preset, $return));
+            $this->dispatch(TranscodeEvents::AFTER, new TranscodeEvent($inputPath, $presetKey, $returnPath));
 
             //notify of new file
-            $this->dispatch(TranscodeEvents::FILE_CREATED, new FileEvent($return->getRealPath()));
+            $this->dispatch(TranscodeEvents::FILE_CREATED, new FileEvent($returnPath));
 
             //return newly created file
             return $return;
@@ -189,7 +191,7 @@ class Transcoder extends EventDispatcher
             $this->cleanFailedTranscode($adapter, $outFilePath, $failMode);
 
             //notify listeners of failure
-            $this->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inFile, $preset, $outFilePath, null, $e));
+            $this->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
 
             //re-throw exception so environment can handle appropriately
             throw $e;
