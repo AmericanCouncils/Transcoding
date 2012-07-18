@@ -5,7 +5,10 @@ namespace AC\Component\Transcoding\Event;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- *  Transcode events are fired before and after a transcode process on an individual file, and in the case of exceptions thrown.
+ * Transcode Events are fired before/after, or on error of a transcode process.
+ *
+ * @package Transcoding
+ * @author Evan Villemez
  */
 class TranscodeEvent extends Event
 {
@@ -23,7 +26,6 @@ class TranscodeEvent extends Event
      * @param string    $outFile
      * @param Job       $job
      * @param Exception $e
-     * @author Evan Villemez
      */
     public function __construct($inpath, $preset, $outpath = null, Job $job = null, \Exception $e = null)
     {
@@ -71,7 +73,7 @@ class TranscodeEvent extends Event
      */
     public function getException()
     {
-        return $this->e;
+        return $this->exception;
     }
 
     /**

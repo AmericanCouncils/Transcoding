@@ -457,6 +457,7 @@ class Transcoder extends EventDispatcher
      */
     public function registerAdapter(Adapter $adapter)
     {
+        $adapter->setTranscoder($this);
         $this->adapters[$adapter->getKey()] = $adapter;
 
         return $this;
@@ -471,6 +472,7 @@ class Transcoder extends EventDispatcher
     public function removeAdapter($key)
     {
         if (isset($this->adapters[$key])) {
+            $this->adapters[$key]->setTranscoder();
             unset($this->adapters[$key]);
         }
 

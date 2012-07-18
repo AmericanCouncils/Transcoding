@@ -102,13 +102,8 @@ For example, the FFmpeg and Handbrake adapters use the `Symfony\Process` compone
 		$process->setTimeout(3600);
 
 		//pass an anonymous function to the process so the adapter can get output as it occurs
-		$result = $process->run(function ($type, $buffer) {
-			if($type === 'err') {
-				//throw an exception, depending on the error
-			} else {
-				//do something else with the output, whatever that is, maybe append to a status/log file if available
-			}
-		});
+		$result = $process->run();
+        $output = $process->getOutput();
 
 		//check for error status return
 		if(!$process->isSuccessful()) {
@@ -146,9 +141,9 @@ Both Adapters and Presets can specify `FileHandlerDefintion` instances to restri
 
 The `FileHandlerDefinition` instances are also used by the Transcoder to assemble an output file path, which will be passed to an adapter, if none was provided to the transcoder when running a job.
 
-By default, all `Adapter` and `Preset` classes will return `FileHandlerDefinition` instances for both input and output files which will receive files of any format.
+By default, all `Adapter` and `Preset` classes will return `FileHandlerDefinition` instances for both input and output files which will accept files of any format.
 
-## Jobs ##
+## Jobs (not implemented) ##
 
 A `Job` is a complex grouping of presets which perform multiple transcoding actions in one request.  It requires a little extra setup, but can make repetive tasks much easier to manage.  Jobs can apply multiple presets to one input file, or branch off and create several output files given one input.  For example, when optimizing videos for web delivery, you may need to transcode an uploaded video into several different formats of varying quality, and create several image thumbnails.  By defining a job classes which leverage other presets, you can define and register all of these actions in one location, ensuring each individual action is handled as thoroughly as possible.
 
@@ -167,4 +162,4 @@ A `Job` is a complex grouping of presets which perform multiple transcoding acti
     
 ## Events ##
 
-    TODO
+The Transcoder is also an instance of of the Symfony `EventDispatcher`.  It fires events for pretty much everything that can happen during a transcode process, for example, before and after the process, if an error occurs, and any time a file or directory is modified.  You can register listeners for these events to implement other important features, such as logging.

@@ -7,7 +7,7 @@ namespace AC\Component\Transcoding;
  * It is a glorified array, but it can also provide custom FileHandlerDefinition instance for validating
  * both input and output files.
  *
- * @package AC
+ * @package Transcoding
  * @author Evan Villemez
  */
 class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
