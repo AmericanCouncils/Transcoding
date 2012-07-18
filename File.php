@@ -2,6 +2,13 @@
 
 namespace AC\Component\Transcoding;
 
+/**
+ * An extension of SplFileObject, File instances are used as input/output for the Transcoder.  They mostly extend
+ * the base file object with convenience methods for mime checking (which requires the fileinfo PHP extension)
+ *
+ * @package Transcoding
+ * @author Evan Villemez
+ */
 class File extends \SplFileObject
 {
     private $_realpath = false;
