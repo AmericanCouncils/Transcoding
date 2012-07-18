@@ -59,9 +59,13 @@ class PhpText extends Adapter
     {
         $function = $preset->get('func', false);
 
+        $this->debug(sprintf("Using PHP function [%s] to modify file.", $function));
+
         if (!file_put_contents($outFilePath, $function(file_get_contents($inFile->getRealPath())))) {
             throw new \RuntimeException(sprintf("Could not put contents into file %s", $outFilePath));
         }
+
+        $this->debug("It worked!");
 
         return new File($outFilePath);
     }

@@ -1,10 +1,20 @@
 <?php
 
 namespace AC\Component\Transcoding\Tests;
-use \AC\Component\Transcoding\Transcoder;
-
+use AC\Component\Transcoding\Transcoder;
+use AC\Component\Transcoding\Tests\Mock\TestSubscriber;
+    
 class TranscoderTest extends \PHPUnit_Framework_TestCase
 {
+    
+    protected function getTranscoder()
+    {
+        $t = new Transcoder;
+        $t->registerAdapter(new \AC\Component\Transcoding\Adapters\PhpText);
+        $t->registerPreset(new \AC\Component\Transcoding\Presets\TextToLowerCase);
+        return $t;
+    }
+    
     public function tearDown()
     {
         @unlink(__DIR__."/test_files/test_file.php");
@@ -76,9 +86,29 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
 
     public function testTranscodeFileWithPreset1()
     {
-        $t = new Transcoder;
-        $t->registerAdapter(new \AC\Component\Transcoding\Adapters\PhpText);
-        $t->registerPreset(new \AC\Component\Transcoding\Presets\TextToLowerCase);
+        $t = $this->getTranscoder();
+        
+        $infile = __DIR__."/test_files_2/caps.txt";
+        $outfile = __DIR__."/test_files_2/caps_lower.txt";
+
+        $t->transcodeWithPreset($infile, "text_to_lower", $outfile);
+        $this->assertTrue(file_exists($outfile));
+        $expectedContent = "a test file with caps";
+        $this->assertSame($expectedContent, file_get_contents($outfile));
+
+        @unlink($outfile);
+    }
+    
+    public function testTranscoderEvents1()
+    {
+        $t = $this->getTranscoder();
+        $sub = new TestSubscriber();
+        $t->addSubscriber($sub);
+        
+        $this->assertFalse($sub->onMessage);
+        $this->assertFalse($sub->onBefore);
+        $this->assertFalse($sub->onAfter);
+        $this->assertFalse($sub->onError);
 
         $infile = __DIR__."/test_files_2/caps.txt";
         $outfile = __DIR__."/test_files_2/caps_lower.txt";
@@ -89,6 +119,12 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedContent, file_get_contents($outfile));
 
         @unlink($outfile);
+        
+        $this->assertTrue($sub->onMessage);
+        $this->assertTrue($sub->onBefore);
+        $this->assertTrue($sub->onAfter);
+        $this->assertFalse($sub->onError);
+        
     }
 
 }

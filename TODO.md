@@ -15,5 +15,3 @@
 * Implement common presets for above adapters
 * Permissions
     * Implement mode to preserve or change file/dir permissions
-    * Fire modified events
-* Implement file/dir creation/removal events
