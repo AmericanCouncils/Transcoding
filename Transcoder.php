@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
 use AC\Component\Transcoding\Event\TranscodeEvents;
 use AC\Component\Transcoding\Event\TranscodeEvent;
+use AC\Component\Transcoding\Event\FileEvent;
 
 /**
  * Main transcoding class.  Standardizes input/output before executing a transcode process via an adapter.
@@ -176,6 +177,9 @@ class Transcoder extends EventDispatcher
             //notify listeners of completion
             $this->dispatch(TranscodeEvents::AFTER, new TranscodeEvent($inFile, $preset, $return));
 
+            //notify of new file
+            $this->dispatch(TranscodeEvents::FILE_CREATED, new FileEvent($return->getRealPath()));
+
             //return newly created file
             return $return;
 
@@ -271,6 +275,8 @@ class Transcoder extends EventDispatcher
             if (!mkdir($outputDirectory, $this->getDirectoryCreationMode(), true)) {
                 throw new Exception\FilePermissionException("The required containing directories could not be created.");
             }
+
+            $this->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
         }
 
         //check for write permissions
@@ -283,6 +289,8 @@ class Transcoder extends EventDispatcher
             if (!mkdir($outputPath, $this->getDirectoryCreationMode())) {
                 throw new Exception\FilePermissionException(sprintf("Could not properly create the required output directory %s.", $outputPath));
             }
+
+            $this->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
         }
 
         return $outputPath;
@@ -331,6 +339,7 @@ class Transcoder extends EventDispatcher
         foreach (scandir($path) as $item) {
             if (!in_array($item, array('.','..'))) {
                 @unlink($path.DIRECTORY_SEPARATOR.$item);
+                $this->dispatch(TranscodeEvents::DIR_REMOVED, new FileEvent($outputPath));
             }
         }
 
@@ -362,10 +371,14 @@ class Transcoder extends EventDispatcher
      */
     protected function cleanOutputFile(File $file)
     {
+        $path = $file->getRealPath();
+
         if ($file->isDir()) {
-            chmod($file->getRealPath(), $this->getDirectoryCreationMode());
+            chmod($path, $this->getDirectoryCreationMode());
+            $this->dispatch(TranscodeEvents::DIR_MODIFIED, new FileEvent($path));
         } else {
-            chmod($file->getRealPath(), $this->getFileCreationMode());
+            chmod($path, $this->getFileCreationMode());
+            $this->dispatch(TranscodeEvents::FILE_MODIFIED, new FileEvent($path));
         }
     }
 
@@ -384,6 +397,7 @@ class Transcoder extends EventDispatcher
         if (file_exists($outputFilePath)) {
             if ($failMode === self::ONFAIL_DELETE) {
                 @unlink($outputFilePath);
+                $this->dispatch(TranscodeEvents::FILE_REMOVED, new FileEvent($outputFilePath));
             }
         }
 

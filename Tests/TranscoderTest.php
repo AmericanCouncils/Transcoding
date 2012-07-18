@@ -76,7 +76,19 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
 
     public function testTranscodeFileWithPreset1()
     {
-        //start here
+        $t = new Transcoder;
+        $t->registerAdapter(new \AC\Component\Transcoding\Adapters\PhpText);
+        $t->registerPreset(new \AC\Component\Transcoding\Presets\TextToLowerCase);
+
+        $infile = __DIR__."/test_files_2/caps.txt";
+        $outfile = __DIR__."/test_files_2/caps_lower.txt";
+
+        $t->transcodeWithPreset($infile, "text_to_lower", $outfile);
+        $this->assertTrue(file_exists($outfile));
+        $expectedContent = "a test file with caps";
+        $this->assertSame($expectedContent, file_get_contents($outfile));
+
+        @unlink($outfile);
     }
 
 }

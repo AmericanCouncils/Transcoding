@@ -95,7 +95,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
                 'foo.txt',
                 'foo.md',
                 'foo.mp3',
-                'foo.pdf'
+                'foo.pdf',
             )));
         }
     }

@@ -40,6 +40,11 @@ class PhpText extends Adapter
         }
     }
 
+    /**
+     * Don't let this adapter try encoding binary files
+     *
+     * {@inheritdoc}
+     */
     protected function buildInputDefinition()
     {
         return new FileHandlerDefinition(array(

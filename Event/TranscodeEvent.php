@@ -7,14 +7,13 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  *  Transcode events are fired before and after a transcode process on an individual file, and in the case of exceptions thrown.
  */
-abstract class TranscodeEvent extends Event
+class TranscodeEvent extends Event
 {
-    protected $inFile;
+    protected $inpath;
     protected $preset;
+    protected $outpath;
     protected $job;
     protected $e;
-    protected $outPath;
-    protected $outFile;
 
     /**
      * Constructor.  Created internally in the Transcoder when dispatched.
@@ -26,24 +25,13 @@ abstract class TranscodeEvent extends Event
      * @param Exception $e
      * @author Evan Villemez
      */
-    public function __construct($inFile, $preset, $outFile = null, Job $job = null, \Exception $e = null)
+    public function __construct($inpath, $preset, $outpath = null, Job $job = null, \Exception $e = null)
     {
-        $this->inFile = $inFile;
+        $this->inpath = $inpath;
         $this->preset = $preset;
+        $this->outpath = $outpath;
         $this->job = $job;
         $this->exception = $e;
-
-        //check for output file path or file instance
-        if ($outFile) {
-            if (is_string($outFile)) {
-                $this->outPath = $outFile;
-            } elseif ($outFile instanceof File) {
-                $this->outFile = $outFile;
-                $this->outPath = $outFile->getRealPath();
-            } else {
-                throw new \InvalidArgumentException("[outFile] must be either a string filepath or an instance of AC\Component\Transcoding\File.");
-            }
-        }
     }
 
     /**
@@ -51,9 +39,9 @@ abstract class TranscodeEvent extends Event
      *
      * @return File
      */
-    public function getInputFile()
+    public function getInputPath()
     {
-        return $this->$inFile;
+        return $this->inpath;
     }
 
     /**
@@ -91,19 +79,9 @@ abstract class TranscodeEvent extends Event
      *
      * @return string or null
      */
-    public function getOutputFilepath()
+    public function getOutputPath()
     {
-        return $this->outPath;
-    }
-
-    /**
-     * Get the output file instance associated with this event, if available
-     *
-     * @return File or null
-     */
-    public function getOutputFile()
-    {
-        return $this->outFile;
+        return $this->outpath;
     }
 
 }
