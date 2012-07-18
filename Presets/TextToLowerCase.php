@@ -26,12 +26,13 @@ class TextToLowerCase extends Preset
     }
 
     /**
-     * Output should be a file.
+     * Output should be a file and inherit extension of parent.
      */
     protected function buildOutputDefinition()
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
+            'inheritExtension' => true,
         ));
     }
 
