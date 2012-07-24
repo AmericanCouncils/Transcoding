@@ -5,31 +5,13 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-class AppleTV2Preset extends Preset {
+/**
+ * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#atv2
+ */
+class AppleTV2Preset extends BasePreset {
 	protected $key = "handbrake.apple_tv_2";
 	protected $name = "Apple TV 2 Preset";
-	protected $requiredAdapter = 'handbrake';
-	protected $description = "Contains the array of information for a given handbrake preset";
-	
-	protected function buildInputDefinition() {
-		return new FileHandlerDefinition(array(
-			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),
-			'requiredType' => 'file',
-		));
-	}
-	
-	/**
-	 * Output should be a file.
-	 */
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'allowedExtensions' => array(
-				'mp4',
-			),
-			'inheritExtension' => false,
-		));
-	}
+	protected $description = "HandBrake's preset for the Apple TV (2nd gen) is optimized for viewing on its 1280x720 display.";
 	
 	/**
 	 * Specify the options for this specific preset

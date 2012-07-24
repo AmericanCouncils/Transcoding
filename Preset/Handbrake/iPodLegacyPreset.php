@@ -5,31 +5,13 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-class iPodLegacyPreset extends Preset {
-	protected $key = "handbrake.iPod_legacy";
+/**
+ * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#ipodhigh-rez
+ */
+class iPodLegacyPreset extends BasePreset {
+	protected $key = "handbrake.ipod_legacy";
 	protected $name = "iPod Legacy Preset";
-	protected $requiredAdapter = 'handbrake';
-	protected $description = "Contains the array of information for a given handbrake preset";
-	
-	protected function buildInputDefinition() {
-		return new FileHandlerDefinition(array(
-			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),
-			'requiredType' => 'file',
-		));
-	}
-	
-	/**
-	 * Output should be a file.
-	 */
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'allowedExtensions' => array(
-				'mp4',
-			),
-			'inheritExtension' => false,
-		));
-	}
+	protected $description = "HandBrake's high resolution settings for older 5 and 5.5G iPods. Good video quality, great for viewing on a TV using your iPod. This is the iPod High-Rez preset from 0.9.2. ";
 	
 	/**
 	 * Specify the options for this specific preset

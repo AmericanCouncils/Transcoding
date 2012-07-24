@@ -5,31 +5,13 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-class UniversalPreset extends Preset {
+/**
+ * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#universal
+ */
+class UniversalPreset extends BasePreset {
 	protected $key = "handbrake.universal";
 	protected $name = "Universal Preset";
-	protected $requiredAdapter = 'handbrake';
-	protected $description = "Contains the array of information for a given handbrake preset";
-	
-	protected function buildInputDefinition() {
-		return new FileHandlerDefinition(array(
-			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),
-			'requiredType' => 'file',
-		));
-	}
-	
-	/**
-	 * Output should be a file.
-	 */
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'allowedExtensions' => array(
-				'mp4',
-			),
-			'inheritExtension' => false,
-		));
-	}
+	protected $description = "HandBrake's universally compatible, full resolution settings for all current Apple devices: iPod (6G and up), iPhone, AppleTV, and Macs ";
 	
 	/**
 	 * Specify the options for this specific preset

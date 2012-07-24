@@ -5,31 +5,13 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-class AppleTVPreset extends Preset {
+/**
+ * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#atv
+ */
+class AppleTVPreset extends BasePreset {
 	protected $key = "handbrake.apple_tv";
 	protected $name = "Apple TV Preset";
-	protected $requiredAdapter = 'handbrake';
-	protected $description = "Contains the array of information for a given handbrake preset";
-	
-	protected function buildInputDefinition() {
-		return new FileHandlerDefinition(array(
-			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),
-			'requiredType' => 'file',
-		));
-	}
-	
-	/**
-	 * Output should be a file.
-	 */
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'allowedExtensions' => array(
-				'mp4',
-			),
-			'inheritExtension' => false,
-		));
-	}
+	protected $description = "HandBrake's settings for the AppleTV and 2009's iPhone and iPod Touch lineup. Provides a good balance between quality and file size, and pushes the devices to their limits. Includes Dolby Digital 5.1 AC3 sound for the AppleTV.";
 	
 	/**
 	 * Specify the options for this specific preset

@@ -5,31 +5,13 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-class iPhoneLegacyPreset extends Preset {
-	protected $key = "handbrake.iPhone_legacy";
+/**
+ * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#iphone-old
+ */
+class iPhoneLegacyPreset extends BasePreset {
+	protected $key = "handbrake.iphone_legacy";
 	protected $name = "iPhone Legacy Preset";
-	protected $requiredAdapter = 'handbrake';
-	protected $description = "Contains the array of information for a given handbrake preset";
-	
-	protected function buildInputDefinition() {
-		return new FileHandlerDefinition(array(
-			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),
-			'requiredType' => 'file',
-		));
-	}
-	
-	/**
-	 * Output should be a file.
-	 */
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'allowedExtensions' => array(
-				'mp4',
-			),
-			'inheritExtension' => false,
-		));
-	}
+	protected $description = "HandBrake's deprecated settings for the iPhone and iPod Touch. This is the iPhone preset from HandBrake 0.9.2, and while it is offered as a service to legacy users, it is no longer supported. ";
 	
 	/**
 	 * Specify the options for this specific preset
