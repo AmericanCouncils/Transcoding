@@ -5,18 +5,12 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-/**
- * A very simple preset, for a very simple adapter, to illustrate how writing a preset works.  This will be deleted once we have real Preset\Handbrake that do useful things.
- */
 class AppleTVPreset extends Preset {
 	protected $key = "handbrake.apple_tv";
 	protected $name = "Apple TV Preset";
 	protected $requiredAdapter = 'handbrake';
 	protected $description = "Contains the array of information for a given handbrake preset";
 	
-	/**
-	 * Restrict input encodings to formats we know PHP won't have a problem with.
-	 */
 	protected function buildInputDefinition() {
 		return new FileHandlerDefinition(array(
 			//'allowedMimeEncodings' => array('us-ascii', 'utf-8'),

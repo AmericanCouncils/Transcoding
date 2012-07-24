@@ -59,28 +59,20 @@ class HandbrakeAdapter extends Adapter {
 		//if this could be a long-running process, be sure to increase the timeout limit accordingly
 		$process->setTimeout(3600);
 		
-		$error_output = "";
-		//$i = $inFile->getRelativePath();
-		$i = substr($inFile->getPathname(), 6);
-		$o = substr($outFilePath, 7);
-		$filename = "errors\\".str_replace('.','_',$i)."_to_".str_replace('.','_', $o).".txt";
-		if (file_exists($filename)) {
-		    file_put_contents($filename, "");
-		}
-		$result = $process->run(function ($type, $buffer) use($error_output, $filename) {
-			if ('err' === $type) {
-				//echo 'ERR > '.$buffer.'<br>';
-				$error_output = 'ERR > '.$buffer."\n";
-			} else {
-			    //echo 'OUT > '.$buffer.'<br>';
-				$error_output = 'OUT > '.$buffer."\n";
-			}
-			file_put_contents($filename, $error_output, FILE_APPEND);
-		});
+		$process->run();
 
 		//check for error status return
 		if(!$process->isSuccessful()) {
 			throw new \RuntimeException($process->getExitCodeText());
+		}
+		
+		$output = $process->getOutput();
+		$errorOutput = $process->getErrorOutput();
+		if ($output != null) {
+			$this->info($output);
+		}
+		if ($errorOutput != null) {
+			$this->warning($errorOutput);
 		}
 
 		return new File($outFilePath);
