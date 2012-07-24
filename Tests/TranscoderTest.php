@@ -10,8 +10,8 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
     protected function getTranscoder()
     {
         $t = new Transcoder;
-        $t->registerAdapter(new \AC\Component\Transcoding\Adapters\PhpText);
-        $t->registerPreset(new \AC\Component\Transcoding\Presets\TextToLowerCase);
+        $t->registerAdapter(new \AC\Component\Transcoding\Adapter\PhpText);
+        $t->registerPreset(new \AC\Component\Transcoding\Preset\TextToLowerCase);
         return $t;
     }
     

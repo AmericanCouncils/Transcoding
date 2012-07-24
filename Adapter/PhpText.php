@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Adapters;
+namespace AC\Component\Transcoding\Adapter;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\Adapter;
 use AC\Component\Transcoding\File;
