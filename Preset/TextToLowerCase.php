@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Presets;
+namespace AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
