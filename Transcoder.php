@@ -173,7 +173,7 @@ class Transcoder extends EventDispatcher
             $preset->validateOutputFile($return);
             $adapter->validateOutputFile($return);
             $this->cleanOutputFile($return);
-            
+
             $returnPath = $return->getRealPath();
 
             //notify listeners of completion
