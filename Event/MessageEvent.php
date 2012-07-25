@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class MessageEvent extends Event
 {
-    
+
     /**
      * A debug level message
      */
@@ -23,7 +23,7 @@ class MessageEvent extends Event
      * An info level message
      */
     const INFO = 'INFO';
-    
+
     /**
      * A warning level message
      */
@@ -33,7 +33,7 @@ class MessageEvent extends Event
      * An error level message
      */
     const ERROR = 'ERROR';
-    
+
     protected $msg;
     protected $level;
     protected $adapter;
@@ -41,9 +41,9 @@ class MessageEvent extends Event
     /**
      * Constructor for a message event.
      *
-     * @param string $msg 
-     * @param string $level 
-     * @param Adapter $adapter 
+     * @param string  $msg
+     * @param string  $level
+     * @param Adapter $adapter
      * @author Evan Villemez
      */
     public function __construct($msg, $level = self::INFO, Adapter $adapter)
@@ -52,7 +52,7 @@ class MessageEvent extends Event
         $this->level = $level;
         $this->adapter = $adapter;
     }
-    
+
     /**
      * Get the message text sent by the adapter
      *
@@ -72,7 +72,7 @@ class MessageEvent extends Event
     {
         return $this->level;
     }
-    
+
     /**
      * Get the adapter instance that sent the message
      *
