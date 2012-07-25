@@ -130,6 +130,8 @@ class HandbrakeAdapter extends Adapter
         if (!file_exists($this->handbrake_path)) {
             throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->handbrake_path));
         }
+        
+        return true;
     }
 
     /**
