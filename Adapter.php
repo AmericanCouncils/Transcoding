@@ -61,7 +61,7 @@ abstract class Adapter
      * @var string
      */
     private $verificationError = false;
-    
+
     /**
      * Private instance of Transcoder for sending messages
      *
@@ -210,7 +210,7 @@ abstract class Adapter
             try {
                 $this->verified = (bool) $this->verifyEnvironment();
                 if (!$this->verified) {
-                    throw new Exception\EnvironmentException("The adapter could not properly validate its environment.");
+                    throw new Exception\EnvironmentException("The adapter did not properly validate its environment.");
                 }
             } catch (\Exception $e) {
                 $this->verificationError = $e->getMessage();
@@ -274,68 +274,68 @@ abstract class Adapter
     {
         return $this->description;
     }
-    
+
     /**
      * Called by the Transcoder to enable the Adapter to dispatch messages
      *
-     * @param Transcoder $t 
+     * @param  Transcoder $t
      * @return void
      */
     public function setTranscoder(Transcoder $t = null)
     {
         $this->transcoder = $t;
     }
-    
+
     /**
      * Send a debug message.
      *
-     * @param string $msg 
+     * @param  string $msg
      * @return void
      */
     protected function debug($msg)
     {
         $this->message($msg, MessageEvent::DEBUG);
     }
-    
+
     /**
      * Send an info message
      *
-     * @param string $msg 
+     * @param  string $msg
      * @return void
      */
     protected function info($msg)
     {
         $this->message($msg, MessageEvent::INFO);
     }
-    
+
     /**
      * Send a warning message
      *
-     * @param string $msg 
+     * @param  string $msg
      * @return void
      */
     protected function warn($msg)
     {
         $this->message($msg, MessageEvent::WARN);
     }
-    
+
     /**
      * Send an error message.  Note that if an error is bad enough that a process can't continue, you should
      * throw an exception with your error message instead of calling this.
      *
-     * @param string $msg 
+     * @param  string $msg
      * @return void
      */
     protected function error($msg)
     {
         $this->message($msg, MessageEvent::ERROR);
     }
-    
+
     /**
      * Used internally by the Adapter to dispatch sent messages via the Transcoder
      *
-     * @param string $msg 
-     * @param string $level 
+     * @param  string $msg
+     * @param  string $level
      * @return void
      */
     private function message($msg, $level)
@@ -344,5 +344,5 @@ abstract class Adapter
             $this->transcoder->dispatch(TranscodeEvents::MESSAGE, new MessageEvent($msg, $level, $this));
         }
     }
-    
+
 }

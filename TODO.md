@@ -1,13 +1,12 @@
 # TODO #
 
-* Unit test Transcoder
+* Unit test HandbrakeAdapter
 * Implement jobs
 	* Allow chained presets on one output file
 	* Allow creation of multiple output files
 	* Questions:
 		* Treat this as an extension of a preset?  Probably...
 * Create Adapters:
-	* Handbrake
 	* FFmpeg
 	* mencoder (?)
 	* various ImageMagick adapters
