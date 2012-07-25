@@ -201,7 +201,7 @@ class HandbrakeAdapter extends Adapter
 
         //error output in handbrake doesn't necessarily mean an error occured, so just send it as a warning
         if ($errorOutput != null) {
-            $this->warning($errorOutput);
+            $this->warn($errorOutput);
         }
 
         //return newly created file
