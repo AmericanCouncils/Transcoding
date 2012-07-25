@@ -21,7 +21,7 @@ class iPhoneiPodTouchPreset extends BasePreset
         $this->setOptions(array(
             'video-library-encoder' => 'x264',
             'video-quality' => '20',
-            'selectaudio-tracks' => '1',
+            'select-audio-tracks' => '1',
             'audio-encoder' => 'faac',
             'audio-bitrate' => '128',
             'surround-sound-downmixing' => 'dp12',

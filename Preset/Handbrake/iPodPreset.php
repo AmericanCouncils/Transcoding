@@ -21,7 +21,7 @@ class iPodPreset extends BasePreset
         $this->setOptions(array(
             'video-library-encoder' => 'x264',
             'video-bitrate' => '700',
-            'selectaudio-tracks' => '1',
+            'select-audio-tracks' => '1',
             'audio-encoder' => 'faac',
             'audio-bitrate' => '160',
             'surround-sound-downmixing' => 'dp12',
