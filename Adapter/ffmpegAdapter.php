@@ -170,7 +170,8 @@ class ffmpegAdapter extends Adapter
         $commandString = $this->ffmpeg_path;
 
         //assemble handbrake arguments from preset
-        foreach ($preset->getOptions() as $key => $value) {
+		$preset_options = $preset->getOptions();
+        foreach ($preset_options as $key => $value) {
 			if ($key == '-i') {
 				$commandString .= " ".$key." ".$inFile->getPathname();
 			}
@@ -178,7 +179,7 @@ class ffmpegAdapter extends Adapter
 				$commandString .= " ".$this->handbrake_conversion[$key]." ".$value;
 			}
 			else {
-				$commandString .= " "$outFilePath.".".$preset['-f'];
+				$commandString .= " "$outFilePath.".".$preset_options['-f'];
 			}
         }
 		die($commandString);
