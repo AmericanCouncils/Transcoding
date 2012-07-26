@@ -13,23 +13,23 @@ use Symfony\Component\Process\Process;
  *
  * Written by Andrew Freix
  */
-class HandbrakeAdapter extends Adapter
+class ffmpegAdapter extends Adapter
 {
-    protected $key = "handbrake";
-    protected $name = "Handbrake Adapter";
-    protected $description = "Uses Handbrake presets to convert video into .mp4 format.";
+    protected $key = "ffmpeg";
+    protected $name = "ffmpeg Adapter";
+    protected $description = "Uses ffmpeg presets to convert/edit audio, video, and image files.";
 
     /**
      * undocumented variable
      *
      * @var string Path to HandBrakeCLI executable, received in constructor
      */
-    private $handbrake_path;
+    private $ffmpeg_path;
 
     /**
      * @var array Mappings of human-readable options to handbrake CLI equivalents
      */
-    protected $handbrake_conversion = array(
+    protected $ffmpeg_conversion = array(
         'help' => '-h',
         'check-for-updates' => '-u',
         'verbose' => '-v',
@@ -109,7 +109,9 @@ class HandbrakeAdapter extends Adapter
         'codeset-to-encode-srt-files' => '--srt-codeset',
         'offset-for-srt-files' => '--srt-offset',
         'language-for-srt-files' => '--srt-lang',
-        'flag-srt-as-default-subtitle' => '--srt-default'
+        'flag-srt-as-default-subtitle' => '--srt-default',
+		
+		//All presets below are unique to ffmpeg
     );
 
     /**
@@ -117,9 +119,9 @@ class HandbrakeAdapter extends Adapter
      *
      * @param string $handbrake_path
      */
-    public function __construct($handbrake_path)
+    public function __construct($ffmpeg_path)
     {
-        $this->handbrake_path = $handbrake_path;
+        $this->ffmpeg_path = $ffmpeg_path;
     }
 
     /**
@@ -127,7 +129,7 @@ class HandbrakeAdapter extends Adapter
      */
     public function verifyEnvironment()
     {
-        if (!file_exists($this->handbrake_path)) {
+        if (!file_exists($this->ffmpeg_path)) {
             throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->handbrake_path));
         }
         
@@ -154,22 +156,10 @@ class HandbrakeAdapter extends Adapter
     public function validatePreset(Preset $preset)
     {
         foreach ($preset->getOptions() as $key => $value) {
-            if (!isset($this->handbrake_conversion[$key])) {
+            if (!isset($this->ffmpeg_conversion[$key])) {
                 throw new \InvalidArgumentException(sprintf("Unknown input argument {%s} in adapter {%s}.", $key, $this->getKey()));
             }
         }
-    }
-
-    /**
-     * Output should also be a binary file
-     *
-     * {@inheritdoc}
-     */
-    protected function buildOutputDefinition()
-    {
-        return new FileHandlerDefinition(array(
-            'requiredMimeEncodings' => array('binary'),
-        ));
     }
 
     /**
@@ -177,14 +167,21 @@ class HandbrakeAdapter extends Adapter
      */
     public function transcodeFile(File $inFile, Preset $preset, $outFilePath)
     {
-        $commandString = $this->handbrake_path;
-        $commandString .= " -i ".$inFile->getPathname()." -o ".$outFilePath;
+        $commandString = $this->ffmpeg_path;
 
         //assemble handbrake arguments from preset
         foreach ($preset->getOptions() as $key => $value) {
-            $commandString .= " ".$this->handbrake_conversion[$key]." ".$value;
+			if ($key == '-i') {
+				$commandString .= " ".$key." ".$inFile->getPathname();
+			}
+			elseif ($key == '-o') {
+				$commandString .= " ".$this->handbrake_conversion[$key]." ".$value;
+			}
+			else {
+				$commandString .= " "$outFilePath.".".$preset['-f'];
+			}
         }
-
+		die($commandString);
         //use the Process component to build a process instance with the command string
         $process = new Process($commandString);
         $process->run();
