@@ -5,7 +5,7 @@ namespace AC\Component\Transcoding\Preset\ffmpeg;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
-abstract class BasePreset extends BasePreset
+abstract class BasePreset extends Preset
 {
     protected $requiredAdapter = 'ffmpeg';
 
