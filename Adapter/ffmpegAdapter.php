@@ -183,6 +183,7 @@ class ffmpegAdapter extends Adapter
 				$commandString .= " ".$key." ".$value;
 			}
         }
+		echo ($commandString);
         //use the Process component to build a process instance with the command string
         $process = new Process($commandString);
         $process->run();
