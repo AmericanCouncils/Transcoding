@@ -176,10 +176,10 @@ class ffmpegAdapter extends Adapter
 				$commandString .= " ".$key." ".$inFile->getPathname();
 			}
 			elseif ($key == '-o') {
-				$commandString .= " ".$this->handbrake_conversion[$key]." ".$value;
+				$commandString .= " "$outFilePath.".".$preset_options['-f'];
 			}
 			else {
-				$commandString .= " "$outFilePath.".".$preset_options['-f'];
+				$commandString .= " ".$key." ".$value;
 			}
         }
 		die($commandString);
