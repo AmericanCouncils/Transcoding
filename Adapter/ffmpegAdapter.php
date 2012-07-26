@@ -9,7 +9,7 @@ use AC\Component\Transcoding\FileHandlerDefinition;
 use Symfony\Component\Process\Process;
 
 /**
- * A handbrake adapter, see
+ * A ffmpeg adapter, see
  *
  * Written by Andrew Freix
  */
@@ -22,7 +22,7 @@ class ffmpegAdapter extends Adapter
     /**
      * undocumented variable
      *
-     * @var string Path to HandBrakeCLI executable, received in constructor
+     * @var string Path to ffmpeg executable, received in constructor
      */
     private $ffmpeg_path;
 
@@ -130,7 +130,7 @@ class ffmpegAdapter extends Adapter
     public function verifyEnvironment()
     {
         if (!file_exists($this->ffmpeg_path)) {
-            throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->handbrake_path));
+            throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->ffmpeg_path));
         }
         
         return true;
