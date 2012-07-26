@@ -130,7 +130,7 @@ class ffmpegAdapter extends Adapter
     public function verifyEnvironment()
     {
         if (!file_exists($this->ffmpeg_path)) {
-            throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->ffmpeg_path));
+            throw new \RuntimeException(sprintf("Could not find ffmpeg executable, given path {%s}", $this->ffmpeg_path));
         }
         
         return true;
@@ -155,11 +155,12 @@ class ffmpegAdapter extends Adapter
      */
     public function validatePreset(Preset $preset)
     {
-        foreach ($preset->getOptions() as $key => $value) {
+        /*foreach ($preset->getOptions() as $key => $value) {
             if (!isset($this->ffmpeg_conversion[$key])) {
                 throw new \InvalidArgumentException(sprintf("Unknown input argument {%s} in adapter {%s}.", $key, $this->getKey()));
             }
-        }
+        }*/
+		return true; //For now, we have no coversion array for the keys
     }
 
     /**
