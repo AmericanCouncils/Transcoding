@@ -7,11 +7,11 @@ use AC\Component\Transcoding\Preset;
 /**
  * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic
  */
-class TestPreset extends BasePreset
+class SoundFromVideoPreset extends BasePreset
 {
-    protected $key = "ffmpeg.test";
-    protected $name = "Test Preset";
-    protected $description = "A test ffmpeg preset";
+    protected $key = "ffmpeg.sound_from_video";
+    protected $name = "Sound from Video Preset";
+    protected $description = "A ffmpeg preset that takes the audio from a video and transmits it to an audio file";
 
     /**
      * Specify the options for this specific preset
