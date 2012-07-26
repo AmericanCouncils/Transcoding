@@ -7,10 +7,10 @@ use AC\Component\Transcoding\Preset;
 /**
  * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic
  */
-class AviToAnimateGifPreset extends BasePreset
+class AviToAnimatedGifPreset extends BasePreset
 {
     protected $key = "ffmpeg.avi_to_animated_gif";
-    protected $name = "Test Preset";
+    protected $name = "Avi To Animated Gif Preset";
     protected $description = "A test ffmpeg preset";
 
     /**
