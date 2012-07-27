@@ -9,7 +9,7 @@ use AC\Component\Transcoding\FileHandlerDefinition;
 use Symfony\Component\Process\Process;
 
 /**
- * A handbrake adapter, see
+ * A handbrake adapter, see https://trac.handbrake.fr/wiki/CLIGuide for more information about Handbrake
  *
  * Written by Andrew Freix
  */
@@ -20,11 +20,11 @@ class HandbrakeAdapter extends Adapter
     protected $description = "Uses Handbrake presets to convert video into .mp4 format.";
 
     /**
-     * undocumented variable
-     *
      * @var string Path to HandBrakeCLI executable, received in constructor
      */
     private $handbrake_path;
+    
+    private $process_timeout;
 
     /**
      * @var array Mappings of human-readable options to handbrake CLI equivalents
@@ -117,9 +117,10 @@ class HandbrakeAdapter extends Adapter
      *
      * @param string $handbrake_path
      */
-    public function __construct($handbrake_path)
+    public function __construct($handbrake_path, $timeout = null)
     {
         $this->handbrake_path = $handbrake_path;
+        $this->process_timeout = $timeout;
     }
 
     /**
@@ -186,26 +187,33 @@ class HandbrakeAdapter extends Adapter
         }
 
         //use the Process component to build a process instance with the command string
+        $adapter = $this;
         $process = new Process($commandString);
-        $process->run();
-
+        $process->setTimeout($this->process_timeout);
+        
+        //run the process, pass feedback as messages to the adapter
+        $process->run(function($type, $buffer) use ($adapter) {
+            if($type == 'err') {
+                $adapter->warn($buffer);
+            } else {
+                $adapter->info($buffer);
+            }
+        });
+        
+        //send final assembled output messages
+        if ($output = $process->getOutput()) {
+            $this->info($output);
+        }
+            
+        if ($errorOutput = $process->getErrorOutput()) {
+            $this->warn($errorOutput);
+        }
+        
         //check for error status return
         if (!$process->isSuccessful()) {
             throw new \RuntimeException($process->getExitCodeText());
         }
-
-        //send output messages
-        $output = $process->getOutput();
-        $errorOutput = $process->getErrorOutput();
-        if ($output != null) {
-            $this->info($output);
-        }
-
-        //error output in handbrake doesn't necessarily mean an error occured, so just send it as a warning
-        if ($errorOutput != null) {
-            $this->warn($errorOutput);
-        }
-
+        
         //return newly created file
         return new File($outFilePath);
     }

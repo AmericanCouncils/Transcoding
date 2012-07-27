@@ -13,7 +13,7 @@ namespace AC\Component\Transcoding;
 class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
 {
     /**
-     * A machine-key string name for the preset.  Should be lower-cased with underscores.
+     * A machine-key string name for the preset.  Should be lower-cased with underscores.  Use "." separators to denote namespaces.
      *
      * @var string
      */
@@ -27,7 +27,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     protected $name = false;
 
     /**
-     * A string name of the required adapter for this preset.  The string should match the string returned from Adapter::getName() in the adapter required by this preset
+     * The string key of the required adapter for this preset. 
      *
      * @var string
      */
@@ -170,7 +170,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
      */
     protected function buildInputDefinition()
     {
-        return new FileHandlerDefinition;
+        return new FileHandlerDefinition();
     }
 
     /**
@@ -180,7 +180,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
      */
     protected function buildOutputDefinition()
     {
-        return new FileHandlerDefinition;
+        return new FileHandlerDefinition();
     }
 
     /**

@@ -44,7 +44,6 @@ class MessageEvent extends Event
      * @param string  $msg
      * @param string  $level
      * @param Adapter $adapter
-     * @author Evan Villemez
      */
     public function __construct($msg, $level = self::INFO, Adapter $adapter)
     {
