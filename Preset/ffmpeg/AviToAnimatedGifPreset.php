@@ -20,6 +20,7 @@ class AviToAnimatedGifPreset extends BasePreset
     {
         $this->setOptions(array(
 			'-i' => '',
+			'-pix_fmt' => 'rgb24',
 			'-o' => '',
         ));
     }
