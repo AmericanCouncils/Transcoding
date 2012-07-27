@@ -98,17 +98,6 @@ abstract class AbstractCliAdapter extends Adapter
         //run the process, pass feedback as messages to the adapter
         $process->run($processBufferCallback);
         
-        //send final assembled output messages
-        if ($verbose) {
-            if ($output = $process->getOutput()) {
-                $this->info($output);
-            }
-            
-            if ($errorOutput = $process->getErrorOutput()) {
-                $this->warn($errorOutput);
-            }
-        }
-        
         //check for error status return
         if (!$process->isSuccessful()) {
             throw new \RuntimeException($process->getExitCodeText());

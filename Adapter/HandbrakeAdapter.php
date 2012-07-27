@@ -198,16 +198,7 @@ class HandbrakeAdapter extends Adapter
             } else {
                 $adapter->info($buffer);
             }
-        });
-        
-        //send final assembled output messages
-        if ($output = $process->getOutput()) {
-            $this->info($output);
-        }
-            
-        if ($errorOutput = $process->getErrorOutput()) {
-            $this->warn($errorOutput);
-        }
+        });        
         
         //check for error status return
         if (!$process->isSuccessful()) {
