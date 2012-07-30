@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\ffmpeg;
+namespace AC\Component\Transcoding\Preset\FFmpeg;
 
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;

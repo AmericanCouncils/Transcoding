@@ -22,9 +22,8 @@
         "ext-fileinfo": "*",
         "symfony/event-dispatcher": "2.1.*"
     },
-    "suggest" : {
-        "symfony/process": "dev-master",
-        "symfony/finder": "dev-master"
+    "require-dev" : {
+        "symfony/process": "dev-master"
     },
     "minimum-stability": "dev",
     "target-dir": "AC/Component/Transcoding",

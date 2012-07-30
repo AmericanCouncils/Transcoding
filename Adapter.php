@@ -210,7 +210,7 @@ abstract class Adapter
             try {
                 $this->verified = (bool) $this->verifyEnvironment();
                 if (!$this->verified) {
-                    throw new Exception\EnvironmentException("The adapter did not properly validate its environment.");
+                    throw new Exception\EnvironmentException("The adapter did not properly verify.");
                 }
             } catch (\Exception $e) {
                 $this->verificationError = $e->getMessage();
@@ -292,7 +292,7 @@ abstract class Adapter
      * @param  string $msg
      * @return void
      */
-    protected function debug($msg)
+    public function debug($msg)
     {
         $this->message($msg, MessageEvent::DEBUG);
     }
@@ -303,7 +303,7 @@ abstract class Adapter
      * @param  string $msg
      * @return void
      */
-    protected function info($msg)
+    public function info($msg)
     {
         $this->message($msg, MessageEvent::INFO);
     }
@@ -314,7 +314,7 @@ abstract class Adapter
      * @param  string $msg
      * @return void
      */
-    protected function warn($msg)
+    public function warn($msg)
     {
         $this->message($msg, MessageEvent::WARN);
     }
@@ -326,7 +326,7 @@ abstract class Adapter
      * @param  string $msg
      * @return void
      */
-    protected function error($msg)
+    public function error($msg)
     {
         $this->message($msg, MessageEvent::ERROR);
     }
