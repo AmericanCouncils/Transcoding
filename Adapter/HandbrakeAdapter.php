@@ -16,7 +16,7 @@ use Symfony\Component\Process\Process;
 class HandbrakeAdapter extends Adapter
 {
     protected $key = "handbrake";
-    protected $name = "Handbrake Adapter";
+    protected $name = "Handbrake";
     protected $description = "Uses Handbrake presets to convert video into .mp4 format.";
 
     /**
