@@ -4,9 +4,6 @@ namespace AC\Component\Transcoding\Preset\FFmpeg;
 
 use AC\Component\Transcoding\Preset;
 
-/**
- * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic
- */
 class AudioCompression256kPreset extends BasePreset
 {
     protected $key = "ffmpeg.audio_compression_256k";
