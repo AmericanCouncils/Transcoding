@@ -19,9 +19,9 @@ class AudioCompression32kPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
-			'-ab' => '32k',
-			'-o' => '',
+            '-i' => '',
+            '-ab' => '32k',
+            '-o' => '',
         ));
     }
 

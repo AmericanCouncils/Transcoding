@@ -19,9 +19,9 @@ class AudioCompression192kPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
-			'-ab' => '192k',
-			'-o' => '',
+            '-i' => '',
+            '-ab' => '192k',
+            '-o' => '',
         ));
     }
 

@@ -18,38 +18,56 @@ use AC\Component\Transcoding\File;
 abstract class AbstractCliAdapter extends Adapter
 {
     /**
-     * Array of configuration for the process builder
-     *
-     * @var string
+     * @var string Array of configuration for the process builder
      */
     private $config = array();
-    
+
+    /**
+     * @var boolean Whether or not to fire event messages while cli process executes
+     */
+    private $stream_buffer = false;
+
     /**
      * Construct receives config for the process builder
      *
-     * @param string $builderConfig 
+     * @param string $builderConfig
      */
     public function __construct($builderConfig = array())
     {
-        $this->config = $builderConfig;
+        $this->config = array_merge(array(
+            'timeout' => null,
+        ), $builderConfig);
     }
-    
+
+    /**
+     * Set whether or not to enable message callbacks while the process is running
+     *
+     * @param Boolean $stream
+     */
+    public function setStreamBuffer($stream = true)
+    {
+        $this->stream_buffer = (bool) $stream;
+    }
+
     /**
      * Return a new instance of a pre-configured process builder.
      *
+     * @param  array          $builderArguments - array of arguments to pass to ProcessBuilder when it's instantiated
      * @return ProcessBuilder
      */
-    protected function getProcessBuilder(array $config = null)
+    protected function getProcessBuilder(array $builderArguments = null)
     {
-        $defaults = array(
-            'timeout' => null,
-        );
-        
-        $builder = new ProcessBuilder($config);
-        
-        $builder->setOptions($config['options']);
-        $builder->setTimeout($config['timeout']);
-        
+        $builder = new ProcessBuilder($builderArguments);
+
+        //check for options
+        if (isset($this->config['options'])) {
+           foreach ($this->config['options'] as $key => $val) {
+               $builder->setOption($key, $val);
+           }
+        }
+
+        $builder->setTimeout($this->config['timeout']);
+
         return $builder;
     }
 
@@ -57,9 +75,9 @@ abstract class AbstractCliAdapter extends Adapter
      * Build a process using the ProcessBuilder, given transcoding input.  Return an instance of the configured
      * process builder.
      *
-     * @param File $inFile 
-     * @param Preset $preset 
-     * @param string $outFilePath 
+     * @param  File           $inFile
+     * @param  Preset         $preset
+     * @param  string         $outFilePath
      * @return ProcessBuilder
      */
     public function buildProcess(File $inFile, Preset $preset, $outFilePath)
@@ -69,43 +87,42 @@ abstract class AbstractCliAdapter extends Adapter
 
     /**
      * Runs a transcode process by wrapping a command-line process.
-     * 
+     *
      * {@inheritdoc}
      */
     public function transcodeFile(File $inFile, Preset $preset, $outFilePath)
     {
         //get assembled process instance from extending class
         $builder = $this->buildProcess($inFile, $preset, $outFilePath);
-        
+
         //check the return
         if (!$builder instanceof ProcessBuilder) {
             throw new \InvalidArgumentException(sprintf("%s must return an instance of Symfony\Component\Process\ProcessBuilder", get_class($this)."::buildProcess"));
         }
-        
+
         //get the assembled process
         $process = $builder->getProcess();
-        
+
         //set the dynamic callback, if interactive is enabled
         $adapter = $this;
         $processBufferCallback = (!$this->stream_buffer) ? null : function($type, $buffer) use ($adapter) {
-            if($type == 'err') {
+            if ($type == 'err') {
                 $adapter->warn($buffer);
             } else {
                 $adapter->info($buffer);
             }
         };
-        
+
         //run the process, pass feedback as messages to the adapter
         $process->run($processBufferCallback);
-        
+
         //check for error status return
         if (!$process->isSuccessful()) {
             throw new \RuntimeException($process->getExitCodeText());
         }
-        
+
         //return newly created file
         return new File($outFilePath);
     }
-
 
 }

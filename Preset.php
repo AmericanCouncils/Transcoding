@@ -27,7 +27,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     protected $name = false;
 
     /**
-     * The string key of the required adapter for this preset. 
+     * The string key of the required adapter for this preset.
      *
      * @var string
      */

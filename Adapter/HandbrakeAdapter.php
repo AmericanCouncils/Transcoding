@@ -13,7 +13,7 @@ use Symfony\Component\Process\Process;
  *
  * Written by Andrew Freix
  */
-class HandbrakeAdapter extends Adapter
+class HandbrakeAdapter extends AbstractCliAdapter
 {
     protected $key = "handbrake";
     protected $name = "Handbrake";
@@ -23,8 +23,6 @@ class HandbrakeAdapter extends Adapter
      * @var string Path to HandBrakeCLI executable, received in constructor
      */
     private $handbrake_path;
-    
-    private $process_timeout;
 
     /**
      * @var array Mappings of human-readable options to handbrake CLI equivalents
@@ -116,11 +114,15 @@ class HandbrakeAdapter extends Adapter
      * Handbrake needs a path to the HandBrakeCLI executable
      *
      * @param string $handbrake_path
+     * @param int    $timeout        Time in seconds for process timeout, null means no timeout
      */
     public function __construct($handbrake_path, $timeout = null)
     {
+        parent::__construct(array(
+            'timeout' => $timeout
+        ));
+
         $this->handbrake_path = $handbrake_path;
-        $this->process_timeout = $timeout;
     }
 
     /**
@@ -131,7 +133,7 @@ class HandbrakeAdapter extends Adapter
         if (!file_exists($this->handbrake_path)) {
             throw new \RuntimeException(sprintf("Could not find Handbrake executable, given path {%s}", $this->handbrake_path));
         }
-        
+
         return true;
     }
 
@@ -174,39 +176,30 @@ class HandbrakeAdapter extends Adapter
     }
 
     /**
-     * Run transcode, transforming contents of a text-based file.
+     * {@inheritdoc}
      */
-    public function transcodeFile(File $inFile, Preset $preset, $outFilePath)
+    public function buildProcess(File $inFile, Preset $preset, $outFilePath)
     {
-        $commandString = $this->handbrake_path;
-        $commandString .= " -i ".$inFile->getPathname()." -o ".$outFilePath;
+        //set basic command with in/out files
+        $builder = $this->getProcessBuilder(array(
+            $this->handbrake_path,
+            '-i',
+            $inFile->getPathname(),
+            '-o',
+            $outFilePath
+        ));
 
-        //assemble handbrake arguments from preset
-        foreach ($preset->getOptions() as $key => $value) {
-            $commandString .= " ".$this->handbrake_conversion[$key]." ".$value;
-        }
-
-        //use the Process component to build a process instance with the command string
-        $adapter = $this;
-        $process = new Process($commandString);
-        $process->setTimeout($this->process_timeout);
-        
-        //run the process, pass feedback as messages to the adapter
-        $process->run(function($type, $buffer) use ($adapter) {
-            if($type == 'err') {
-                $adapter->warn($buffer);
-            } else {
-                $adapter->info($buffer);
+        //add options from preset
+        foreach ($preset as $key => $val) {
+            if (!empty($key)) {
+                $builder->add($this->handbrake_conversion[$key]);
             }
-        });        
-        
-        //check for error status return
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getExitCodeText());
+            if (!empty($val)) {
+                $builder->add($val);
+            }
         }
-        
-        //return newly created file
-        return new File($outFilePath);
+
+        return $builder;
     }
 
 }

@@ -37,7 +37,7 @@ Using the Transcoder by its self is simple, as it has no dependencies.  It can a
 	$newFile = $transcoder->transcodeWithPreset($inputFilePath, 'webm-hd', $outputFilePath);
 	
 	//transcode a file with a specific adaptor and options
-	$newFile = $transcoder->transcodeWithAdapter($inputFilePath, 'custom-ffmpeg', array(
+	$newFile = $transcoder->transcodeWithAdapter($inputFilePath, 'ffmpeg', array(
 		/* options */
 	));
 	

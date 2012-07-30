@@ -13,7 +13,7 @@ use Symfony\Component\Process\Process;
  *
  * Written by Andrew Freix
  */
-class FFmpegAdapter extends Adapter
+class FFmpegAdapter extends AbstractCliAdapter
 {
     protected $key = "ffmpeg";
     protected $name = "FFmpeg";
@@ -27,12 +27,17 @@ class FFmpegAdapter extends Adapter
     private $ffmpeg_path;
 
     /**
-     * Handbrake needs a path to the HandBrakeCLI executable
+     * FFmpeg needs a path to the `ffmpeg` executable
      *
-     * @param string $handbrake_path
+     * @param string $ffmpeg_path
+     * @param int    $timeout     Time in seconds for process timeout, null means no timeout
      */
-    public function __construct($ffmpeg_path)
+    public function __construct($ffmpeg_path, $timeout = null)
     {
+        parent::__construct(array(
+            'timeout' => $timeout
+        ));
+
         $this->ffmpeg_path = $ffmpeg_path;
     }
 
@@ -44,7 +49,7 @@ class FFmpegAdapter extends Adapter
         if (!file_exists($this->ffmpeg_path)) {
             throw new \RuntimeException(sprintf("Could not find ffmpeg executable, given path {%s}", $this->ffmpeg_path));
         }
-        
+
         return true;
     }
 
@@ -61,49 +66,30 @@ class FFmpegAdapter extends Adapter
     }
 
     /**
-     * Run transcode, transforming contents of a text-based file.
+     * {@inheritdoc}
      */
-    public function transcodeFile(File $inFile, Preset $preset, $outFilePath)
+    public function buildProcess(File $inFile, Preset $preset, $outFilePath)
     {
-        $commandString = $this->ffmpeg_path;
+        //get builder with required options for in/out file
+        $builder = $this->getProcessBuilder(array(
+            $this->ffmpeg_path,
+            '-i',
+            $inFile->getPathname(),
+            '-o',
+            $outFilePath,
+        ));
 
-        //assemble handbrake arguments from preset
-		$preset_options = $preset->getOptions();
-        foreach ($preset_options as $key => $value) {
-			if ($key == '-i') {
-				$commandString .= " ".$key." ".$inFile->getPathname();
-			}
-			elseif ($key == '-o') {
-				$commandString .= " ".$outFilePath	;//.".".$preset_options['-f'];
-			}
-			else {
-				$commandString .= " ".$key." ".$value;
-			}
-        }
-		echo ($commandString);
-        //use the Process component to build a process instance with the command string
-        $process = new Process($commandString);
-        $process->run();
-
-        //check for error status return
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getExitCodeText());
+        //add preset options
+        foreach ($preset->getOptions() as $key => $value) {
+            if (!empty($key)) {
+                $builder->add($key);
+            }
+            if (!empty($value)) {
+                $builder->add($value);
+            }
         }
 
-        //send output messages
-        $output = $process->getOutput();
-        $errorOutput = $process->getErrorOutput();
-        if ($output != null) {
-            $this->info($output);
-        }
-
-        //error output in handbrake doesn't necessarily mean an error occured, so just send it as a warning
-        if ($errorOutput != null) {
-            $this->warn($errorOutput);
-        }
-
-        //return newly created file
-        return new File($outFilePath);
+        return $builder;
     }
 
 }

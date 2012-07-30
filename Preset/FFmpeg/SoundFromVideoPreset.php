@@ -19,13 +19,13 @@ class SoundFromVideoPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
+            '-i' => '',
             '-vn' => '',
-			'-ar' => '44100',
-			'-ac' => '2',
-			'-ab' => '192',
+            '-ar' => '44100',
+            '-ac' => '2',
+            '-ab' => '192',
             '-f' => 'mp3',
-			'-o' => '',
+            '-o' => '',
         ));
     }
 
