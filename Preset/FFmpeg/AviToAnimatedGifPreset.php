@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\ffmpeg;
+namespace AC\Component\Transcoding\Preset\FFmpeg;
 
 use AC\Component\Transcoding\Preset;
 
@@ -19,9 +19,9 @@ class AviToAnimatedGifPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
-			'-pix_fmt' => 'rgb24',
-			'-o' => '',
+            '-i' => '',
+            '-pix_fmt' => 'rgb24',
+            '-o' => '',
         ));
     }
 

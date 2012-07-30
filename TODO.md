@@ -1,6 +1,7 @@
 # TODO #
 
-* Unit test HandbrakeAdapter
+* Implement an AbstractCliAdapter, have Handbrake/ffmpeg extend that by returning the process to execute
+* Unit test TestCliAdapter, HandbrakeAdapter, FFmpeg adapter
 * Implement jobs
 	* Allow chained presets on one output file
 	* Allow creation of multiple output files

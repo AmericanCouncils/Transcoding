@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\ffmpeg;
+namespace AC\Component\Transcoding\Preset\FFmpeg;
 
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
@@ -20,18 +20,18 @@ class ConvertNonMVideoPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
-			'-o' => '',
+            '-i' => '',
+            '-o' => '',
         ));
     }
-	protected function buildOutputDefinition()
+    protected function buildOutputDefinition()
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
-			'rejectedExtensions' => array(
-				'mp4',
-				'mpg',
-			),
+            'rejectedExtensions' => array(
+                'mp4',
+                'mpg',
+            ),
             'inheritExtension' => false,
         ));
     }

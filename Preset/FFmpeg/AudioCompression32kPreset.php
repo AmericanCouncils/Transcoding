@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\ffmpeg;
+namespace AC\Component\Transcoding\Preset\FFmpeg;
 
 use AC\Component\Transcoding\Preset;
 
@@ -19,9 +19,9 @@ class AudioCompression32kPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-			'-i' => '',
-			'-ab' => '32k',
-			'-o' => '',
+            '-i' => '',
+            '-ab' => '32k',
+            '-o' => '',
         ));
     }
 
