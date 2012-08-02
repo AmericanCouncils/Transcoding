@@ -23,9 +23,7 @@ abstract class BasePreset extends Preset
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
-            'allowedExtensions' => array(
-                'mp4',
-            ),
+            'requiredExtension' => 'mp4',
             'inheritExtension' => false,
         ));
     }
