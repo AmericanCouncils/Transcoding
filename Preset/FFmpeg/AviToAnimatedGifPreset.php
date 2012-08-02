@@ -24,5 +24,12 @@ class AviToAnimatedGifPreset extends BasePreset
             '-o' => '',
         ));
     }
+	protected function buildOutputDefinition() {
+		return new FileHandlerDefinition(array(
+			'requiredType' => 'file',
+			'requiredExtension' => 'gif',
+            'inheritExtension' => false,
+		));
+	}
 
 }

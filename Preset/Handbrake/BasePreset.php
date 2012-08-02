@@ -7,7 +7,12 @@ use AC\Component\Transcoding\FileHandlerDefinition;
 
 abstract class BasePreset extends Preset
 {
+<<<<<<< HEAD
     protected $requiredAdapter = 'handbrake';
+=======
+	protected $requiresOutputExtension = false;
+    protected $requiredAdapter = 'ffmpeg';
+>>>>>>> outputExtension revisions
 
     protected function buildInputDefinition()
     {

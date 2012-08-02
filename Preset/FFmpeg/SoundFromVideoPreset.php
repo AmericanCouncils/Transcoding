@@ -28,5 +28,16 @@ class SoundFromVideoPreset extends BasePreset
             '-o' => '',
         ));
     }
+<<<<<<< HEAD
 
 }
+=======
+	protected function buildOutputDefinition() {
+		return new FileHandlerDefinition(array(
+			'requiredType' => 'file',
+			'requiredExtension' => 'mp3',
+            'inheritExtension' => false,
+		));
+	}
+}
+>>>>>>> outputExtension revisions
