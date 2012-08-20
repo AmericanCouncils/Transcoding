@@ -1,6 +1,6 @@
 # Implementation Details & Example Usage #
 
-The Transcoding component is a library for abstracting file transcoding tool usage, and the presets that configure them.  If you want a quick way to use it directly without implementing it in code elsewhere, check out the [Mutate CLI App](http://github.com/americancouncils/Mutate) or the [Transcoding Symfony2 Bundle](http://github.com/americancouncils/TranscodingBundle).
+The Transcoding component is a library for abstracting file transcoding tool usage, and the presets that configure them.  If you want a quick way to use it directly without implementing it in code elsewhere, check out the [Mutate CLI App](http://github.com/americancouncils/Mutate) or the [Symfony2 Transcoding Bundle](http://github.com/americancouncils/TranscodingBundle).
 
 The Transcoding component consists of several parts.
 
