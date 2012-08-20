@@ -30,5 +30,8 @@ class ClassicPreset extends BasePreset
             'format' => 'mp4',
         ));
     }
-
+	
+	public function getOutputExtension() {
+		
+	}
 }
