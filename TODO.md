@@ -8,7 +8,6 @@
 	* Questions:
 		* Treat this as an extension of a preset?  Probably...
 * Create Adapters:
-	* FFmpeg
 	* mencoder (?)
 	* various ImageMagick adapters
 	* GD2 adapters?  Maybe make presets for these tools interchangeable?
