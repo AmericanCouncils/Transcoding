@@ -22,10 +22,4 @@ class AudioCompression96kPreset extends BasePreset
             '-o' => '',
         ));
     }
-<<<<<<< HEAD
-
 }
-=======
-	
-}
->>>>>>> outputExtension revisions
