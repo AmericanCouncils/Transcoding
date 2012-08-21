@@ -29,10 +29,7 @@ class SoundFromVideoPreset extends BasePreset
             '-o' => '',
         ));
     }
-<<<<<<< HEAD
 
-}
-=======
 	protected function buildOutputDefinition() {
 		return new FileHandlerDefinition(array(
 			'requiredType' => 'file',
@@ -41,4 +38,3 @@ class SoundFromVideoPreset extends BasePreset
 		));
 	}
 }
->>>>>>> outputExtension revisions
