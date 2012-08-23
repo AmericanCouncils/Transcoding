@@ -12,10 +12,18 @@ abstract class BasePreset extends Preset
 
     protected function buildInputDefinition()
     {
-		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','swf','wmv');
 		$allowedMimeTypes = array();
+		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','swf','wmv');
+		$mime_map = new MimeMap();
+		$mime_map->setExtension('flv','video/x-flv');
+		$ext_map = $mime_map->getExtensionToMimeTypes();
+		foreach($ext_map as $ext => $type_arr) {
+			foreach($type_arr as $type) {
+				$allowedMimeTypes[] = $type;
+			}
+		}
         return new FileHandlerDefinition(array(
-			'allowedMimeTypes' => array(
+			/*'allowedMimeTypes' => array(
 				'video/mp4', //mp4
 				'video/quicktime', //.mov and .mp4
 				'video/x-ms-asf', //asf
@@ -28,7 +36,8 @@ abstract class BasePreset extends Preset
 				//'application/x-shockwave-flash', //swf
 				'video/x-ms-wmv', //wmv
 				//None found for .3gp
-			),
+			),*/
+			'allowedMimeTypes' => $allowedMimeTypes,
             'allowedMimeEncodings' => array('binary'),
 			'requiredType' => 'file',
         ));
