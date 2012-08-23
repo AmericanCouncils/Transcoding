@@ -13,7 +13,7 @@ abstract class BasePreset extends Preset
     protected function buildInputDefinition()
     {
 		$allowedMimeTypes = array();
-		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','swf','wmv');
+		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','wmv'); //No swf or 3gp
 		$mime_map = new MimeMap();
 		$mime_map->setExtension('flv','video/x-flv');
 		$ext_map = $mime_map->getExtensionToMimeTypes();
