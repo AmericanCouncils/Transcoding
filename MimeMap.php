@@ -456,6 +456,20 @@ class MimeMap
 			}
 		}
 	}
+	public function mapExtension($extension, $type) {
+		if(!isset($this->extensions[$extension])) {
+			$this->extensions[$extension] = array($type);
+		} else {
+			$this->extensions[$extension][] = $type; 
+		}
+		return true;
+	}
+	private function convertMap() {
+		$converted_array = array();
+		foreach($this->extensions as $extension=>$type) {	
+			$converted_array[$extension] = array($type);
+		}
+	}
 	function system_extension_mime_types() {
 		# Returns the system MIME type mapping of extensions to MIME types, as defined in /etc/mime.types.
 		$out = array();
@@ -469,7 +483,7 @@ class MimeMap
 				continue;
 			$type = array_shift($parts);
 			foreach($parts as $part)
-				$out[$part] = $type;
+				$out[$part] = array($type);
 		}
 		fclose($file);
 		return $out;
