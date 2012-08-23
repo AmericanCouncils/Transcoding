@@ -17,8 +17,8 @@ abstract class BasePreset extends Preset
 		$mime_map = new MimeMap();
 		$mime_map->setExtension('flv','video/x-flv');
 		$ext_map = $mime_map->getExtensionToMimeTypes();
-		foreach($ext_map as $ext => $type_arr) {
-			foreach($type_arr as $type) {
+		foreach($extensions_to_check as $ext) {
+			foreach($ext_map[$ext] as $type) {
 				$allowedMimeTypes[] = $type;
 			}
 		}
