@@ -4,447 +4,100 @@ namespace AC\Component\Transcoding;
 
 class MimeMap
 {
-	private $extensions; 
+	private $extension_to_mime_types; 
+	private $mime_type_to_extensions; 
 	
 	public function __construct() {
-		$this->extensions = array(
-      'application/andrew-inset' => 'ez',
-      'application/appledouble' => 'base64',
-      'application/applefile' => 'base64',
-      'application/commonground' => 'dp',
-      'application/cprplayer' => 'pqi',
-      'application/dsptype' => 'tsp',
-      'application/excel' => 'xls',
-      'application/font-tdpfr' => 'pfr',
-      'application/futuresplash' => 'spl',
-      'application/hstu' => 'stk',
-      'application/hyperstudio' => 'stk',
-      'application/javascript' => 'js',
-      'application/mac-binhex40' => 'hqx',
-      'application/mac-compactpro' => 'cpt',
-      'application/mbed' => 'mbd',
-      'application/mirage' => 'mfp',
-      'application/msword' => 'doc',
-      'application/ocsp-request' => 'orq',
-      'application/ocsp-response' => 'ors',
-      'application/octet-stream' => array('bin','exe','flv'),
-      //'application/octet-stream' => 'exe',
-      //'application/octet-stream' => 'flv',
-      'application/oda' => 'oda',
-      'application/ogg' => 'ogg',
-      'application/pdf' => 'pdf',
-      'application/x-pdf' => 'pdf',
-      'application/pgp-encrypted' => '7bit',
-      'application/pgp-keys' => '7bit',
-      'application/pgp-signature' => 'sig',
-      'application/pkcs10' => 'p10',
-      'application/pkcs7-mime' => 'p7m',
-      'application/pkcs7-signature' => 'p7s',
-      'application/pkix-cert' => 'cer',
-      'application/pkix-crl' => 'crl',
-      'application/pkix-pkipath' => 'pkipath',
-      'application/pkixcmp' => 'pki',
-      'application/postscript' => array('ai','eps','ps'),
-      //'application/postscript' => 'eps',
-      //'application/postscript' => 'ps',
-      'application/presentations' => 'shw',
-      'application/prs.cww' => 'cw',
-      'application/prs.nprend' => 'rnd',
-      'application/quest' => 'qrt',
-      'application/rtf' => 'rtf',
-      'application/sgml-open-catalog' => 'soc',
-      'application/sieve' => 'siv',
-      'application/smil' => 'smi',
-      'application/toolbook' => 'tbk',
-      'application/vnd.3gpp.pic-bw-large' => 'plb',
-      'application/vnd.3gpp.pic-bw-small' => 'psb',
-      'application/vnd.3gpp.pic-bw-var' => 'pvb',
-      'application/vnd.3gpp.sms' => 'sms',
-      'application/vnd.acucorp' => 'atc',
-      'application/vnd.adobe.xfdf' => 'xfdf',
-      'application/vnd.amiga.amu' => 'ami',
-      'application/vnd.blueice.multipass' => 'mpm',
-      'application/vnd.cinderella' => 'cdy',
-      'application/vnd.cosmocaller' => 'cmc',
-      'application/vnd.criticaltools.wbs+xml' => 'wbs',
-      'application/vnd.curl' => 'curl',
-      'application/vnd.data-vision.rdz' => 'rdz',
-      'application/vnd.dreamfactory' => 'dfac',
-      'application/vnd.fsc.weblauch' => 'fsc',
-      'application/vnd.genomatix.tuxedo' => 'txd',
-      'application/vnd.hbci' => 'hbci',
-      'application/vnd.hhe.lesson-player' => 'les',
-      'application/vnd.hp-hpgl' => 'plt',
-      'application/vnd.ibm.electronic-media' => 'emm',
-      'application/vnd.ibm.rights-management' => 'irm',
-      'application/vnd.ibm.secure-container' => 'sc',
-      'application/vnd.ipunplugged.rcprofile' => 'rcprofile',
-      'application/vnd.irepository.package+xml' => 'irp',
-      'application/vnd.jisp' => 'jisp',
-      'application/vnd.kde.karbon' => 'karbon',
-      'application/vnd.kde.kchart' => 'chrt',
-      'application/vnd.kde.kformula' => 'kfo',
-      'application/vnd.kde.kivio' => 'flw',
-      'application/vnd.kde.kontour' => 'kon',
-      'application/vnd.kde.kpresenter' => 'kpr',
-      'application/vnd.kde.kspread' => 'ksp',
-      'application/vnd.kde.kword' => 'kwd',
-      'application/vnd.kenameapp' => 'htke',
-      'application/vnd.kidspiration' => 'kia',
-      'application/vnd.kinar' => 'kne',
-      'application/vnd.llamagraphics.life-balance.desktop' => 'lbd',
-      'application/vnd.llamagraphics.life-balance.exchange+xml' => 'lbe',
-      'application/vnd.lotus-1-2-3' => 'wks',
-      'application/vnd.mcd' => 'mcd',
-      'application/vnd.mfmp' => 'mfm',
-      'application/vnd.micrografx.flo' => 'flo',
-      'application/vnd.micrografx.igx' => 'igx',
-      'application/vnd.mif' => 'mif',
-      'application/vnd.mophun.application' => 'mpn',
-      'application/vnd.mophun.certificate' => 'mpc',
-      'application/vnd.mozilla.xul+xml' => 'xul',
-      'application/vnd.ms-artgalry' => 'cil',
-      'application/vnd.ms-asf' => 'asf',
-      'application/vnd.ms-excel' => 'xls',
-      'application/vnd.ms-lrm' => 'lrm',
-      'application/vnd.ms-powerpoint' => 'ppt',
-      'application/vnd.ms-project' => 'mpp',
-      'application/vnd.ms-tnef' => 'base64',
-      'application/vnd.ms-works' => 'base64',
-      'application/vnd.ms-wpl' => 'wpl',
-      'application/vnd.mseq' => 'mseq',
-      'application/vnd.nervana' => 'ent',
-      'application/vnd.nokia.radio-preset' => 'rpst',
-      'application/vnd.nokia.radio-presets' => 'rpss',
-      'application/vnd.oasis.opendocument.text' => 'odt',
-      'application/vnd.oasis.opendocument.text-template' => 'ott',
-      'application/vnd.oasis.opendocument.text-web' => 'oth',
-      'application/vnd.oasis.opendocument.text-master' => 'odm',
-      'application/vnd.oasis.opendocument.graphics' => 'odg',
-      'application/vnd.oasis.opendocument.graphics-template' => 'otg',
-      'application/vnd.oasis.opendocument.presentation' => 'odp',
-      'application/vnd.oasis.opendocument.presentation-template' => 'otp',
-      'application/vnd.oasis.opendocument.spreadsheet' => 'ods',
-      'application/vnd.oasis.opendocument.spreadsheet-template' => 'ots',
-      'application/vnd.oasis.opendocument.chart' => 'odc',
-      'application/vnd.oasis.opendocument.formula' => 'odf',
-      'application/vnd.oasis.opendocument.database' => 'odb',
-      'application/vnd.oasis.opendocument.image' => 'odi',
-      'application/vnd.palm' => 'prc',
-      'application/vnd.picsel' => 'efif',
-      'application/vnd.pvi.ptid1' => 'pti',
-      'application/vnd.quark.quarkxpress' => 'qxd',
-      'application/vnd.sealed.doc' => 'sdoc',
-      'application/vnd.sealed.eml' => 'seml',
-      'application/vnd.sealed.mht' => 'smht',
-      'application/vnd.sealed.ppt' => 'sppt',
-      'application/vnd.sealed.xls' => 'sxls',
-      'application/vnd.sealedmedia.softseal.html' => 'stml',
-      'application/vnd.sealedmedia.softseal.pdf' => 'spdf',
-      'application/vnd.seemail' => 'see',
-      'application/vnd.smaf' => 'mmf',
-      'application/vnd.sun.xml.calc' => 'sxc',
-      'application/vnd.sun.xml.calc.template' => 'stc',
-      'application/vnd.sun.xml.draw' => 'sxd',
-      'application/vnd.sun.xml.draw.template' => 'std',
-      'application/vnd.sun.xml.impress' => 'sxi',
-      'application/vnd.sun.xml.impress.template' => 'sti',
-      'application/vnd.sun.xml.math' => 'sxm',
-      'application/vnd.sun.xml.writer' => 'sxw',
-      'application/vnd.sun.xml.writer.global' => 'sxg',
-      'application/vnd.sun.xml.writer.template' => 'stw',
-      'application/vnd.sus-calendar' => 'sus',
-      'application/vnd.vidsoft.vidconference' => 'vsc',
-      'application/vnd.visio' => 'vsd',
-      'application/vnd.visionary' => 'vis',
-      'application/vnd.wap.sic' => array('sic','slc'),
-      //'application/vnd.wap.slc' => 'slc',
-      'application/vnd.wap.wbxml' => 'wbxml',
-      'application/vnd.wap.wmlc' => 'wmlc',
-      'application/vnd.wap.wmlscriptc' => 'wmlsc',
-      'application/vnd.webturbo' => 'wtb',
-      'application/vnd.wordperfect' => 'wpd',
-      'application/vnd.wqd' => 'wqd',
-      'application/vnd.wv.csp+wbxml' => 'wv',
-      'application/vnd.wv.csp+xml' => '8bit',
-      'application/vnd.wv.ssp+xml' => '8bit',
-      'application/vnd.yamaha.hv-dic' => 'hvd',
-      'application/vnd.yamaha.hv-script' => 'hvs',
-      'application/vnd.yamaha.hv-voice' => 'hvp',
-      'application/vnd.yamaha.smaf-audio' => 'saf',
-      'application/vnd.yamaha.smaf-phrase' => 'spf',
-      'application/vocaltec-media-desc' => 'vmd',
-      'application/vocaltec-media-file' => 'vmf',
-      'application/vocaltec-talker' => 'vtk',
-      'application/watcherinfo+xml' => 'wif',
-      'application/wordperfect5.1' => 'wp5',
-      'application/x-123' => 'wk',
-      'application/x-7th_level_event' => '7ls',
-      'application/x-authorware-bin' => 'aab',
-      'application/x-authorware-map' => 'aam',
-      'application/x-authorware-seg' => 'aas',
-      'application/x-bcpio' => 'bcpio',
-      'application/x-bleeper' => 'bleep',
-      'application/x-bzip2' => 'bz2',
-      'application/x-cdlink' => 'vcd',
-      'application/x-chat' => 'chat',
-      'application/x-chess-pgn' => 'pgn',
-      'application/x-compress' => 'z',
-      'application/x-cpio' => 'cpio',
-      'application/x-cprplayer' => 'pqf',
-      'application/x-csh' => 'csh',
-      'application/x-cu-seeme' => 'csm',
-      'application/x-cult3d-object' => 'co',
-      'application/x-debian-package' => 'deb',
-      'application/x-director' => array('dcr','dir','dxr'),
-      //'application/x-director' => 'dir',
-      //'application/x-director' => 'dxr',
-      'application/x-dvi' => 'dvi',
-      'application/x-envoy' => 'evy',
-      'application/x-futuresplash' => 'spl',
-      'application/x-gtar' => 'gtar',
-      'application/x-gzip' => 'gz',
-      'application/x-hdf' => 'hdf',
-      'application/x-hep' => 'hep',
-      'application/x-html+ruby' => 'rhtml',
-      'application/x-httpd-miva' => 'mv',
-      'application/x-httpd-php' => 'phtml',
-      'application/x-ica' => 'ica',
-      'application/x-imagemap' => 'imagemap',
-      'application/x-ipix' => 'ipx',
-      'application/x-ipscript' => 'ips',
-      'application/x-java-archive' => 'jar',
-      'application/x-java-jnlp-file' => 'jnlp',
-      'application/x-java-serialized-object' => 'ser',
-      'application/x-java-vm' => 'class',
-      'application/x-javascript' => 'js',
-      'application/x-koan' => 'skp',
-      'application/x-latex' => 'latex',
-      'application/x-mac-compactpro' => 'cpt',
-      'application/x-maker' => 'frm',
-      'application/x-mathcad' => 'mcd',
-      'application/x-midi' => 'mid',
-      'application/x-mif' => 'mif',
-      'application/x-msaccess' => 'mda',
-      'application/x-msdos-program' => array('cmd','com'),
-      //'application/x-msdos-program' => 'com',
-      'application/x-msdownload' => 'base64',
-      'application/x-msexcel' => 'xls',
-      'application/x-msword' => 'doc',
-      'application/x-netcdf' => 'nc',
-      'application/x-ns-proxy-autoconfig' => 'pac',
-      'application/x-pagemaker' => 'pm5',
-      'application/x-perl' => 'pl',
-      'application/x-pn-realmedia' => 'rp',
-      'application/x-python' => 'py',
-      'application/x-quicktimeplayer' => 'qtl',
-      'application/x-rar-compressed' => 'rar',
-      'application/x-ruby' => 'rb',
-      'application/x-sh' => 'sh',
-      'application/x-shar' => 'shar',
-      'application/x-shockwave-flash' => 'swf',
-      'application/x-sprite' => 'spr',
-      'application/x-spss' => 'sav',
-      'application/x-spt' => 'spt',
-      'application/x-stuffit' => 'sit',
-      'application/x-sv4cpio' => 'sv4cpio',
-      'application/x-sv4crc' => 'sv4crc',
-      'application/x-tar' => 'tar',
-      'application/x-tcl' => 'tcl',
-      'application/x-tex' => 'tex',
-      'application/x-texinfo' => 'texinfo',
-      'application/x-troff' => 't',
-      'application/x-troff-man' => 'man',
-      'application/x-troff-me' => 'me',
-      'application/x-troff-ms' => 'ms',
-      'application/x-twinvq' => 'vqf',
-      'application/x-twinvq-plugin' => 'vqe',
-      'application/x-ustar' => 'ustar',
-      'application/x-vmsbackup' => 'bck',
-      'application/x-wais-source' => 'src',
-      'application/x-wingz' => 'wz',
-      'application/x-word' => 'base64',
-      'application/x-wordperfect6.1' => 'wp6',
-      'application/x-x509-ca-cert' => 'crt',
-      'application/x-zip-compressed' => 'zip',
-      'application/xhtml+xml' => 'xhtml',
-      'application/zip' => 'zip',
-      'audio/3gpp' => '3gpp',
-      'audio/amr' => 'amr',
-      'audio/amr-wb' => 'awb',
-      'audio/basic' => 'au',
-      'audio/evrc' => 'evc',
-      'audio/l16' => 'l16',
-      'audio/midi' => 'mid',
-      'audio/mpeg' => array('mp3','mpga'),
-      //'audio/mpeg' => 'mpga',
-      'audio/prs.sid' => 'sid',
-      'audio/qcelp' => 'qcp',
-      'audio/smv' => 'smv',
-      'audio/vnd.audiokoz' => 'koz',
-      'audio/vnd.digital-winds' => 'eol',
-      'audio/vnd.everad.plj' => 'plj',
-      'audio/vnd.lucent.voice' => 'lvp',
-      'audio/vnd.nokia.mobile-xmf' => 'mxmf',
-      'audio/vnd.nortel.vbk' => 'vbk',
-      'audio/vnd.nuera.ecelp4800' => 'ecelp4800',
-      'audio/vnd.nuera.ecelp7470' => 'ecelp7470',
-      'audio/vnd.nuera.ecelp9600' => 'ecelp9600',
-      'audio/vnd.sealedmedia.softseal.mpeg' => 'smp3',
-      'audio/voxware' => 'vox',
-      'audio/x-aiff' => 'aif',
-      'audio/x-mid' => 'mid',
-      'audio/x-midi' => 'mid',
-      'audio/x-mpeg' => 'mp2',
-      'audio/x-mpegurl' => 'mpu',
-      'audio/x-pn-realaudio' => array('ra','rm'),
-      //'audio/x-pn-realaudio' => 'rm',
-      'audio/x-pn-realaudio-plugin' => 'rpm',
-      'audio/x-realaudio' => 'ra',
-      'audio/x-wav' => 'wav',
-      'chemical/x-csml' => 'csm',
-      'chemical/x-embl-dl-nucleotide' => 'emb',
-      'chemical/x-gaussian-cube' => 'cube',
-      'chemical/x-gaussian-input' => 'gau',
-      'chemical/x-jcamp-dx' => 'jdx',
-      'chemical/x-mdl-molfile' => 'mol',
-      'chemical/x-mdl-rxnfile' => 'rxn',
-      'chemical/x-mdl-tgf' => 'tgf',
-      'chemical/x-mopac-input' => 'mop',
-      'chemical/x-pdb' => 'pdb',
-      'chemical/x-rasmol' => 'scr',
-      'chemical/x-xyz' => 'xyz',
-      'drawing/dwf' => 'dwf',
-      'drawing/x-dwf' => 'dwf',
-      'i-world/i-vrml' => 'ivr',
-      'image/bmp' => 'bmp',
-      'image/cewavelet' => 'wif',
-      'image/cis-cod' => 'cod',
-      'image/fif' => 'fif',
-      'image/gif' => 'gif',
-      'image/ief' => 'ief',
-      'image/jp2' => 'jp2',
-      'image/jpeg' => array('jpeg','jpg'),
-      //'image/jpeg' => 'jpg',
-      'image/jpm' => 'jpm',
-      'image/jpx' => 'jpf',
-      'image/pict' => 'pic',
-      'image/pjpeg' => 'jpg',
-      'image/png' => 'png',
-      'image/targa' => 'tga',
-      'image/tiff' => array('tif','tiff'),
-      //'image/tiff' => 'tiff',
-      'image/vn-svf' => 'svf',
-      'image/vnd.dgn' => 'dgn',
-      'image/vnd.djvu' => 'djvu',
-      'image/vnd.dwg' => 'dwg',
-      'image/vnd.glocalgraphics.pgb' => 'pgb',
-      'image/vnd.microsoft.icon' => 'ico',
-      'image/vnd.ms-modi' => 'mdi',
-      'image/vnd.sealed.png' => 'spng',
-      'image/vnd.sealedmedia.softseal.gif' => 'sgif',
-      'image/vnd.sealedmedia.softseal.jpg' => 'sjpg',
-      'image/vnd.wap.wbmp' => 'wbmp',
-      'image/x-bmp' => 'bmp',
-      'image/x-cmu-raster' => 'ras',
-      'image/x-freehand' => 'fh4',
-      'image/x-png' => 'png',
-      'image/x-portable-anymap' => 'pnm',
-      'image/x-portable-bitmap' => 'pbm',
-      'image/x-portable-graymap' => 'pgm',
-      'image/x-portable-pixmap' => 'ppm',
-      'image/x-rgb' => 'rgb',
-      'image/x-xbitmap' => 'xbm',
-      'image/x-xpixmap' => 'xpm',
-      'image/x-xwindowdump' => 'xwd',
-      'message/external-body' => '8bit',
-      'message/news' => '8bit',
-      'message/partial' => '8bit',
-      'message/rfc822' => '8bit',
-      'model/iges' => 'igs',
-      'model/mesh' => 'msh',
-      'model/vnd.parasolid.transmit.binary' => 'x_b',
-      'model/vnd.parasolid.transmit.text' => 'x_t',
-      'model/vrml' => array('vrm','wrl'),
-      //'model/vrml' => 'wrl',
-      'multipart/alternative' => '8bit',
-      'multipart/appledouble' => '8bit',
-      'multipart/digest' => '8bit',
-      'multipart/mixed' => '8bit',
-      'multipart/parallel' => '8bit',
-      'text/comma-separated-values' => 'csv',
-      'text/css' => 'css',
-      'text/html' => array('htm','html'),
-      //'text/html' => 'html',
-      'text/plain' => 'txt',
-      'text/prs.fallenstein.rst' => 'rst',
-      'text/richtext' => 'rtx',
-      'text/rtf' => 'rtf',
-      'text/sgml' => array('sgm','sgml'),
-      //'text/sgml' => 'sgml',
-      'text/tab-separated-values' => 'tsv',
-      'text/vnd.net2phone.commcenter.command' => 'ccc',
-      'text/vnd.sun.j2me.app-descriptor' => 'jad',
-      'text/vnd.wap.si' => 'si',
-      'text/vnd.wap.sl' => 'sl',
-      'text/vnd.wap.wml' => 'wml',
-      'text/vnd.wap.wmlscript' => 'wmls',
-      'text/x-hdml' => 'hdml',
-      'text/x-setext' => 'etx',
-      'text/x-sgml' => 'sgml',
-      'text/x-speech' => 'talk',
-      'text/x-vcalendar' => 'vcs',
-      'text/x-vcard' => 'vcf',
-      'text/xml' => 'xml',
-      'ulead/vrml' => 'uvr',
-      'video/3gpp' => '3gp',
-      'video/dl' => 'dl',
-      'video/gl' => 'gl',
-      'video/mj2' => 'mj2',
-      'video/mpeg' => array('mp2','mpeg','mpg'),
-      //'video/mpeg' => 'mpeg',
-      //'video/mpeg' => 'mpg',
-      'video/quicktime' => array('mov','qt'),
-      //'video/quicktime' => 'qt',
-      'video/vdo' => 'vdo',
-      'video/vivo' => 'viv',
-      'video/vnd.fvt' => 'fvt',
-      'video/vnd.mpegurl' => 'mxu',
-      'video/vnd.nokia.interleaved-multimedia' => 'nim',
-      'video/vnd.objectvideo' => 'mp4',
-      'video/vnd.sealed.mpeg1' => 's11',
-      'video/vnd.sealed.mpeg4' => 'smpg',
-      'video/vnd.sealed.swf' => 'sswf',
-      'video/vnd.sealedmedia.softseal.mov' => 'smov',
-      'video/vnd.vivo' => array('viv','vivo'),
-      //'video/vnd.vivo' => 'vivo',
-      'video/x-fli' => 'fli',
-      'video/x-ms-asf' => 'asf',
-      'video/x-ms-wmv' => 'wmv',
-      'video/x-msvideo' => 'avi',
-      'video/x-sgi-movie' => 'movie',
-      'x-chemical/x-pdb' => 'pdb',
-      'x-chemical/x-xyz' => 'xyz',
-      'x-conference/x-cooltalk' => 'ice',
-      'x-drawing/dwf' => 'dwf',
-      'x-world/x-d96' => 'd',
-      'x-world/x-svr' => 'svr',
-      'x-world/x-vream' => 'vrw',
-      'x-world/x-vrml' => 'wrl',
-    );
+		//$this->extensions_to_mime_types = $this->system_extension_mime_types();
+		//$this->mime_types_to_extensions = $this->system_mime_type_extensions();
+		$this->extensions_to_mime_types = array ( 'ez' => array ( 0 => 'application/andrew-inset', ), 'atom' => array ( 0 => 'application/atom+xml', ), 'atomcat' => array ( 0 => 'application/atomcat+xml', ), 'atomsvc' => array ( 0 => 'application/atomsvc+xml', ), 'ccxml' => array ( 0 => 'application/ccxml+xml', ), 'davmount' => array ( 0 => 'application/davmount+xml', ), 'ecma' => array ( 0 => 'application/ecmascript', ), 'pfr' => array ( 0 => 'application/font-tdpfr', ), 'stk' => array ( 0 => 'application/hyperstudio', ), 'js' => array ( 0 => 'application/javascript', ), 'json' => array ( 0 => 'application/json', ), 'lostxml' => array ( 0 => 'application/lost+xml', ), 'hqx' => array ( 0 => 'application/mac-binhex40', ), 'cpt' => array ( 0 => 'application/mac-compactpro', ), 'mrc' => array ( 0 => 'application/marc', ), 'ma' => array ( 0 => 'application/mathematica', ), 'nb' => array ( 0 => 'application/mathematica', ), 'mb' => array ( 0 => 'application/mathematica', ), 'mathml' => array ( 0 => 'application/mathml+xml', ), 'mbox' => array ( 0 => 'application/mbox', ), 'mscml' => array ( 0 => 'application/mediaservercontrol+xml', ), 'mp4s' => array ( 0 => 'application/mp4', ), 'doc' => array ( 0 => 'application/msword', ), 'dot' => array ( 0 => 'application/msword', ), 'mxf' => array ( 0 => 'application/mxf', ), 'bin' => array ( 0 => 'application/octet-stream', ), 'dms' => array ( 0 => 'application/octet-stream', ), 'lha' => array ( 0 => 'application/octet-stream', ), 'lzh' => array ( 0 => 'application/octet-stream', ), 'class' => array ( 0 => 'application/octet-stream', ), 'so' => array ( 0 => 'application/octet-stream', ), 'iso' => array ( 0 => 'application/octet-stream', ), 'dmg' => array ( 0 => 'application/octet-stream', ), 'dist' => array ( 0 => 'application/octet-stream', ), 'distz' => array ( 0 => 'application/octet-stream', ), 'pkg' => array ( 0 => 'application/octet-stream', ), 'bpk' => array ( 0 => 'application/octet-stream', ), 'dump' => array ( 0 => 'application/octet-stream', ), 'elc' => array ( 0 => 'application/octet-stream', ), 'oda' => array ( 0 => 'application/oda', ), 'ogx' => array ( 0 => 'application/ogg', ), 'xer' => array ( 0 => 'application/patch-ops-error+xml', ), 'pdf' => array ( 0 => 'application/pdf', ), 'pgp' => array ( 0 => 'application/pgp-encrypted', ), 'asc' => array ( 0 => 'application/pgp-signature', ), 'sig' => array ( 0 => 'application/pgp-signature', ), 'prf' => array ( 0 => 'application/pics-rules', ), 'p10' => array ( 0 => 'application/pkcs10', ), 'p7m' => array ( 0 => 'application/pkcs7-mime', ), 'p7c' => array ( 0 => 'application/pkcs7-mime', ), 'p7s' => array ( 0 => 'application/pkcs7-signature', ), 'cer' => array ( 0 => 'application/pkix-cert', ), 'crl' => array ( 0 => 'application/pkix-crl', ), 'pkipath' => array ( 0 => 'application/pkix-pkipath', ), 'pki' => array ( 0 => 'application/pkixcmp', ), 'pls' => array ( 0 => 'application/pls+xml', ), 'ai' => array ( 0 => 'application/postscript', ), 'eps' => array ( 0 => 'application/postscript', ), 'ps' => array ( 0 => 'application/postscript', ), 'cww' => array ( 0 => 'application/prs.cww', ), 'rdf' => array ( 0 => 'application/rdf+xml', ), 'rif' => array ( 0 => 'application/reginfo+xml', ), 'rnc' => array ( 0 => 'application/relax-ng-compact-syntax', ), 'rl' => array ( 0 => 'application/resource-lists+xml', ), 'rld' => array ( 0 => 'application/resource-lists-diff+xml', ), 'rs' => array ( 0 => 'application/rls-services+xml', ), 'rsd' => array ( 0 => 'application/rsd+xml', ), 'rss' => array ( 0 => 'application/rss+xml', ), 'rtf' => array ( 0 => 'application/rtf', ), 'sbml' => array ( 0 => 'application/sbml+xml', ), 'scq' => array ( 0 => 'application/scvp-cv-request', ), 'scs' => array ( 0 => 'application/scvp-cv-response', ), 'spq' => array ( 0 => 'application/scvp-vp-request', ), 'spp' => array ( 0 => 'application/scvp-vp-response', ), 'sdp' => array ( 0 => 'application/sdp', ), 'setpay' => array ( 0 => 'application/set-payment-initiation', ), 'setreg' => array ( 0 => 'application/set-registration-initiation', ), 'shf' => array ( 0 => 'application/shf+xml', ), 'smi' => array ( 0 => 'application/smil+xml', ), 'smil' => array ( 0 => 'application/smil+xml', ), 'rq' => array ( 0 => 'application/sparql-query', ), 'srx' => array ( 0 => 'application/sparql-results+xml', ), 'gram' => array ( 0 => 'application/srgs', ), 'grxml' => array ( 0 => 'application/srgs+xml', ), 'ssml' => array ( 0 => 'application/ssml+xml', ), 'plb' => array ( 0 => 'application/vnd.3gpp.pic-bw-large', ), 'psb' => array ( 0 => 'application/vnd.3gpp.pic-bw-small', ), 'pvb' => array ( 0 => 'application/vnd.3gpp.pic-bw-var', ), 'tcap' => array ( 0 => 'application/vnd.3gpp2.tcap', ), 'pwn' => array ( 0 => 'application/vnd.3m.post-it-notes', ), 'aso' => array ( 0 => 'application/vnd.accpac.simply.aso', ), 'imp' => array ( 0 => 'application/vnd.accpac.simply.imp', ), 'acu' => array ( 0 => 'application/vnd.acucobol', ), 'atc' => array ( 0 => 'application/vnd.acucorp', ), 'acutc' => array ( 0 => 'application/vnd.acucorp', ), 'xdp' => array ( 0 => 'application/vnd.adobe.xdp+xml', ), 'xfdf' => array ( 0 => 'application/vnd.adobe.xfdf', ), 'acc' => array ( 0 => 'application/vnd.americandynamics.acc', ), 'ami' => array ( 0 => 'application/vnd.amiga.ami', ), 'cii' => array ( 0 => 'application/vnd.anser-web-certificate-issue-initiation', ), 'fti' => array ( 0 => 'application/vnd.anser-web-funds-transfer-initiation', ), 'atx' => array ( 0 => 'application/vnd.antix.game-component', ), 'mpkg' => array ( 0 => 'application/vnd.apple.installer+xml', ), 'swi' => array ( 0 => 'application/vnd.arastra.swi', ), 'aep' => array ( 0 => 'application/vnd.audiograph', ), 'mpm' => array ( 0 => 'application/vnd.blueice.multipass', ), 'bmi' => array ( 0 => 'application/vnd.bmi', ), 'rep' => array ( 0 => 'application/vnd.businessobjects', ), 'cdxml' => array ( 0 => 'application/vnd.chemdraw+xml', ), 'mmd' => array ( 0 => 'application/vnd.chipnuts.karaoke-mmd', ), 'cdy' => array ( 0 => 'application/vnd.cinderella', ), 'cla' => array ( 0 => 'application/vnd.claymore', ), 'c4g' => array ( 0 => 'application/vnd.clonk.c4group', ), 'c4d' => array ( 0 => 'application/vnd.clonk.c4group', ), 'c4f' => array ( 0 => 'application/vnd.clonk.c4group', ), 'c4p' => array ( 0 => 'application/vnd.clonk.c4group', ), 'c4u' => array ( 0 => 'application/vnd.clonk.c4group', ), 'csp' => array ( 0 => 'application/vnd.commonspace', ), 'cst' => array ( 0 => 'application/vnd.commonspace', ), 'cdbcmsg' => array ( 0 => 'application/vnd.contact.cmsg', ), 'cmc' => array ( 0 => 'application/vnd.cosmocaller', ), 'clkx' => array ( 0 => 'application/vnd.crick.clicker', ), 'clkk' => array ( 0 => 'application/vnd.crick.clicker.keyboard', ), 'clkp' => array ( 0 => 'application/vnd.crick.clicker.palette', ), 'clkt' => array ( 0 => 'application/vnd.crick.clicker.template', ), 'clkw' => array ( 0 => 'application/vnd.crick.clicker.wordbank', ), 'wbs' => array ( 0 => 'application/vnd.criticaltools.wbs+xml', ), 'pml' => array ( 0 => 'application/vnd.ctc-posml', ), 'ppd' => array ( 0 => 'application/vnd.cups-ppd', ), 'curl' => array ( 0 => 'application/vnd.curl', ), 'rdz' => array ( 0 => 'application/vnd.data-vision.rdz', ), 'fe_launch' => array ( 0 => 'application/vnd.denovo.fcselayout-link', ), 'dna' => array ( 0 => 'application/vnd.dna', ), 'mlp' => array ( 0 => 'application/vnd.dolby.mlp', ), 'dpg' => array ( 0 => 'application/vnd.dpgraph', ), 'dfac' => array ( 0 => 'application/vnd.dreamfactory', ), 'mag' => array ( 0 => 'application/vnd.ecowin.chart', ), 'nml' => array ( 0 => 'application/vnd.enliven', ), 'esf' => array ( 0 => 'application/vnd.epson.esf', ), 'msf' => array ( 0 => 'application/vnd.epson.msf', ), 'qam' => array ( 0 => 'application/vnd.epson.quickanime', ), 'slt' => array ( 0 => 'application/vnd.epson.salt', ), 'ssf' => array ( 0 => 'application/vnd.epson.ssf', ), 'es3' => array ( 0 => 'application/vnd.eszigno3+xml', ), 'et3' => array ( 0 => 'application/vnd.eszigno3+xml', ), 'ez2' => array ( 0 => 'application/vnd.ezpix-album', ), 'ez3' => array ( 0 => 'application/vnd.ezpix-package', ), 'fdf' => array ( 0 => 'application/vnd.fdf', ), 'gph' => array ( 0 => 'application/vnd.flographit', ), 'ftc' => array ( 0 => 'application/vnd.fluxtime.clip', ), 'fm' => array ( 0 => 'application/vnd.framemaker', ), 'frame' => array ( 0 => 'application/vnd.framemaker', ), 'maker' => array ( 0 => 'application/vnd.framemaker', ), 'fnc' => array ( 0 => 'application/vnd.frogans.fnc', ), 'ltf' => array ( 0 => 'application/vnd.frogans.ltf', ), 'fsc' => array ( 0 => 'application/vnd.fsc.weblaunch', ), 'oas' => array ( 0 => 'application/vnd.fujitsu.oasys', ), 'oa2' => array ( 0 => 'application/vnd.fujitsu.oasys2', ), 'oa3' => array ( 0 => 'application/vnd.fujitsu.oasys3', ), 'fg5' => array ( 0 => 'application/vnd.fujitsu.oasysgp', ), 'bh2' => array ( 0 => 'application/vnd.fujitsu.oasysprs', ), 'ddd' => array ( 0 => 'application/vnd.fujixerox.ddd', ), 'xdw' => array ( 0 => 'application/vnd.fujixerox.docuworks', ), 'xbd' => array ( 0 => 'application/vnd.fujixerox.docuworks.binder', ), 'fzs' => array ( 0 => 'application/vnd.fuzzysheet', ), 'txd' => array ( 0 => 'application/vnd.genomatix.tuxedo', ), 'gmx' => array ( 0 => 'application/vnd.gmx', ), 'kml' => array ( 0 => 'application/vnd.google-earth.kml+xml', ), 'kmz' => array ( 0 => 'application/vnd.google-earth.kmz', ), 'gqf' => array ( 0 => 'application/vnd.grafeq', ), 'gqs' => array ( 0 => 'application/vnd.grafeq', ), 'gac' => array ( 0 => 'application/vnd.groove-account', ), 'ghf' => array ( 0 => 'application/vnd.groove-help', ), 'gim' => array ( 0 => 'application/vnd.groove-identity-message', ), 'grv' => array ( 0 => 'application/vnd.groove-injector', ), 'gtm' => array ( 0 => 'application/vnd.groove-tool-message', ), 'tpl' => array ( 0 => 'application/vnd.groove-tool-template', ), 'vcg' => array ( 0 => 'application/vnd.groove-vcard', ), 'zmm' => array ( 0 => 'application/vnd.handheld-entertainment+xml', ), 'hbci' => array ( 0 => 'application/vnd.hbci', ), 'les' => array ( 0 => 'application/vnd.hhe.lesson-player', ), 'hpgl' => array ( 0 => 'application/vnd.hp-hpgl', ), 'hpid' => array ( 0 => 'application/vnd.hp-hpid', ), 'hps' => array ( 0 => 'application/vnd.hp-hps', ), 'jlt' => array ( 0 => 'application/vnd.hp-jlyt', ), 'pcl' => array ( 0 => 'application/vnd.hp-pcl', ), 'pclxl' => array ( 0 => 'application/vnd.hp-pclxl', ), 'sfd-hdstx' => array ( 0 => 'application/vnd.hydrostatix.sof-data', ), 'x3d' => array ( 0 => 'application/vnd.hzn-3d-crossword', ), 'mpy' => array ( 0 => 'application/vnd.ibm.minipay', ), 'afp' => array ( 0 => 'application/vnd.ibm.modcap', ), 'listafp' => array ( 0 => 'application/vnd.ibm.modcap', ), 'list3820' => array ( 0 => 'application/vnd.ibm.modcap', ), 'irm' => array ( 0 => 'application/vnd.ibm.rights-management', ), 'sc' => array ( 0 => 'application/vnd.ibm.secure-container', ), 'icc' => array ( 0 => 'application/vnd.iccprofile', ), 'icm' => array ( 0 => 'application/vnd.iccprofile', ), 'igl' => array ( 0 => 'application/vnd.igloader', ), 'ivp' => array ( 0 => 'application/vnd.immervision-ivp', ), 'ivu' => array ( 0 => 'application/vnd.immervision-ivu', ), 'xpw' => array ( 0 => 'application/vnd.intercon.formnet', ), 'xpx' => array ( 0 => 'application/vnd.intercon.formnet', ), 'qbo' => array ( 0 => 'application/vnd.intu.qbo', ), 'qfx' => array ( 0 => 'application/vnd.intu.qfx', ), 'rcprofile' => array ( 0 => 'application/vnd.ipunplugged.rcprofile', ), 'irp' => array ( 0 => 'application/vnd.irepository.package+xml', ), 'xpr' => array ( 0 => 'application/vnd.is-xpr', ), 'jam' => array ( 0 => 'application/vnd.jam', ), 'rms' => array ( 0 => 'application/vnd.jcp.javame.midlet-rms', ), 'jisp' => array ( 0 => 'application/vnd.jisp', ), 'joda' => array ( 0 => 'application/vnd.joost.joda-archive', ), 'ktz' => array ( 0 => 'application/vnd.kahootz', ), 'ktr' => array ( 0 => 'application/vnd.kahootz', ), 'karbon' => array ( 0 => 'application/vnd.kde.karbon', ), 'chrt' => array ( 0 => 'application/vnd.kde.kchart', ), 'kfo' => array ( 0 => 'application/vnd.kde.kformula', ), 'flw' => array ( 0 => 'application/vnd.kde.kivio', ), 'kon' => array ( 0 => 'application/vnd.kde.kontour', ), 'kpr' => array ( 0 => 'application/vnd.kde.kpresenter', ), 'kpt' => array ( 0 => 'application/vnd.kde.kpresenter', ), 'ksp' => array ( 0 => 'application/vnd.kde.kspread', ), 'kwd' => array ( 0 => 'application/vnd.kde.kword', ), 'kwt' => array ( 0 => 'application/vnd.kde.kword', ), 'htke' => array ( 0 => 'application/vnd.kenameaapp', ), 'kia' => array ( 0 => 'application/vnd.kidspiration', ), 'kne' => array ( 0 => 'application/vnd.kinar', ), 'knp' => array ( 0 => 'application/vnd.kinar', ), 'skp' => array ( 0 => 'application/vnd.koan', ), 'skd' => array ( 0 => 'application/vnd.koan', ), 'skt' => array ( 0 => 'application/vnd.koan', ), 'skm' => array ( 0 => 'application/vnd.koan', ), 'sse' => array ( 0 => 'application/vnd.kodak-descriptor', ), 'lbd' => array ( 0 => 'application/vnd.llamagraphics.life-balance.desktop', ), 'lbe' => array ( 0 => 'application/vnd.llamagraphics.life-balance.exchange+xml', ), 123 => array ( 0 => 'application/vnd.lotus-1-2-3', ), 'apr' => array ( 0 => 'application/vnd.lotus-approach', ), 'pre' => array ( 0 => 'application/vnd.lotus-freelance', ), 'nsf' => array ( 0 => 'application/vnd.lotus-notes', ), 'org' => array ( 0 => 'application/vnd.lotus-organizer', ), 'scm' => array ( 0 => 'application/vnd.lotus-screencam', ), 'lwp' => array ( 0 => 'application/vnd.lotus-wordpro', ), 'portpkg' => array ( 0 => 'application/vnd.macports.portpkg', ), 'mcd' => array ( 0 => 'application/vnd.mcd', ), 'mc1' => array ( 0 => 'application/vnd.medcalcdata', ), 'cdkey' => array ( 0 => 'application/vnd.mediastation.cdkey', ), 'mwf' => array ( 0 => 'application/vnd.mfer', ), 'mfm' => array ( 0 => 'application/vnd.mfmp', ), 'flo' => array ( 0 => 'application/vnd.micrografx.flo', ), 'igx' => array ( 0 => 'application/vnd.micrografx.igx', ), 'mif' => array ( 0 => 'application/vnd.mif', ), 'daf' => array ( 0 => 'application/vnd.mobius.daf', ), 'dis' => array ( 0 => 'application/vnd.mobius.dis', ), 'mbk' => array ( 0 => 'application/vnd.mobius.mbk', ), 'mqy' => array ( 0 => 'application/vnd.mobius.mqy', ), 'msl' => array ( 0 => 'application/vnd.mobius.msl', ), 'plc' => array ( 0 => 'application/vnd.mobius.plc', ), 'txf' => array ( 0 => 'application/vnd.mobius.txf', ), 'mpn' => array ( 0 => 'application/vnd.mophun.application', ), 'mpc' => array ( 0 => 'application/vnd.mophun.certificate', ), 'xul' => array ( 0 => 'application/vnd.mozilla.xul+xml', ), 'cil' => array ( 0 => 'application/vnd.ms-artgalry', ), 'asf' => array ( 0 => 'video/x-ms-asf', ), 'cab' => array ( 0 => 'application/vnd.ms-cab-compressed', ), 'xls' => array ( 0 => 'application/vnd.ms-excel', ), 'xlm' => array ( 0 => 'application/vnd.ms-excel', ), 'xla' => array ( 0 => 'application/vnd.ms-excel', ), 'xlc' => array ( 0 => 'application/vnd.ms-excel', ), 'xlt' => array ( 0 => 'application/vnd.ms-excel', ), 'xlw' => array ( 0 => 'application/vnd.ms-excel', ), 'eot' => array ( 0 => 'application/vnd.ms-fontobject', ), 'chm' => array ( 0 => 'application/vnd.ms-htmlhelp', ), 'ims' => array ( 0 => 'application/vnd.ms-ims', ), 'lrm' => array ( 0 => 'application/vnd.ms-lrm', ), 'ppt' => array ( 0 => 'application/vnd.ms-powerpoint', ), 'pps' => array ( 0 => 'application/vnd.ms-powerpoint', ), 'pot' => array ( 0 => 'application/vnd.ms-powerpoint', ), 'mpp' => array ( 0 => 'application/vnd.ms-project', ), 'mpt' => array ( 0 => 'application/vnd.ms-project', ), 'wps' => array ( 0 => 'application/vnd.ms-works', ), 'wks' => array ( 0 => 'application/vnd.ms-works', ), 'wcm' => array ( 0 => 'application/vnd.ms-works', ), 'wdb' => array ( 0 => 'application/vnd.ms-works', ), 'wpl' => array ( 0 => 'application/vnd.ms-wpl', ), 'xps' => array ( 0 => 'application/vnd.ms-xpsdocument', ), 'mseq' => array ( 0 => 'application/vnd.mseq', ), 'mus' => array ( 0 => 'application/vnd.musician', ), 'msty' => array ( 0 => 'application/vnd.muvee.style', ), 'nlu' => array ( 0 => 'application/vnd.neurolanguage.nlu', ), 'nnd' => array ( 0 => 'application/vnd.noblenet-directory', ), 'nns' => array ( 0 => 'application/vnd.noblenet-sealer', ), 'nnw' => array ( 0 => 'application/vnd.noblenet-web', ), 'ngdat' => array ( 0 => 'application/vnd.nokia.n-gage.data', ), 'n-gage' => array ( 0 => 'application/vnd.nokia.n-gage.symbian.install', ), 'rpst' => array ( 0 => 'application/vnd.nokia.radio-preset', ), 'rpss' => array ( 0 => 'application/vnd.nokia.radio-presets', ), 'edm' => array ( 0 => 'application/vnd.novadigm.edm', ), 'edx' => array ( 0 => 'application/vnd.novadigm.edx', ), 'ext' => array ( 0 => 'application/vnd.novadigm.ext', ), 'odc' => array ( 0 => 'application/vnd.oasis.opendocument.chart', ), 'otc' => array ( 0 => 'application/vnd.oasis.opendocument.chart-template', ), 'odf' => array ( 0 => 'application/vnd.oasis.opendocument.formula', ), 'otf' => array ( 0 => 'application/vnd.oasis.opendocument.formula-template', ), 'odg' => array ( 0 => 'application/vnd.oasis.opendocument.graphics', ), 'otg' => array ( 0 => 'application/vnd.oasis.opendocument.graphics-template', ), 'odi' => array ( 0 => 'application/vnd.oasis.opendocument.image', ), 'oti' => array ( 0 => 'application/vnd.oasis.opendocument.image-template', ), 'odp' => array ( 0 => 'application/vnd.oasis.opendocument.presentation', ), 'otp' => array ( 0 => 'application/vnd.oasis.opendocument.presentation-template', ), 'ods' => array ( 0 => 'application/vnd.oasis.opendocument.spreadsheet', ), 'ots' => array ( 0 => 'application/vnd.oasis.opendocument.spreadsheet-template', ), 'odt' => array ( 0 => 'application/vnd.oasis.opendocument.text', ), 'otm' => array ( 0 => 'application/vnd.oasis.opendocument.text-master', ), 'ott' => array ( 0 => 'application/vnd.oasis.opendocument.text-template', ), 'oth' => array ( 0 => 'application/vnd.oasis.opendocument.text-web', ), 'xo' => array ( 0 => 'application/vnd.olpc-sugar', ), 'dd2' => array ( 0 => 'application/vnd.oma.dd2+xml', ), 'oxt' => array ( 0 => 'application/vnd.openofficeorg.extension', ), 'dp' => array ( 0 => 'application/vnd.osgi.dp', ), 'prc' => array ( 0 => 'application/vnd.palm', ), 'pdb' => array ( 0 => 'chemical/x-pdb', ), 'pqa' => array ( 0 => 'application/vnd.palm', ), 'oprc' => array ( 0 => 'application/vnd.palm', ), 'str' => array ( 0 => 'application/vnd.pg.format', ), 'ei6' => array ( 0 => 'application/vnd.pg.osasli', ), 'efif' => array ( 0 => 'application/vnd.picsel', ), 'plf' => array ( 0 => 'application/vnd.pocketlearn', ), 'pbd' => array ( 0 => 'application/vnd.powerbuilder6', ), 'box' => array ( 0 => 'application/vnd.previewsystems.box', ), 'mgz' => array ( 0 => 'application/vnd.proteus.magazine', ), 'qps' => array ( 0 => 'application/vnd.publishare-delta-tree', ), 'ptid' => array ( 0 => 'application/vnd.pvi.ptid1', ), 'qxd' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'qxt' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'qwd' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'qwt' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'qxl' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'qxb' => array ( 0 => 'application/vnd.quark.quarkxpress', ), 'mxl' => array ( 0 => 'application/vnd.recordare.musicxml', ), 'rm' => array ( 0 => 'application/vnd.rn-realmedia', ), 'link66' => array ( 0 => 'application/vnd.route66.link66+xml', ), 'see' => array ( 0 => 'application/vnd.seemail', ), 'sema' => array ( 0 => 'application/vnd.sema', ), 'semd' => array ( 0 => 'application/vnd.semd', ), 'semf' => array ( 0 => 'application/vnd.semf', ), 'ifm' => array ( 0 => 'application/vnd.shana.informed.formdata', ), 'itp' => array ( 0 => 'application/vnd.shana.informed.formtemplate', ), 'iif' => array ( 0 => 'application/vnd.shana.informed.interchange', ), 'ipk' => array ( 0 => 'application/vnd.shana.informed.package', ), 'twd' => array ( 0 => 'application/vnd.simtech-mindmapper', ), 'twds' => array ( 0 => 'application/vnd.simtech-mindmapper', ), 'mmf' => array ( 0 => 'application/vnd.smaf', ), 'sdkm' => array ( 0 => 'application/vnd.solent.sdkm+xml', ), 'sdkd' => array ( 0 => 'application/vnd.solent.sdkm+xml', ), 'dxp' => array ( 0 => 'application/vnd.spotfire.dxp', ), 'sfs' => array ( 0 => 'application/vnd.spotfire.sfs', ), 'sus' => array ( 0 => 'application/vnd.sus-calendar', ), 'susp' => array ( 0 => 'application/vnd.sus-calendar', ), 'svd' => array ( 0 => 'application/vnd.svd', ), 'xsm' => array ( 0 => 'application/vnd.syncml+xml', ), 'bdm' => array ( 0 => 'application/vnd.syncml.dm+wbxml', ), 'xdm' => array ( 0 => 'application/vnd.syncml.dm+xml', ), 'tao' => array ( 0 => 'application/vnd.tao.intent-module-archive', ), 'tmo' => array ( 0 => 'application/vnd.tmobile-livetv', ), 'tpt' => array ( 0 => 'application/vnd.trid.tpt', ), 'mxs' => array ( 0 => 'application/vnd.triscape.mxs', ), 'tra' => array ( 0 => 'application/vnd.trueapp', ), 'ufd' => array ( 0 => 'application/vnd.ufdl', ), 'ufdl' => array ( 0 => 'application/vnd.ufdl', ), 'utz' => array ( 0 => 'application/vnd.uiq.theme', ), 'umj' => array ( 0 => 'application/vnd.umajin', ), 'unityweb' => array ( 0 => 'application/vnd.unity', ), 'uoml' => array ( 0 => 'application/vnd.uoml+xml', ), 'vcx' => array ( 0 => 'application/vnd.vcx', ), 'vsd' => array ( 0 => 'application/vnd.visio', ), 'vst' => array ( 0 => 'application/vnd.visio', ), 'vss' => array ( 0 => 'application/vnd.visio', ), 'vsw' => array ( 0 => 'application/vnd.visio', ), 'vis' => array ( 0 => 'application/vnd.visionary', ), 'vsf' => array ( 0 => 'application/vnd.vsf', ), 'wbxml' => array ( 0 => 'application/vnd.wap.wbxml', ), 'wmlc' => array ( 0 => 'application/vnd.wap.wmlc', ), 'wmlsc' => array ( 0 => 'application/vnd.wap.wmlscriptc', ), 'wtb' => array ( 0 => 'application/vnd.webturbo', ), 'wpd' => array ( 0 => 'application/vnd.wordperfect', ), 'wqd' => array ( 0 => 'application/vnd.wqd', ), 'stf' => array ( 0 => 'application/vnd.wt.stf', ), 'xar' => array ( 0 => 'application/vnd.xara', ), 'xfdl' => array ( 0 => 'application/vnd.xfdl', ), 'hvd' => array ( 0 => 'application/vnd.yamaha.hv-dic', ), 'hvs' => array ( 0 => 'application/vnd.yamaha.hv-script', ), 'hvp' => array ( 0 => 'application/vnd.yamaha.hv-voice', ), 'saf' => array ( 0 => 'application/vnd.yamaha.smaf-audio', ), 'spf' => array ( 0 => 'application/vnd.yamaha.smaf-phrase', ), 'cmp' => array ( 0 => 'application/vnd.yellowriver-custom-menu', ), 'zaz' => array ( 0 => 'application/vnd.zzazz.deck+xml', ), 'vxml' => array ( 0 => 'application/voicexml+xml', ), 'hlp' => array ( 0 => 'application/winhlp', ), 'wsdl' => array ( 0 => 'application/wsdl+xml', ), 'wspolicy' => array ( 0 => 'application/wspolicy+xml', ), 'ace' => array ( 0 => 'application/x-ace-compressed', ), 'bcpio' => array ( 0 => 'application/x-bcpio', ), 'torrent' => array ( 0 => 'application/x-bittorrent', ), 'bz' => array ( 0 => 'application/x-bzip', ), 'bz2' => array ( 0 => 'application/x-bzip2', ), 'boz' => array ( 0 => 'application/x-bzip2', ), 'vcd' => array ( 0 => 'application/x-cdlink', ), 'chat' => array ( 0 => 'application/x-chat', ), 'pgn' => array ( 0 => 'application/x-chess-pgn', ), 'cpio' => array ( 0 => 'application/x-cpio', ), 'csh' => array ( 0 => 'application/x-csh', ), 'dcr' => array ( 0 => 'application/x-director', ), 'dir' => array ( 0 => 'application/x-director', ), 'dxr' => array ( 0 => 'application/x-director', ), 'fgd' => array ( 0 => 'application/x-director', ), 'dvi' => array ( 0 => 'application/x-dvi', ), 'spl' => array ( 0 => 'application/x-futuresplash', ), 'gtar' => array ( 0 => 'application/x-gtar', ), 'hdf' => array ( 0 => 'application/x-hdf', ), 'latex' => array ( 0 => 'application/x-latex', ), 'wmd' => array ( 0 => 'application/x-ms-wmd', ), 'wmz' => array ( 0 => 'application/x-ms-wmz', ), 'mdb' => array ( 0 => 'application/x-msaccess', ), 'obd' => array ( 0 => 'application/x-msbinder', ), 'crd' => array ( 0 => 'application/x-mscardfile', ), 'clp' => array ( 0 => 'application/x-msclip', ), 'exe' => array ( 0 => 'application/x-msdownload', ), 'dll' => array ( 0 => 'application/x-msdownload', ), 'com' => array ( 0 => 'application/x-msdownload', ), 'bat' => array ( 0 => 'application/x-msdownload', ), 'msi' => array ( 0 => 'application/x-msdownload', ), 'mvb' => array ( 0 => 'application/x-msmediaview', ), 'm13' => array ( 0 => 'application/x-msmediaview', ), 'm14' => array ( 0 => 'application/x-msmediaview', ), 'wmf' => array ( 0 => 'application/x-msmetafile', ), 'mny' => array ( 0 => 'application/x-msmoney', ), 'pub' => array ( 0 => 'application/x-mspublisher', ), 'scd' => array ( 0 => 'application/x-msschedule', ), 'trm' => array ( 0 => 'application/x-msterminal', ), 'wri' => array ( 0 => 'application/x-mswrite', ), 'nc' => array ( 0 => 'application/x-netcdf', ), 'cdf' => array ( 0 => 'application/x-netcdf', ), 'p12' => array ( 0 => 'application/x-pkcs12', ), 'pfx' => array ( 0 => 'application/x-pkcs12', ), 'p7b' => array ( 0 => 'application/x-pkcs7-certificates', ), 'spc' => array ( 0 => 'application/x-pkcs7-certificates', ), 'p7r' => array ( 0 => 'application/x-pkcs7-certreqresp', ), 'rar' => array ( 0 => 'application/x-rar-compressed', ), 'sh' => array ( 0 => 'application/x-sh', ), 'shar' => array ( 0 => 'application/x-shar', ), 'swf' => array ( 0 => 'application/x-shockwave-flash', ), 'sit' => array ( 0 => 'application/x-stuffit', ), 'sitx' => array ( 0 => 'application/x-stuffitx', ), 'sv4cpio' => array ( 0 => 'application/x-sv4cpio', ), 'sv4crc' => array ( 0 => 'application/x-sv4crc', ), 'tar' => array ( 0 => 'application/x-tar', ), 'tcl' => array ( 0 => 'application/x-tcl', ), 'tex' => array ( 0 => 'application/x-tex', ), 'texinfo' => array ( 0 => 'application/x-texinfo', ), 'texi' => array ( 0 => 'application/x-texinfo', ), 'ustar' => array ( 0 => 'application/x-ustar', ), 'src' => array ( 0 => 'application/x-wais-source', ), 'der' => array ( 0 => 'application/x-x509-ca-cert', ), 'crt' => array ( 0 => 'application/x-x509-ca-cert', ), 'xenc' => array ( 0 => 'application/xenc+xml', ), 'xhtml' => array ( 0 => 'application/xhtml+xml', ), 'xht' => array ( 0 => 'application/xhtml+xml', ), 'xml' => array ( 0 => 'application/xml', ), 'xsl' => array ( 0 => 'application/xml', ), 'dtd' => array ( 0 => 'application/xml-dtd', ), 'xop' => array ( 0 => 'application/xop+xml', ), 'xslt' => array ( 0 => 'application/xslt+xml', ), 'xspf' => array ( 0 => 'application/xspf+xml', ), 'mxml' => array ( 0 => 'application/xv+xml', ), 'xhvml' => array ( 0 => 'application/xv+xml', ), 'xvml' => array ( 0 => 'application/xv+xml', ), 'xvm' => array ( 0 => 'application/xv+xml', ), 'zip' => array ( 0 => 'application/zip', ), 'au' => array ( 0 => 'audio/basic', ), 'snd' => array ( 0 => 'audio/basic', ), 'mid' => array ( 0 => 'audio/midi', ), 'midi' => array ( 0 => 'audio/midi', ), 'kar' => array ( 0 => 'audio/midi', ), 'rmi' => array ( 0 => 'audio/midi', ), 'mp4a' => array ( 0 => 'audio/mp4', ), 'mpga' => array ( 0 => 'audio/mpeg', ), 'mp2' => array ( 0 => 'audio/mpeg', ), 'mp2a' => array ( 0 => 'audio/mpeg', ), 'mp3' => array ( 0 => 'audio/mpeg', ), 'm2a' => array ( 0 => 'audio/mpeg', ), 'm3a' => array ( 0 => 'audio/mpeg', ), 'oga' => array ( 0 => 'audio/ogg', ), 'ogg' => array ( 0 => 'audio/ogg', ), 'spx' => array ( 0 => 'audio/ogg', ), 'eol' => array ( 0 => 'audio/vnd.digital-winds', ), 'dts' => array ( 0 => 'audio/vnd.dts', ), 'dtshd' => array ( 0 => 'audio/vnd.dts.hd', ), 'lvp' => array ( 0 => 'audio/vnd.lucent.voice', ), 'pya' => array ( 0 => 'audio/vnd.ms-playready.media.pya', ), 'ecelp4800' => array ( 0 => 'audio/vnd.nuera.ecelp4800', ), 'ecelp7470' => array ( 0 => 'audio/vnd.nuera.ecelp7470', ), 'ecelp9600' => array ( 0 => 'audio/vnd.nuera.ecelp9600', ), 'wav' => array ( 0 => 'audio/x-wav', ), 'aif' => array ( 0 => 'audio/x-aiff', ), 'aiff' => array ( 0 => 'audio/x-aiff', ), 'aifc' => array ( 0 => 'audio/x-aiff', ), 'm3u' => array ( 0 => 'audio/x-mpegurl', ), 'wax' => array ( 0 => 'audio/x-ms-wax', ), 'wma' => array ( 0 => 'audio/x-ms-wma', ), 'ram' => array ( 0 => 'audio/x-pn-realaudio', ), 'ra' => array ( 0 => 'audio/x-pn-realaudio', ), 'rmp' => array ( 0 => 'audio/x-pn-realaudio-plugin', ), 'cdx' => array ( 0 => 'chemical/x-cdx', ), 'cif' => array ( 0 => 'chemical/x-cif', ), 'cmdf' => array ( 0 => 'chemical/x-cmdf', ), 'cml' => array ( 0 => 'chemical/x-cml', ), 'csml' => array ( 0 => 'chemical/x-csml', ), 'xyz' => array ( 0 => 'chemical/x-xyz', ), 'bmp' => array ( 0 => 'image/bmp', ), 'cgm' => array ( 0 => 'image/cgm', ), 'g3' => array ( 0 => 'image/g3fax', ), 'gif' => array ( 0 => 'image/gif', ), 'ief' => array ( 0 => 'image/ief', ), 'jpeg' => array ( 0 => 'image/jpeg', ), 'jpg' => array ( 0 => 'image/jpeg', ), 'jpe' => array ( 0 => 'image/jpeg', ), 'png' => array ( 0 => 'image/png', ), 'btif' => array ( 0 => 'image/prs.btif', ), 'svg' => array ( 0 => 'image/svg+xml', ), 'svgz' => array ( 0 => 'image/svg+xml', ), 'tiff' => array ( 0 => 'image/tiff', ), 'tif' => array ( 0 => 'image/tiff', ), 'psd' => array ( 0 => 'image/vnd.adobe.photoshop', ), 'djvu' => array ( 0 => 'image/vnd.djvu', ), 'djv' => array ( 0 => 'image/vnd.djvu', ), 'dwg' => array ( 0 => 'image/vnd.dwg', ), 'dxf' => array ( 0 => 'image/vnd.dxf', ), 'fbs' => array ( 0 => 'image/vnd.fastbidsheet', ), 'fpx' => array ( 0 => 'image/vnd.fpx', ), 'fst' => array ( 0 => 'image/vnd.fst', ), 'mmr' => array ( 0 => 'image/vnd.fujixerox.edmics-mmr', ), 'rlc' => array ( 0 => 'image/vnd.fujixerox.edmics-rlc', ), 'mdi' => array ( 0 => 'image/vnd.ms-modi', ), 'npx' => array ( 0 => 'image/vnd.net-fpx', ), 'wbmp' => array ( 0 => 'image/vnd.wap.wbmp', ), 'xif' => array ( 0 => 'image/vnd.xiff', ), 'ras' => array ( 0 => 'image/x-cmu-raster', ), 'cmx' => array ( 0 => 'image/x-cmx', ), 'ico' => array ( 0 => 'image/x-icon', ), 'pcx' => array ( 0 => 'image/x-pcx', ), 'pic' => array ( 0 => 'image/x-pict', ), 'pct' => array ( 0 => 'image/x-pict', ), 'pnm' => array ( 0 => 'image/x-portable-anymap', ), 'pbm' => array ( 0 => 'image/x-portable-bitmap', ), 'pgm' => array ( 0 => 'image/x-portable-graymap', ), 'ppm' => array ( 0 => 'image/x-portable-pixmap', ), 'rgb' => array ( 0 => 'image/x-rgb', ), 'xbm' => array ( 0 => 'image/x-xbitmap', ), 'xpm' => array ( 0 => 'image/x-xpixmap', ), 'xwd' => array ( 0 => 'image/x-xwindowdump', ), 'eml' => array ( 0 => 'message/rfc822', ), 'mime' => array ( 0 => 'message/rfc822', ), 'igs' => array ( 0 => 'model/iges', ), 'iges' => array ( 0 => 'model/iges', ), 'msh' => array ( 0 => 'model/mesh', ), 'mesh' => array ( 0 => 'model/mesh', ), 'silo' => array ( 0 => 'model/mesh', ), 'dwf' => array ( 0 => 'model/vnd.dwf', ), 'gdl' => array ( 0 => 'model/vnd.gdl', ), 'gtw' => array ( 0 => 'model/vnd.gtw', ), 'mts' => array ( 0 => 'model/vnd.mts', ), 'vtu' => array ( 0 => 'model/vnd.vtu', ), 'wrl' => array ( 0 => 'model/vrml', ), 'vrml' => array ( 0 => 'model/vrml', ), 'ics' => array ( 0 => 'text/calendar', ), 'ifb' => array ( 0 => 'text/calendar', ), 'css' => array ( 0 => 'text/css', ), 'csv' => array ( 0 => 'text/csv', ), 'html' => array ( 0 => 'text/html', ), 'htm' => array ( 0 => 'text/html', ), 'txt' => array ( 0 => 'text/plain', ), 'text' => array ( 0 => 'text/plain', ), 'conf' => array ( 0 => 'text/plain', ), 'def' => array ( 0 => 'text/plain', ), 'list' => array ( 0 => 'text/plain', ), 'log' => array ( 0 => 'text/plain', ), 'in' => array ( 0 => 'text/plain', ), 'dsc' => array ( 0 => 'text/prs.lines.tag', ), 'rtx' => array ( 0 => 'text/richtext', ), 'sgml' => array ( 0 => 'text/sgml', ), 'sgm' => array ( 0 => 'text/sgml', ), 'tsv' => array ( 0 => 'text/tab-separated-values', ), 't' => array ( 0 => 'text/troff', ), 'tr' => array ( 0 => 'text/troff', ), 'roff' => array ( 0 => 'text/troff', ), 'man' => array ( 0 => 'text/troff', ), 'me' => array ( 0 => 'text/troff', ), 'ms' => array ( 0 => 'text/troff', ), 'uri' => array ( 0 => 'text/uri-list', ), 'uris' => array ( 0 => 'text/uri-list', ), 'urls' => array ( 0 => 'text/uri-list', ), 'fly' => array ( 0 => 'text/vnd.fly', ), 'flx' => array ( 0 => 'text/vnd.fmi.flexstor', ), 'gv' => array ( 0 => 'text/vnd.graphviz', ), '3dml' => array ( 0 => 'text/vnd.in3d.3dml', ), 'spot' => array ( 0 => 'text/vnd.in3d.spot', ), 'jad' => array ( 0 => 'text/vnd.sun.j2me.app-descriptor', ), 'wml' => array ( 0 => 'text/vnd.wap.wml', ), 'wmls' => array ( 0 => 'text/vnd.wap.wmlscript', ), 's' => array ( 0 => 'text/x-asm', ), 'asm' => array ( 0 => 'text/x-asm', ), 'c' => array ( 0 => 'text/x-c', ), 'cc' => array ( 0 => 'text/x-c', ), 'cxx' => array ( 0 => 'text/x-c', ), 'cpp' => array ( 0 => 'text/x-c', ), 'h' => array ( 0 => 'text/x-c', ), 'hh' => array ( 0 => 'text/x-c', ), 'dic' => array ( 0 => 'text/x-c', ), 'f' => array ( 0 => 'text/x-fortran', ), 'for' => array ( 0 => 'text/x-fortran', ), 'f77' => array ( 0 => 'text/x-fortran', ), 'f90' => array ( 0 => 'text/x-fortran', ), 'p' => array ( 0 => 'text/x-pascal', ), 'pas' => array ( 0 => 'text/x-pascal', ), 'java' => array ( 0 => 'text/x-java-source', ), 'etx' => array ( 0 => 'text/x-setext', ), 'uu' => array ( 0 => 'text/x-uuencode', ), 'vcs' => array ( 0 => 'text/x-vcalendar', ), 'vcf' => array ( 0 => 'text/x-vcard', ), '3gp' => array ( 0 => 'video/3gpp', ), '3g2' => array ( 0 => 'video/3gpp2', ), 'h261' => array ( 0 => 'video/h261', ), 'h263' => array ( 0 => 'video/h263', ), 'h264' => array ( 0 => 'video/h264', ), 'jpgv' => array ( 0 => 'video/jpeg', ), 'jpm' => array ( 0 => 'video/jpm', ), 'jpgm' => array ( 0 => 'video/jpm', ), 'mj2' => array ( 0 => 'video/mj2', ), 'mjp2' => array ( 0 => 'video/mj2', ), 'mp4' => array ( 0 => 'video/mp4', ), 'mp4v' => array ( 0 => 'video/mp4', ), 'mpg4' => array ( 0 => 'video/mp4', ), 'mpeg' => array ( 0 => 'video/mpeg', ), 'mpg' => array ( 0 => 'video/mpeg', ), 'mpe' => array ( 0 => 'video/mpeg', ), 'm1v' => array ( 0 => 'video/mpeg', ), 'm2v' => array ( 0 => 'video/mpeg', ), 'ogv' => array ( 0 => 'video/ogg', ), 'qt' => array ( 0 => 'video/quicktime', ), 'mov' => array ( 0 => 'video/quicktime', ), 'fvt' => array ( 0 => 'video/vnd.fvt', ), 'mxu' => array ( 0 => 'video/vnd.mpegurl', ), 'm4u' => array ( 0 => 'video/vnd.mpegurl', ), 'pyv' => array ( 0 => 'video/vnd.ms-playready.media.pyv', ), 'viv' => array ( 0 => 'video/vnd.vivo', ), 'fli' => array ( 0 => 'video/x-fli', ), 'asx' => array ( 0 => 'video/x-ms-asf', ), 'wm' => array ( 0 => 'video/x-ms-wm', ), 'wmv' => array ( 0 => 'video/x-ms-wmv', ), 'wmx' => array ( 0 => 'video/x-ms-wmx', ), 'wvx' => array ( 0 => 'video/x-ms-wvx', ), 'avi' => array ( 0 => 'video/x-msvideo', ), 'movie' => array ( 0 => 'video/x-sgi-movie', ), 'ice' => array ( 0 => 'x-conference/x-cooltalk', ),);
+		$this->mime_type_to_extensions = ;
 	}
+	/*
+	 * Gets the mime types mapped to the given extension
+	 */
+	public function getMimeTypes($extension) {
+		if(!array_key_exists($extension, $this->extension_to_mime_types)) {
+			die("Warning- the given extension does not exist.");
+			return null;
+		}
+		return $this->extension_to_mime_types[$extension];
+	}
+	/*
+	 * Gets the extensions mapped to the given mime type
+	 */
 	public function getExtensions($mime_type) {
-		if(!array_key_exists($mime_type, $this->extensions)) {
+		if(!array_key_exists($mime_type, $this->mime_type_to_extensions)) {
 			die("Warning- the given MIME type does not exist.");
 			return null;
 		}
-		$return = $this->extensions[$mime_type];
-		if(!is_array($return)) {
-			$return = array($return);
-		}
-		return $return;
+		return $this->mime_type_to_extensions[$mime_type];
+		
 	}
-	public function displayMap() {
+	
+	/*
+	 * Sets the mime type(s) mapped to the given extension
+	 */
+	public function setExtension($extension, $mime_type) {
+		if(is_array($mime_type)) {
+			$this->extension_to_mime_types[$extension] = $mime_type;
+		} else {
+			$this->extension_to_mime_types[$extension] = array($mime_type);
+		}
+		return true;
+	}
+	
+	/*
+	 * Sets the extension(s) mapped to the given mime type
+	 */
+	public function setMimeType($mime_type, $extension) {
+		if(is_array($extension)) {
+			$this->mime_type_to_extensions[$mime_type] = $extension;
+		} else {
+			$this->mime_type_to_extensions[$mime_type] = array($extension);
+		}
+		return true;
+	}
+	
+	/*
+	 * Maps an additional mime_type to the given extension key
+	 */
+	public function MapMimeTypeToExtension($extension, $mime_type) {
+		if(!isset($this->extension_to_mime_types[$extension])) {
+			$this->extension_to_mime_types[$extension] = array($mime_type);
+		} else {
+			$this->extension_to_mime_types[$extension][] = $mime_stype; 
+		}
+		return true;
+	}
+	
+	/*
+	 * Maps an additional mime_type to the given extension key
+	 */
+	public function MapExtensionToMimeType($mime_type, $extension) {
+		if(!isset($this->mime_type_to_extensions[$mime_type])) {
+			$this->mime_type_to_extensions[$mime_type] = array($extension);
+		} else {
+			$this->mime_type_to_extensions[$mime_type][] = $extension; 
+		}
+		return true;
+	}
+	
+	/*
+	 * Gets the private mapping of mime types to extensions
+	 */
+	public function getExtensionMimeTypes() {
+		return $this->extension_to_mime_types;
+	}
+	
+	/*
+	 * Gets the private mapping of extensions to mime types
+	 */
+	public function getMimeTypeExtensions() {
+		return $this->mime_type_to_extensions;
+	}
+	
+	/*public function displayMap() {
 		foreach($this->extensions as $type => $extension) {
 			if(is_array($extension)) {
 				echo($type.": ");
@@ -455,21 +108,13 @@ class MimeMap
 				echo($type.": ".$extension."<br>");
 			}
 		}
-	}
-	public function mapExtension($extension, $type) {
-		if(!isset($this->extensions[$extension])) {
-			$this->extensions[$extension] = array($type);
-		} else {
-			$this->extensions[$extension][] = $type; 
-		}
-		return true;
-	}
-	private function convertMap() {
+	}*/
+	/*private function convertMap() {
 		$converted_array = array();
 		foreach($this->extensions as $extension=>$type) {	
 			$converted_array[$extension] = array($type);
 		}
-	}
+	}*/
 	function system_extension_mime_types() {
 		# Returns the system MIME type mapping of extensions to MIME types, as defined in /etc/mime.types.
 		$out = array();
@@ -517,7 +162,7 @@ class MimeMap
 				continue;
 			$type = array_shift($parts);
 			if(!isset($out[$type]))
-				$out[$type] = array_shift($parts);
+				$out[$type] = array(array_shift($parts));
 		}
 		fclose($file);
 		return $out;
