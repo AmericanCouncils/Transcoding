@@ -4,6 +4,7 @@ namespace AC\Component\Transcoding\Preset\Handbrake;
 
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
+use AC\Component\Transcoding\MimeMap;
 
 abstract class BasePreset extends Preset
 {
@@ -11,6 +12,8 @@ abstract class BasePreset extends Preset
 
     protected function buildInputDefinition()
     {
+		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','swf','wmv');
+		$allowedMimeTypes = array();
         return new FileHandlerDefinition(array(
 			'allowedMimeTypes' => array(
 				'video/mp4', //mp4
