@@ -167,6 +167,7 @@ class MimeMap
 				$out[$type] = array(array_shift($parts));
 			} else {
 				$out[$type][] = $parts;
+				die("here----$parts");
 			}
 		}
 		fclose($file);
