@@ -12,7 +12,22 @@ abstract class BasePreset extends Preset
     protected function buildInputDefinition()
     {
         return new FileHandlerDefinition(array(
-            'requiredType' => 'file',
+			'allowedMimeTypes' => array(
+				'video/mp4', //mp4
+				'video/quicktime', //.mov and .mp4
+				'video/x-ms-asf', //asf
+				'application/octet-stream', //asf
+				'video/x-msvideo', //avi
+				//'audio/x-ms-wma',
+				'video/x-flv', //flv
+				'audio/x-realaudio', //rm
+				'application/vnd.rn-realmedia', //rm
+				//'application/x-shockwave-flash', //swf
+				'video/x-ms-wmv', //wmv
+				//None found for .3gp
+			),
+            'allowedMimeEncodings' => array('binary'),
+			'requiredType' => 'file',
         ));
     }
 
