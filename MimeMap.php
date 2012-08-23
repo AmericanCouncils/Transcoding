@@ -166,7 +166,7 @@ class MimeMap
 			if(!isset($out[$type])) {
 				$out[$type] = array(array_shift($parts));
 			} else {
-				$out[$type][] = array_shift($parts);
+				$out[$type][] = $parts;
 			}
 		}
 		fclose($file);
