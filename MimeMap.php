@@ -446,7 +446,7 @@ class MimeMap
 	}
 	public function displayMap() {
 		foreach($this->extensions as $type => $extension) {
-			echo($type.": ".var_dump($extension)."<br>");
+			echo($type.": ".$extension."<br>");
 		}
 	}
 }
