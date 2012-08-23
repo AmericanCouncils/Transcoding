@@ -22,6 +22,7 @@ abstract class BasePreset extends Preset
 				$allowedMimeTypes[] = $type;
 			}
 		}
+		//die(var_dump($allowedMimeTypes));
         return new FileHandlerDefinition(array(
 			/*'allowedMimeTypes' => array(
 				'video/mp4', //mp4
