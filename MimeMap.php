@@ -4,7 +4,7 @@ namespace AC\Component\Transcoding;
 
 class MimeMap
 {
-	private static $extensions; 
+	private $extensions; 
 	
 	public function __construct() {
 		$this->extensions = array(
