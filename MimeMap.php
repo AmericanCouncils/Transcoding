@@ -493,7 +493,7 @@ class MimeMap
 		# Returns the system MIME type mapping of MIME types to extensions, as defined in /etc/mime.types (considering the first
 		# extension listed to be canonical).
 		$out = array();
-		$file = fopen('/etc/mime.types', 'r');
+		$file = fopen('C:\xampp\apache\conf\mime.types', 'r');
 		while(($line = fgets($file)) !== false) {
 			$line = trim(preg_replace('/#.*/', '', $line));
 			if(!$line)
