@@ -22,6 +22,7 @@ abstract class BasePreset extends Preset
 				$allowedMimeTypes[] = $type;
 			}
 		}
+		$allowedMimeTypes[]="application/octet_stream";
 		//die(var_dump($allowedMimeTypes));
         return new FileHandlerDefinition(array(
 			/*'allowedMimeTypes' => array(

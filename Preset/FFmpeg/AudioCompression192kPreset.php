@@ -22,5 +22,7 @@ class AudioCompression192kPreset extends BasePreset
             '-o' => '',
         ));
     }
-
+	public function getOutputExtension() {
+		
+	}
 }
