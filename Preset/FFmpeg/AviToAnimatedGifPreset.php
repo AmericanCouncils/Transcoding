@@ -38,7 +38,4 @@ class AviToAnimatedGifPreset extends BasePreset
             'inheritExtension' => false,
 		));
 	}
-	public function getOutputExtension() {
-		
-	}
 }

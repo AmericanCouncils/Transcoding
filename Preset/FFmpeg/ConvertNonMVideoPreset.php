@@ -34,7 +34,4 @@ class ConvertNonMVideoPreset extends BasePreset
             'inheritExtension' => false,
         ));
     }
-	public function getOutputExtension() {
-		
-	}
 }

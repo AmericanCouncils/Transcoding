@@ -20,7 +20,4 @@ class AudioCompression96kPreset extends BasePreset
             '-ab' => '96k',
         ));
     }
-	public function getOutputExtension() {
-		
-	}
 }

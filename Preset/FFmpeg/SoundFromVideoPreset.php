@@ -35,7 +35,4 @@ class SoundFromVideoPreset extends BasePreset
             'inheritExtension' => false,
 		));
 	}
-	public function getOutputExtension() {
-		
-	}
 }
