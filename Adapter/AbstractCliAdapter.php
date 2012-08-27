@@ -94,7 +94,7 @@ abstract class AbstractCliAdapter extends Adapter
     {
         //get assembled process instance from extending class
         $builder = $this->buildProcess($inFile, $preset, $outFilePath);
-
+		
         //check the return
         if (!$builder instanceof ProcessBuilder) {
             throw new \InvalidArgumentException(sprintf("%s must return an instance of Symfony\Component\Process\ProcessBuilder", get_class($this)."::buildProcess"));

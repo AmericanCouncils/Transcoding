@@ -70,24 +70,21 @@ class FFmpegAdapter extends AbstractCliAdapter
      */
     public function buildProcess(File $inFile, Preset $preset, $outFilePath)
     {
-        //get builder with required options for in/out file
-        $builder = $this->getProcessBuilder(array(
-            $this->ffmpeg_path,
-            '-i',
-            $inFile->getPathname(),
-            '-o',
-            $outFilePath,
-        ));
-
-        //add preset options
-        foreach ($preset->getOptions() as $key => $value) {
+		$options = array($this->ffmpeg_path, '-i', $inFile->getPathname());
+		
+		//add preset options
+		foreach ($preset->getOptions() as $key => $value) {
             if (!empty($key)) {
-                $builder->add($key);
+                $options[] = $key;
             }
             if (!empty($value)) {
-                $builder->add($value);
+                $options[] = $value;
             }
         }
+		$options[] = $outFilePath;
+		
+        //get builder with required options for in/out file
+        $builder = $this->getProcessBuilder($options);
 
         return $builder;
     }
