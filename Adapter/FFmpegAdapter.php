@@ -75,7 +75,6 @@ class FFmpegAdapter extends AbstractCliAdapter
             $this->ffmpeg_path,
             '-i',
             $inFile->getPathname(),
-            '-o',
             $outFilePath,
         ));
 
