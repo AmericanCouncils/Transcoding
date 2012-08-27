@@ -15,7 +15,7 @@ abstract class BasePreset extends Preset
 		$allowedMimeTypes = array();
 		$extensions_to_check = array('mp4','mov','asf','avi','flv','rm','wmv'); //No swf or 3gp
 		$mime_map = new MimeMap();
-		$mime_map->setExtension('flv','video/x-flv');
+		$mime_map->addExtensionToMimeType('flv','video/x-flv');
 		$ext_map = $mime_map->getExtensionToMimeTypes();
 		foreach($extensions_to_check as $ext) {
 			foreach($ext_map[$ext] as $type) {
