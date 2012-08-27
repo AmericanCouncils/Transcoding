@@ -21,8 +21,6 @@ class ConvertNonMVideoPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-            '-i' => '',
-            '-o' => '',
         ));
     }
     protected function buildOutputDefinition()
