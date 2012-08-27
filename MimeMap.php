@@ -33,7 +33,7 @@ class MimeMap
 	/*
 	 * Sets the given extension, so that it maps to the given mime type(s) 
 	 */
-	public function setExtension($extension, $mime_type) {
+	public function addExtensionToMimeType($extension, $mime_type) {
 		if(is_array($mime_type)) {
 			$this->extension_to_mime_types[$extension] = $mime_type;
 		} else {
@@ -45,7 +45,7 @@ class MimeMap
 	/*
 	 * Sets the given mime type, so that it maps to the given extension(s) 
 	 */
-	public function setMimeType($mime_type, $extension) {
+	public function addMimeTypeToExtension($mime_type, $extension) {
 		if(is_array($extension)) {
 			$this->mime_type_to_extensions[$mime_type] = $extension;
 		} else {
@@ -91,81 +91,5 @@ class MimeMap
 	 */
 	public function getMimeTypeToExtensions() {
 		return $this->mime_type_to_extensions;
-	}
-	
-	
-	function system_extension_mime_types() {
-		# Returns the system MIME type mapping of extensions to MIME types, as defined in /etc/mime.types.
-		$out = array();
-		$file = fopen('C:\xampp\apache\conf\mime.types', 'r');
-		while(($line = fgets($file)) !== false) {
-			$line = trim(preg_replace('/#.*/', '', $line));
-			if(!$line)
-				continue;
-			$parts = preg_split('/\s+/', $line);
-			if(count($parts) == 1)
-				continue;
-			$type = array_shift($parts);
-			foreach($parts as $part)
-				$out[$part] = array($type);
-		}
-		fclose($file);
-		return $out;
-	}
-
-	function system_extension_mime_type($file) {
-		# Returns the system MIME type (as defined in /etc/mime.types) for the filename specified.
-		#
-		# $file - the filename to examine
-		static $types;
-		if(!isset($types))
-			$types = system_extension_mime_types();
-		$ext = pathinfo($file, PATHINFO_EXTENSION);
-		if(!$ext)
-			$ext = $file;
-		$ext = strtolower($ext);
-		return isset($types[$ext]) ? $types[$ext] : null;
-	}
-
-	function system_mime_type_extensions() {
-		# Returns the system MIME type mapping of MIME types to extensions, as defined in /etc/mime.types (considering the first
-		# extension listed to be canonical).
-		$out = array();
-		$file = fopen('C:\xampp\apache\conf\mime.types', 'r');
-		while(($line = fgets($file)) !== false) {
-			$line = trim(preg_replace('/#.*/', '', $line));
-			if(!$line)
-				continue;
-			$parts = preg_split('/\s+/', $line);
-			if(count($parts) == 1)
-				continue;
-			$type = array_shift($parts);
-			if(!isset($out[$type])) {
-				$out[$type] = array(array_shift($parts));
-			} 
-		}
-		fclose($file);
-		return $out;
-	}
-
-	function system_mime_type_extension($type) {
-		# Returns the canonical file extension for the MIME type specified, as defined in /etc/mime.types (considering the first
-		# extension listed to be canonical).
-		#
-		# $type - the MIME type
-		static $exts;
-		if(!isset($exts))
-			$exts = system_mime_type_extensions();
-		return isset($exts[$type]) ? $exts[$type] : null;
-	}
-
-	public function generateUpToDateMimeArray(){
-		$url = 'http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types';
-		$s=array();
-		foreach(@explode("\n",@file_get_contents($url))as $x)
-			if(isset($x[0])&&$x[0]!=='#'&&preg_match_all('#([^\s]+)#',$x,$out)&&isset($out[1])&&($c=count($out[1]))>1)
-				for($i=1;$i<$c;$i++)
-					$s[]='&nbsp;&nbsp;&nbsp;\''.$out[1][$i].'\' => \''.$out[1][0].'\'';
-		return @sort($s)?'$mime_types = array(<br />'.implode($s,',<br />').'<br />);':false;
 	}
 }
