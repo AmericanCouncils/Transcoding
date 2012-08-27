@@ -17,9 +17,7 @@ class AudioCompression128kPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-            '-i' => '',
             '-ab' => '128k',
-            '-o' => '',
         ));
     }
 	public function getOutputExtension() {
