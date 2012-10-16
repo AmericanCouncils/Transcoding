@@ -19,7 +19,7 @@ class Transcoder
     /**
      * The general version for the library, stored as a constant here as this object is the main entry point.
      */
-    const VERSION = "0.2.1";
+    const VERSION = "0.3.0";
 
     /**
      * If a file already exists, remove the pre-existing file before initiating the transcode
