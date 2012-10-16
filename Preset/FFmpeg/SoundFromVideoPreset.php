@@ -28,11 +28,12 @@ class SoundFromVideoPreset extends BasePreset
         ));
     }
 
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'requiredExtension' => 'mp3',
-            'inheritExtension' => false,
-		));
-	}
+    protected function buildOutputDefinition()
+    {
+        return new FileHandlerDefinition(array(
+            'requiredType' => 'file',
+            'requiredExtension' => 'mp3',
+            'inheritInputExtension' => false,
+        ));
+    }
 }

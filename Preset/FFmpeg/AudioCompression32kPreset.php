@@ -9,7 +9,7 @@ class AudioCompression32kPreset extends BasePreset
     protected $key = "ffmpeg.audio_compression_32k";
     protected $name = "Audio Compression 32k Preset";
     protected $description = "A ffmpeg preset that compresses an audio file to a bite rate of 32kb/s";
-	protected $requiresOutputExtension = true;
+    protected $requiresOutputExtension = true;
 
     /**
      * Specify the options for this specific preset

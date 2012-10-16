@@ -9,7 +9,7 @@ use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\File;
 
 /**
- * An abstract CLI adapter.  Extending classes just need to return a process builder for the command they want to run, and define custon
+ * An abstract CLI adapter.  Extending classes just need to return a process builder for the command they want to run, and define custom
  * input/output file handlers and/or validation.
  *
  * @package Transcoding
@@ -94,7 +94,7 @@ abstract class AbstractCliAdapter extends Adapter
     {
         //get assembled process instance from extending class
         $builder = $this->buildProcess($inFile, $preset, $outFilePath);
-		
+
         //check the return
         if (!$builder instanceof ProcessBuilder) {
             throw new \InvalidArgumentException(sprintf("%s must return an instance of Symfony\Component\Process\ProcessBuilder", get_class($this)."::buildProcess"));
