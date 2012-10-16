@@ -9,7 +9,7 @@ namespace AC\Component\Transcoding;
  * @package Transcoding
  * @author Evan Villemez
  */
-class File extends \SplFileObject
+class File extends \SplFileInfo
 {
     private $_realpath = false;
     private $_finfo_mime_type = false;

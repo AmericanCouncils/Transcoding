@@ -14,12 +14,12 @@ use AC\Component\Transcoding\Event\FileEvent;
  * @package Transcoding
  * @author Evan Villemez
  */
-class Transcoder extends EventDispatcher
+class Transcoder
 {
     /**
      * The general version for the library, stored as a constant here as this object is the main entry point.
      */
-    const VERSION = "0.2.0";
+    const VERSION = "0.2.1";
 
     /**
      * If a file already exists, remove the pre-existing file before initiating the transcode
@@ -89,13 +89,25 @@ class Transcoder extends EventDispatcher
     protected $presets = array();
 
     /**
-     * Storage array of registered jobs.
+     * Dispatcher for events notified by the Transcoder
      *
-     * Format is hash of job_name => object
-     *
-     * @var array
+     * @var EventDispatcher
      */
-    protected $jobs = array();
+    private $dispatcher;
+
+    /**
+     * Constructor. EventDispatcher can be injected, otherwise builds a default.
+     *
+     * @param EventDispatcher $dispatcher
+     */
+    public function __construct(EventDispatcher $dispatcher = null)
+    {
+        $this->dispatcher = $dispatcher;
+
+        if (!$this->dispatcher) {
+            $this->dispatcher = new EventDispatcher();
+        }
+    }
 
     /**
      * The core method of the transcode process.  Takes file input, validates, runs a transcode process, validates return, and returns file output.
@@ -151,7 +163,7 @@ class Transcoder extends EventDispatcher
         } catch (\Exception $e) {
 
             //notify listeners of failure
-            $this->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
+            $this->dispatcher->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
 
             //rethrow for containing environment to handle
             throw $e;
@@ -161,7 +173,7 @@ class Transcoder extends EventDispatcher
         try {
 
             //notify listeners of transcode start
-            $this->dispatch(TranscodeEvents::BEFORE, new TranscodeEvent($inputPath, $presetKey, $outFilePath));
+            $this->dispatcher->dispatch(TranscodeEvents::BEFORE, new TranscodeEvent($inputPath, $presetKey, $outFilePath));
 
             //run the transcode
             $return = $adapter->transcodeFile($inFile, $preset, $outFilePath);
@@ -177,10 +189,10 @@ class Transcoder extends EventDispatcher
             $returnPath = $return->getRealPath();
 
             //notify listeners of completion
-            $this->dispatch(TranscodeEvents::AFTER, new TranscodeEvent($inputPath, $presetKey, $returnPath));
+            $this->dispatcher->dispatch(TranscodeEvents::AFTER, new TranscodeEvent($inputPath, $presetKey, $returnPath));
 
             //notify of new file
-            $this->dispatch(TranscodeEvents::FILE_CREATED, new FileEvent($returnPath));
+            $this->dispatcher->dispatch(TranscodeEvents::FILE_CREATED, new FileEvent($returnPath));
 
             //return newly created file
             return $return;
@@ -191,7 +203,7 @@ class Transcoder extends EventDispatcher
             $this->cleanFailedTranscode($adapter, $outFilePath, $failMode);
 
             //notify listeners of failure
-            $this->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
+            $this->dispatcher->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
 
             //re-throw exception so environment can handle appropriately
             throw $e;
@@ -217,20 +229,6 @@ class Transcoder extends EventDispatcher
         $preset = new Preset('dynamic', $adapterName, $options);
 
         return $this->transcodeWithPreset($inFile, $preset, $outFile, $conflictMode, $dirMode, $failMode);
-    }
-
-    /**
-     * TODO: implement eventually...
-     */
-    public function transcodeWithJob($inFile, $job, $conflictMode = self::ONCONFLICT_INCREMENT, $dirMode = self::ONDIR_CREATE, $failMode = self::ONFAIL_DELETE)
-    {
-        if (!$job instanceof Job) {
-            $job = $this->getJob($job);
-        }
-
-        //TODO: implement once the job-related APIs are defined
-        throw new \RuntimeException(__METHOD__." not yet implemented.");
-
     }
 
     /**
@@ -278,7 +276,7 @@ class Transcoder extends EventDispatcher
                 throw new Exception\FilePermissionException("The required containing directories could not be created.");
             }
 
-            $this->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
+            $this->dispatcher->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
         }
 
         //check for write permissions
@@ -292,7 +290,7 @@ class Transcoder extends EventDispatcher
                 throw new Exception\FilePermissionException(sprintf("Could not properly create the required output directory %s.", $outputPath));
             }
 
-            $this->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
+            $this->dispatcher->dispatch(TranscodeEvents::DIR_CREATED, new FileEvent($outputDirectory));
         }
 
         return $outputPath;
@@ -341,7 +339,7 @@ class Transcoder extends EventDispatcher
         foreach (scandir($path) as $item) {
             if (!in_array($item, array('.','..'))) {
                 @unlink($path.DIRECTORY_SEPARATOR.$item);
-                $this->dispatch(TranscodeEvents::DIR_REMOVED, new FileEvent($outputPath));
+                $this->dispatcher->dispatch(TranscodeEvents::DIR_REMOVED, new FileEvent($outputPath));
             }
         }
 
@@ -377,10 +375,10 @@ class Transcoder extends EventDispatcher
 
         if ($file->isDir()) {
             chmod($path, $this->getDirectoryCreationMode());
-            $this->dispatch(TranscodeEvents::DIR_MODIFIED, new FileEvent($path));
+            $this->dispatcher->dispatch(TranscodeEvents::DIR_MODIFIED, new FileEvent($path));
         } else {
             chmod($path, $this->getFileCreationMode());
-            $this->dispatch(TranscodeEvents::FILE_MODIFIED, new FileEvent($path));
+            $this->dispatcher->dispatch(TranscodeEvents::FILE_MODIFIED, new FileEvent($path));
         }
     }
 
@@ -399,7 +397,7 @@ class Transcoder extends EventDispatcher
         if (file_exists($outputFilePath)) {
             if ($failMode === self::ONFAIL_DELETE) {
                 @unlink($outputFilePath);
-                $this->dispatch(TranscodeEvents::FILE_REMOVED, new FileEvent($outputFilePath));
+                $this->dispatcher->dispatch(TranscodeEvents::FILE_REMOVED, new FileEvent($outputFilePath));
             }
         }
 
@@ -407,20 +405,23 @@ class Transcoder extends EventDispatcher
     }
 
     /**
-     * Dispatch event, but swallow exceptions thrown by listeners.
+     * Dispatch event, used by Adapters to notify adapter specific events
      *
-     * {@inheritdoc}
+     * @see EventDispatcher::dispatch
      */
     public function dispatch($name, Event $e = null)
     {
-        try {
-            $e = parent::dispatch($name, $e);
-        } catch (\Exception $e) {
-            //swallow exceptions thrown by listeners, they shouldn't interfere with the process, they are supposed to be passive observers
-            return true;
-        }
+        return $this->dispatcher->dispatch($name, $e);
+    }
 
-        return $e;
+    /**
+     * Get the Transcoder's EventDispatcher
+     *
+     * @return EventDispatcher
+     */
+    public function getDispatcher()
+    {
+        return $this->dispatcher;
     }
 
     /**
@@ -551,70 +552,6 @@ class Transcoder extends EventDispatcher
     public function getPresets()
     {
         return $this->presets;
-    }
-
-    /**
-     * Get a job by the given key
-     *
-     * @param  string                       $key
-     * @return AC\Component\Transcoding\Job
-     */
-    public function getJob($key)
-    {
-        if (!isset($this->jobs[$key])) {
-            throw new Exception\JobNotFoundException(sprintf("Requested job %s was not found in the Transcoder.", $key));
-        }
-
-        return $this->jobs[$key];
-    }
-
-    /**
-     * Return true/false if Job with given key is registered
-     *
-     * @param  string  $key
-     * @return boolean
-     */
-    public function hasJob($key)
-    {
-        return isset($this->jobs[$key]);
-    }
-
-    /**
-     * Register a job instance
-     *
-     * @param  Job  $job
-     * @return self
-     */
-    public function registerJob(Job $job)
-    {
-        $this->jobs[$job->getKey()] = $job;
-
-        return $this;
-    }
-
-    /**
-     * Remove a job with the given key
-     *
-     * @param  string $key
-     * @return self
-     */
-    public function removeJob($key)
-    {
-        if (isset($this->jobs[$key])) {
-            unset($this->jobs[$key]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get array of all registered Jobs
-     *
-     * @return array
-     */
-    public function getJobs()
-    {
-        return $this->jobs;
     }
 
     /**

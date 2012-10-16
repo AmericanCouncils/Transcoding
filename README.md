@@ -1,6 +1,8 @@
-# Implementation Details & Example Usage #
+# Transcoding #
 
 The Transcoding component is a library for abstracting file transcoding tool usage, and the presets that configure them.  If you want a quick way to use it directly without implementing it in code elsewhere, check out the [Mutate CLI App](http://github.com/americancouncils/Mutate) or the [Symfony2 Transcoding Bundle](http://github.com/americancouncils/TranscodingBundle).
+
+## Implementation Details & Example Usage ##
 
 The Transcoding component consists of several parts.
 
@@ -14,21 +16,19 @@ The Transcoding component consists of several parts.
 
 5. Fifth are `FileHandlerDefinition` instances.  These can be specified by Adapters, as well as Presets, and define what types of files are allowable as both input and output.  These instances are used internally by the `Transcoder` to ensure valid input/output and to assist in building a valid output file path if none is specified, or to catch an invalid path if provided, before it gets to the adapter for the transcode process.
 
-6. Last, there are `Job` classes.  (**NOT YET IMPLEMENTED**) Jobs are complex groupings of presets.  For example, if you want to transcode multiple files from one input file, or apply multiple presets to one file, that type of interaction can be specified in a `Job` class, which you can then execute the same as you would any other preset.
-
 Below you will see basic example usage and implementation of each the items mentioned above.
 
-## Transcoder ##
+### Transcoder ###
 
-The Transcoder does the work of standardizing the transcoding input and output.  What exactly it does when transcoding a file is determined by the registered presets, adapters and jobs.
+The Transcoder does the work of standardizing the transcoding input and output.  What exactly it does when transcoding a file is determined by the registered presets, and adapters.
 
-### Usage ###
+#### Usage ####
 
-Using the Transcoder by its self is simple, as it has no dependencies.  It can accept presets/adapters/jobs from anywhere, some of which may have their own dependencies if necessary.
+Using the Transcoder by its self is simple, as it has no dependencies.  It can accept presets/adapters from anywhere, some of which may have their own dependencies if necessary.
 
 	$transcoder = new AC\Component\Transcoding\Transcoder;
 	
-	// ... register presets, adapters & jobs ... 
+	// ... register presets & adapters ... 
 	$transcoder->registerAdapter(new MyCustomFFmpegAdapter("/path/to/ffmpeg"));
 	$transcoder->registerPreset(new FFmpeg/WebmHDPreset);
 	$transcoder->registerJob(new FFmpeg/MyHtml5VideoJob);
@@ -40,17 +40,12 @@ Using the Transcoder by its self is simple, as it has no dependencies.  It can a
 	$newFile = $transcoder->transcodeWithAdapter($inputFilePath, 'ffmpeg', array(
 		/* options */
 	));
-	
-	//transcode one file using a job (could result in many files depending on the job definition), returns an array of files (only one entry if only one file was created)
-	//note this is subject to change, jobs have not been implemented
-	$files = $transcoder->transcodeWithJob($inputFilePath, 'html5_video');
-	
-	
-## Adapters ##
+		
+### Adapters ###
 
 Adapters are wrappers for a pre-existing toolset which does the real work for any file conversion/manipulation.  Technically these adapters can be anything.  Common examples are `ffmpeg` for audio/video manipulation and ImageMagick for image manipulation in PHP.  By default, the library provides `Adapter` implementations for several commonly used tools, including those just mentioned.
 
-### Registering an adapter ###
+#### Registering an adapter ####
 
 Adapters can be fairly simple, or quite complex.  The adapters included in the library do not have external dependencies which aren't provided by the library (aside from requiring certain tools be installed on the system).  However, other adapters may require external PHP dependencies and special set-up.  It is beyond the scope of the library to handle this.
 	
@@ -63,7 +58,7 @@ Adapters can be fairly simple, or quite complex.  The adapters included in the l
 	$transcoder->registerAdapter(new ImageFormatConverterAdapter);
 	$transcoder->registerAdapter(new ImageEffectsAdapter);
 	
-### Writing an adapter ###
+#### Writing an adapter ####
 
 All adapters receive input in the same way - they simply take an input file object, a string output path, and a `Preset` instance for use during the transcode process.  Generally, adapters aren't used directly, but the `Transcoder` will call passing along registered presets, and testing for valid input/output based on the preset definition.  Below is an example template for a very simple custom adapter.  For more detailed documentation on writing an adapter, see the `README.md` in `adapters/`.
 
@@ -85,7 +80,7 @@ All adapters receive input in the same way - they simply take an input file obje
 		}
 	}
 	
-### Implementing command-line tools ###
+#### Implementing command-line tools ####
 
 Many file conversion tools are available as command line executables.  Writing code to make executing command line processes safe and consistent accross environments has already been done well with the `Symfony\Process` component, which is provided with this library.  If you want to implement a tool that requires using the command line, we highly recommend using this library rather than writing custom code.  Read more on the `Symfony\Process` component [here](https://github.com/symfony/Process).
 
@@ -113,13 +108,13 @@ For example, the FFmpeg and Handbrake adapters use the `Symfony\Process` compone
 		return new File($outputFilePath);
 	}
 
-## Presets ##
+### Presets ###
 
 Presets help streamline the transcode process by bundling together common options and requirements into one package.  Several presets are provided with the library for common types of file conversions using popular tools.
 
 For more specific documentation and a usable template, see the `README.md` in `presets/`.
 
-### Registering a preset ###
+#### Registering a preset ####
 
 Presets shouldn't have dependencies, since they are really just a mechanism for bundling options which will be passed to an adapter.  You can declare/register presets in two ways:
 
@@ -129,13 +124,45 @@ Presets shouldn't have dependencies, since they are really just a mechanism for 
 	//pre-defined preset which extends the Preset class above and defines it's settings internally
 	$transcoder->registerPreset(new Mp4_HD_720Preset);
 
-### Writing a preset ###
+#### Writing a preset ####
 
-A preset can be declared in two ways.  You may create one by instantiating the preset class, passing it the required options, or you could extend the base `Preset` class.  The library provides many presets which extend the base `Preset` class, to make them easy to work with.  Presets require two main parts, the first is the actual preset options, which will be passed to the adapter, and the second is a `FileHandlerDefinition` instance, which standardizes what the accepted input/output formats can be.  For example, check out the Handbrake preset for generating 720 mp4 videos:
+A preset can be declared in two ways.  You may create one by instantiating the preset class, passing it the required options, or you could extend the base `Preset` class.  The library provides many presets which extend the base `Preset` class, to make them easy to work with.  Presets require two main parts, the first is the actual preset options, which will be passed to the adapter, and the second is two `FileHandlerDefinition` instances, which standardize what the accepted input/output formats can be.  For example, check out the Handbrake preset for generating 720 mp4 videos:
 
-	TODO: paste example preset when finalized
+    <?php
 
-## FileHandlerDefinition instances ##
+    namespace AC\Component\Transcoding\Preset\Handbrake;
+
+    use AC\Component\Transcoding\Preset;
+
+    /**
+     * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic
+     */
+    class ClassicPreset extends BasePreset
+    {
+        protected $key = "handbrake.classic";
+        protected $name = "Classic Preset";
+        protected $description = "HandBrake's traditional, faster, lower-quality settings. ";
+
+        /**
+         * Specify the options for this specific preset
+         */
+        public function configure()
+        {
+            $this->setOptions(array(
+                'video-library-encoder' => 'x264',
+                'video-bitrate' => '1000',
+                'select-audio-tracks' => '1',
+                'audio-encoder' => 'faac',
+                'audio-bitrate' => '160',
+                'surround-sound-downmixing' => 'dp12',
+                'audio-samplerate' => 'Auto',
+                'dynamic-range-compression' => '0.0',
+                'format' => 'mp4',
+            ));
+        }
+    }	
+
+### FileHandlerDefinition instances ###
 
 Both Adapters and Presets can specify `FileHandlerDefintion` instances to restrict accepted types of input and output files.  The Transcoder uses the `FileHandlerDefinition` instances to handle input and output in a standardized manner.  `FileHandlerDefinition` instances can set restrictions on allowed or rejected input extensions, mime types, mime encodings, and other properties.
 
@@ -143,23 +170,12 @@ The `FileHandlerDefinition` instances are also used by the Transcoder to assembl
 
 By default, all `Adapter` and `Preset` classes will return `FileHandlerDefinition` instances for both input and output files which will accept files of any format.
 
-## Jobs (not implemented) ##
-
-A `Job` is a complex grouping of presets which perform multiple transcoding actions in one request.  It requires a little extra setup, but can make repetive tasks much easier to manage.  Jobs can apply multiple presets to one input file, or branch off and create several output files given one input.  For example, when optimizing videos for web delivery, you may need to transcode an uploaded video into several different formats of varying quality, and create several image thumbnails.  By defining a job classes which leverage other presets, you can define and register all of these actions in one location, ensuring each individual action is handled as thoroughly as possible.
-
-### Registering a job ###
-
-	TODO
-
-### Writing a job ###
-
-	TODO
-	
-### Running a job ###
-
-	TODO
-    
-    
-## Events ##
+### Events ###
 
 The Transcoder is also an instance of of the Symfony `EventDispatcher`.  It fires events for pretty much everything that can happen during a transcode process, for example, before and after the process, if an error occurs, and any time a file or directory is modified.  You can register listeners for these events to implement other important features, such as logging.
+
+> TODO: define/explain all the events
+
+## Development ##
+
+See `TODO.md` for an overview of where development is headed with this library.

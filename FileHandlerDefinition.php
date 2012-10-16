@@ -22,8 +22,9 @@ class FileHandlerDefinition implements \Serializable
 
     //general i/o type
     protected $allowDirectory = true;
+    protected $inheritOutputPathExtension = true;
     protected $requiredExtension = false;
-    protected $inheritExtension = false;
+    protected $inheritInputExtension = false;
     protected $requiredType = false;
 
     /**
@@ -196,9 +197,9 @@ class FileHandlerDefinition implements \Serializable
      *
      * @return boolean
      */
-    public function getInheritExtension()
+    public function getInheritInputExtension()
     {
-        return $this->inheritExtension;
+        return $this->inheritInputExtension;
     }
 
     /**
@@ -207,9 +208,32 @@ class FileHandlerDefinition implements \Serializable
      * @param  bool $bool
      * @return self
      */
-    public function setInheritExtension($bool)
+    public function setInheritInputExtension($bool)
     {
-        $this->inheritExtension = (bool) $bool;
+        $this->inheritInputExtension = (bool) $bool;
+
+        return $this;
+    }
+
+    /**
+     * Get whether or not the output extension should be inherited from the specified outgoing filepath
+     *
+     * @return bool
+     */
+    public function getInheritOutputPathExtension()
+    {
+        return $this->inheritOutputPathExtension;
+    }
+
+    /**
+     * Set whether or not the output extension should be inherited from a specified output file path
+     *
+     * @param  bool $bool
+     * @return self
+     */
+    public function setInheritOutputPathExtension($bool)
+    {
+        $this->inheritOutputPathExtension = (bool) $bool;
 
         return $this;
     }

@@ -23,7 +23,7 @@ abstract class BasePreset extends Preset
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
-            'inheritExtension' => false,
+            'inheritInputExtension' => false,
         ));
     }
 }

@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 /**
  * A handbrake adapter, see https://trac.handbrake.fr/wiki/CLIGuide for more information about Handbrake
  *
- * Written by Andrew Freix
+ * @author Andrew Freix
  */
 class HandbrakeAdapter extends AbstractCliAdapter
 {

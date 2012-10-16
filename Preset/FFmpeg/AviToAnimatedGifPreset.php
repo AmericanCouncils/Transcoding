@@ -20,17 +20,17 @@ class AviToAnimatedGifPreset extends BasePreset
     public function configure()
     {
         $this->setOptions(array(
-            '-i' => '',
             '-pix_fmt' => 'rgb24',
-            '-o' => '',
         ));
     }
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'requiredExtension' => 'gif',
-            'inheritExtension' => false,
-		));
-	}
+
+    protected function buildOutputDefinition()
+    {
+        return new FileHandlerDefinition(array(
+            'requiredType' => 'file',
+            'requiredExtension' => 'gif',
+            'inheritInputExtension' => false,
+        ));
+    }
 
 }

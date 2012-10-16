@@ -32,8 +32,8 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
         $d = new FileHandlerDefinition(array(
             'allowedExtensions' => array('html','php','txt'),
             'allowedMimeEncodings' => array('us-ascii'),
-            'rejectedMimeTypes' => array('text/x-php'),
-            'inheritExtension' => true
+            'rejectedMimeTypes' => array('text/x-c++'),
+            'inheritInputExtension' => true
         ));
 
         $this->assertTrue($d->acceptsExtension('html'));
@@ -41,7 +41,7 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($d->acceptsMimeEncoding('us-ascii'));
         $this->assertFalse($d->acceptsMimeEncoding('utf-8'));
         $this->assertTrue($d->acceptsMimeType('text/plain'));
-        $this->assertFalse($d->acceptsMimeType('text/x-php'));
+        $this->assertFalse($d->acceptsMimeType('text/x-c++'));
     }
 
     /**
@@ -77,18 +77,18 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
         $d = new FileHandlerDefinition;
 
         $this->assertTrue($d->acceptsMime('text/plain; charset=us-ascii'));
-        $this->assertTrue($d->acceptsMime('text/x-php; charset=us-ascii'));
+        $this->assertTrue($d->acceptsMime('text/x-c++; charset=us-ascii'));
         $d->setAllowedMimes(array('text/plain; charset=us-ascii'));
         $this->assertTrue($d->acceptsMime('text/plain; charset=us-ascii'));
-        $this->assertFalse($d->acceptsMime('text/x-php; charset=us-ascii'));
+        $this->assertFalse($d->acceptsMime('text/x-c++; charset=us-ascii'));
 
         $d = new FileHandlerDefinition;
 
         $this->assertTrue($d->acceptsMime('text/plain; charset=us-ascii'));
-        $this->assertTrue($d->acceptsMime('text/x-php; charset=us-ascii'));
+        $this->assertTrue($d->acceptsMime('text/x-c++; charset=us-ascii'));
         $d->setRejectedMimes(array('text/plain; charset=us-ascii'));
         $this->assertFalse($d->acceptsMime('text/plain; charset=us-ascii'));
-        $this->assertTrue($d->acceptsMime('text/x-php; charset=us-ascii'));
+        $this->assertTrue($d->acceptsMime('text/x-c++; charset=us-ascii'));
     }
 
     public function testAcceptsMimeTypes()
@@ -96,18 +96,18 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
         $d = new FileHandlerDefinition;
 
         $this->assertTrue($d->acceptsMimeType('text/plain'));
-        $this->assertTrue($d->acceptsMimeType('text/x-php'));
+        $this->assertTrue($d->acceptsMimeType('text/x-c++'));
         $d->setAllowedMimeTypes(array('text/plain'));
         $this->assertTrue($d->acceptsMimeType('text/plain'));
-        $this->assertFalse($d->acceptsMimeType('text/x-php'));
+        $this->assertFalse($d->acceptsMimeType('text/x-c++'));
 
         $d = new FileHandlerDefinition;
 
         $this->assertTrue($d->acceptsMimeType('text/plain'));
-        $this->assertTrue($d->acceptsMimeType('text/x-php'));
+        $this->assertTrue($d->acceptsMimeType('text/x-c++'));
         $d->setRejectedMimeTypes(array('text/plain'));
         $this->assertFalse($d->acceptsMimeType('text/plain'));
-        $this->assertTrue($d->acceptsMimeType('text/x-php'));
+        $this->assertTrue($d->acceptsMimeType('text/x-c++'));
     }
 
     public function testAcceptsMimeEncodings()
@@ -175,7 +175,7 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
     {
         $f = new File(__FILE__);
         $d = new FileHandlerDefinition;
-        $d->setAllowedMimeTypes(array('text/x-php'));
+        $d->setAllowedMimeTypes(array('text/x-c++'));
         $this->assertTrue($d->acceptsFile($f));
     }
 
@@ -183,7 +183,7 @@ class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
     {
         $f = new File(__FILE__);
         $d = new FileHandlerDefinition;
-        $d->setRejectedMimeTypes(array('text/x-php'));
+        $d->setRejectedMimeTypes(array('text/x-c++'));
         $this->assertFalse($d->acceptsFile($f));
     }
 }

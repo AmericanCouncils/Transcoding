@@ -9,7 +9,7 @@ use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\File;
 
 /**
- * An abstract CLI adapter.  Extending classes just need to return a process builder for the command they want to run, and define custon
+ * An abstract CLI adapter.  Extending classes just need to return a process builder for the command they want to run, and define custom
  * input/output file handlers and/or validation.
  *
  * @package Transcoding

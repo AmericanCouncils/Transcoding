@@ -13,18 +13,8 @@ class ConvertNonMVideoPreset extends BasePreset
     protected $key = "ffmpeg.convert_non_m_video";
     protected $name = "Convert Video Preset";
     protected $description = "Based upon the file extensions of the input and output ffmpeg converts the input type to the output type";
-	protected $requiresOutputExtension = true;
+    protected $requiresOutputExtension = true;
 
-    /**
-     * Specify the options for this specific preset
-     */
-    public function configure()
-    {
-        $this->setOptions(array(
-            '-i' => '',
-            '-o' => '',
-        ));
-    }
     protected function buildOutputDefinition()
     {
         return new FileHandlerDefinition(array(
@@ -33,7 +23,16 @@ class ConvertNonMVideoPreset extends BasePreset
                 'mp4',
                 'mpg',
             ),
-            'inheritExtension' => false,
+            'inheritInputExtension' => false,
         ));
+    }
+
+    public function generateOutputPath(File $inFile, $outputPath = false)
+    {
+        if (!$outputPath) {
+            throw new \InvalidArgumentException(sprintf("This preset must have the output extension specified in the outgoing file path."));
+        }
+
+        return parent::generateOutputPath($inFile, $outputPath);
     }
 }
