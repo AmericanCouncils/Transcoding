@@ -23,16 +23,8 @@ class ConvertNonMVideoPreset extends BasePreset
                 'mp4',
                 'mpg',
             ),
-            'inheritInputExtension' => false,
+            'inheritOutputPathExtension' => true,
         ));
     }
 
-    public function generateOutputPath(File $inFile, $outputPath = false)
-    {
-        if (!$outputPath) {
-            throw new \InvalidArgumentException(sprintf("This preset must have the output extension specified in the outgoing file path."));
-        }
-
-        return parent::generateOutputPath($inFile, $outputPath);
-    }
 }

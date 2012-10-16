@@ -32,7 +32,7 @@ class FFmpegTest extends \PHPUnit_Framework_TestCase
         $inPath = __DIR__."/../test_files/foo.txt";
         $outPath = "/out.mp4";
 
-        $expected = sprintf("'/good/path' '-i' '%s' '-o' '%s' '-ab' '32k'", $inPath, $outPath);
+        $expected = sprintf("'/good/path' '-i' '%s' '-ab' '32k' '%s'", $inPath, $outPath);
 
         $this->assertSame($expected, $a->buildProcess(new File($inPath), new AudioCompression32kPreset(), $outPath)->getProcess()->getCommandLine());
     }

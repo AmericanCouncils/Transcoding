@@ -20,5 +20,4 @@ class AudioCompression320kPreset extends BasePreset
             '-ab' => '320k',
         ));
     }
-
 }

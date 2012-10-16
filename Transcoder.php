@@ -232,6 +232,62 @@ class Transcoder
     }
 
     /**
+     * Retrieve the outfile path of a hypothetical transcode process
+     */
+     public function getOutfilePath($inFile, $preset, $outFile = false, $conflictMode = self::ONCONFLICT_INCREMENT, $dirMode = self::ONDIR_EXCEPTION, $failMode = self::ONFAIL_DELETE)
+     {
+        //figure out input file path and preset key, without throwing exceptions
+        $inputPath = ($inFile instanceof File) ? $inFile->getRealPath() : $inFile;
+        $presetKey = ($preset instanceof Preset) ? $preset->getKey() : $preset;
+        $outFilePath = $outFile;
+
+        //validate all inputs before attempting to run the transcode process
+        try {
+
+            //get file
+            if (!$inFile instanceof File && is_string($inFile)) {
+                $inFile = new File($inFile);
+            }
+
+            //get preset
+            if (!$preset instanceof Preset) {
+                $preset = $this->getPreset($preset);
+            }
+
+            //have preset validate file
+            $preset->validateInputFile($inFile);
+
+            //get adapter
+            $adapter = $this->getAdapter($preset->getRequiredAdapter());
+
+            //verify if this adapter can work in the current environment (happens only the first time it's loaded)
+            if (!$adapter->verify()) {
+                throw new \RuntimeException($adapter->getVerificationError());
+            }
+
+            //have adapter verify inputs
+            $adapter->validateInputFile($inFile);
+            $adapter->validatePreset($preset);
+
+            //generate the final output string
+            $outFilePath = $preset->generateOutputPath($inFile, $outFile);
+
+            //make sure the output path is valid, create any directories as necessary
+            $outFilePath = $this->processOutputFilepath($outFilePath, $conflictMode, $dirMode);
+
+        } catch (\Exception $e) {
+
+            //notify listeners of failure
+            $this->dispatch(TranscodeEvents::ERROR, new TranscodeEvent($inputPath, $presetKey, $outFilePath, null, $e));
+
+            //rethrow for containing environment to handle
+            throw $e;
+        }
+
+        return $outFilePath;
+     }
+
+    /**
      * Scan an output path to make sure there are no conflicts.  Handle conflicts according to mode.  Check to make sure final path is actually writable.
      * Returns the final output path, which may have been altered depending on the mode.
      *

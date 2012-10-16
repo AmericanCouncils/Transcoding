@@ -16,9 +16,6 @@ abstract class BasePreset extends Preset
         ));
     }
 
-    /**
-     * Output should be a file with and .mp4 extension
-     */
     protected function buildOutputDefinition()
     {
         return new FileHandlerDefinition(array(
