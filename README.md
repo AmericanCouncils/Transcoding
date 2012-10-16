@@ -126,7 +126,7 @@ Presets shouldn't have dependencies, since they are really just a mechanism for 
 
 #### Writing a preset ####
 
-A preset can be declared in two ways.  You may create one by instantiating the preset class, passing it the required options, or you could extend the base `Preset` class.  The library provides many presets which extend the base `Preset` class, to make them easy to work with.  Presets require two main parts, the first is the actual preset options, which will be passed to the adapter, and the second is two `FileHandlerDefinition` instances, which standardize what the accepted input/output formats can be.  For example, check out the Handbrake preset for generating 720 mp4 videos:
+A preset can be declared in two ways.  You may create one by instantiating the preset class, passing it the required options, or you could extend the base `Preset` class.  The library provides many presets which extend the base `Preset` class, to make them easy to work with.  Presets require two main parts, the first is the actual preset options, which will be passed to the adapter, and the second is two `FileHandlerDefinition` instances, which standardize what the accepted input/output formats can be.  For example, check out this Handbrake preset for generating video for iOS devices:
 
     <?php
 
