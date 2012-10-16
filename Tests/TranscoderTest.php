@@ -2,7 +2,7 @@
 
 namespace AC\Component\Transcoding\Tests;
 use AC\Component\Transcoding\Transcoder;
-use AC\Component\Transcoding\Tests\Mock\TestSubscriber;
+use AC\Component\Transcoding\Tests\Mock\DummySubscriber;
 
 class TranscoderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,8 +10,8 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
     protected function getTranscoder()
     {
         $t = new Transcoder;
-        $t->registerAdapter(new \AC\Component\Transcoding\Adapter\PhpText);
-        $t->registerPreset(new \AC\Component\Transcoding\Preset\TextToLowerCase);
+        $t->registerAdapter(new \AC\Component\Transcoding\Tests\Mock\PhpTextAdapter);
+        $t->registerPreset(new \AC\Component\Transcoding\Tests\Mock\TextToLowerCasePreset);
 
         return $t;
     }
@@ -61,10 +61,6 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, count($t->getAdapters()));
     }
 
-/**
- * TODO: Test job methods once API is finalized
- */
-
     public function testGetAndSetFileCreationMode()
     {
         $t = new Transcoder;
@@ -103,8 +99,8 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
     public function testTranscoderEvents1()
     {
         $t = $this->getTranscoder();
-        $sub = new TestSubscriber();
-        $t->addSubscriber($sub);
+        $sub = new DummySubscriber();
+        $t->getDispatcher()->addSubscriber($sub);
 
         $this->assertFalse($sub->onMessage);
         $this->assertFalse($sub->onBefore);

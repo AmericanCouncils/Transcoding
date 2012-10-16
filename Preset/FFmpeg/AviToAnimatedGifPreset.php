@@ -23,19 +23,22 @@ class AviToAnimatedGifPreset extends BasePreset
             '-pix_fmt' => 'rgb24',
         ));
     }
-	protected function buildInputDefinition()
+
+    protected function buildOutputDefinition()
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
-			'requiredExtension' => 'avi',
+            'requiredExtension' => 'gif',
+            'inheritInputExtension' => false,
         ));
     }
-	
-	protected function buildOutputDefinition() {
-		return new FileHandlerDefinition(array(
-			'requiredType' => 'file',
-			'requiredExtension' => 'gif',
-            'inheritExtension' => false,
-		));
-	}
+
+    protected function buildInputDefinition()
+    {
+        return new FileHandlerDefinition(array(
+            'requiredType' => 'file',
+            'requiredExtension' => 'avi',
+        ));
+    }
+
 }

@@ -4,7 +4,7 @@ namespace AC\Component\Transcoding\Tests\Mock;
 use AC\Component\Transcoding\Event\TranscodeEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TestSubscriber implements EventSubscriberInterface
+class DummySubscriber implements EventSubscriberInterface
 {
     public function __construct()
     {

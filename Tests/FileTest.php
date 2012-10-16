@@ -36,7 +36,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f4 = new File(__DIR__."/test_files/foo.md");
         $f5 = new File(__DIR__."/test_files/foo.mp3");
         $f6 = new File(__DIR__."/test_files/foo.pdf");
-        $this->assertSame('text/x-php; charset=us-ascii', $f1->getMime());
+        $this->assertSame('text/x-c++; charset=us-ascii', $f1->getMime());
         $this->assertSame('text/plain; charset=us-ascii', $f2->getMime());
         $this->assertSame('text/plain; charset=us-ascii', $f3->getMime());
         $this->assertSame('text/plain; charset=us-ascii', $f4->getMime());
@@ -52,7 +52,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f4 = new File(__DIR__."/test_files/foo.md");
         $f5 = new File(__DIR__."/test_files/foo.mp3");
         $f6 = new File(__DIR__."/test_files/foo.pdf");
-        $this->assertSame('text/x-php', $f1->getMimeType());
+        $this->assertSame('text/x-c++', $f1->getMimeType());
         $this->assertSame('text/plain', $f2->getMimeType());
         $this->assertSame('text/plain', $f3->getMimeType());
         $this->assertSame('text/plain', $f4->getMimeType());

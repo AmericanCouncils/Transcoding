@@ -275,7 +275,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
                     $baseName = implode(".", $exp);
 
                     //should it inherit the extension?  if so does it match?
-                    if ($this->getOutputDefinition()->getInheritExtension() && ($givenExtension !== $inputExtension)) {
+                    if ($this->getOutputDefinition()->getInheritInputExtension() && ($givenExtension !== $inputExtension)) {
                         throw new Exception\InvalidInputException(sprintf("The output file extension for this preset must match the file extension of the input file."));
                     }
 
@@ -300,7 +300,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
                     $baseName = implode(".", $exp);
 
                     //get proper output extension
-                    $outputExtension = $this->resolveOutputExtension($inFile);
+                    $outputExtension = $this->resolveOutputExtension($inFile, $outputPath);
 
                     //default to infixing the preset key of the output file to avoid confusing
                     return $outputPath.DIRECTORY_SEPARATOR.$baseName.".".$this->getKey().".".$outputExtension;
@@ -316,7 +316,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
                 return $inputDirectory.DIRECTORY_SEPARATOR.$this->getKey();
             } else {
                 //otherwise default to creating new file path with format infileName.presetKey.required_or_inheritedExtension
-                $outputExtension = $this->resolveOutputExtension($inFile);
+                $outputExtension = $this->resolveOutputExtension($inFile, $outputPath);
 
                 //get input filename without it's extension
                 $exp = explode(".", $inFile->getFilename());
@@ -348,15 +348,22 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
      * @param  File   $inFile
      * @return string
      */
-    protected function resolveOutputExtension(File $inFile)
+    protected function resolveOutputExtension(File $inFile, $outputPath = false)
     {
         $outDef = $this->getOutputDefinition();
         if ($outDef->getRequiredExtension()) {
             return $outDef->getRequiredExtension();
         }
 
-        if ($outDef->getInheritExtension()) {
+        if ($outDef->getInheritInputExtension()) {
             return $inFile->getExtension();
+        }
+
+        if ($outputPath && $outDef->getInheritOutputPathExtension()) {
+            $exp = explode(".", $outputPath);
+            if (count($exp) > 1) {
+                return end($exp);
+            }
         }
 
         return $this->getOutputExtension();

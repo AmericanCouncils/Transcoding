@@ -1,13 +1,13 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset;
+namespace AC\Component\Transcoding\Tests\Mock;
 use AC\Component\Transcoding\Preset;
 use AC\Component\Transcoding\FileHandlerDefinition;
 
 /**
  * A very simple preset, for a very simple adapter, to illustrate how writing a preset works.  This will be deleted once we have real Preset\Handbrake that do useful things.
  */
-class TextToLowerCase extends Preset
+class TextToLowerCasePreset extends Preset
 {
     protected $key = "text_to_lower";
     protected $name = "Text to lower case";
@@ -32,7 +32,7 @@ class TextToLowerCase extends Preset
     {
         return new FileHandlerDefinition(array(
             'requiredType' => 'file',
-            'inheritExtension' => true,
+            'inheritInputExtension' => true,
         ));
     }
 
