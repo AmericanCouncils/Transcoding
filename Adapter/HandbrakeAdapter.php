@@ -116,7 +116,7 @@ class HandbrakeAdapter extends AbstractCliAdapter
      * @param string $handbrake_path
      * @param int    $timeout        Time in seconds for process timeout, null means no timeout
      */
-    public function __construct($handbrake_path, $timeout = null)
+    public function __construct($handbrake_path = 'HandBrakeCLI', $timeout = null)
     {
         parent::__construct(array(
             'timeout' => $timeout

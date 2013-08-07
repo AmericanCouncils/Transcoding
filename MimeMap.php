@@ -13,9 +13,7 @@ class MimeMap
     public function getMimeTypes($extension)
     {
         if (!array_key_exists($extension, $this->extension_to_mime_types)) {
-            die("Warning- the given extension does not exist.");
-
-            return null;
+            return false;
         }
 
         return $this->extension_to_mime_types[$extension];
@@ -27,9 +25,7 @@ class MimeMap
     public function getExtensions($mime_type)
     {
         if (!array_key_exists($mime_type, $this->mime_type_to_extensions)) {
-            die("Warning- the given MIME type does not exist.");
-
-            return null;
+            return false;
         }
 
         return $this->mime_type_to_extensions[$mime_type];

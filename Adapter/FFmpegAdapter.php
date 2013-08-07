@@ -32,7 +32,7 @@ class FFmpegAdapter extends AbstractCliAdapter
      * @param string $ffmpeg_path
      * @param int    $timeout     Time in seconds for process timeout, null means no timeout
      */
-    public function __construct($ffmpeg_path, $timeout = null)
+    public function __construct($ffmpeg_path = 'ffmpeg', $timeout = null)
     {
         parent::__construct(array(
             'timeout' => $timeout

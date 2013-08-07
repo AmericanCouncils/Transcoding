@@ -39,27 +39,6 @@ class TranscodeEvents
     const ERROR = "transcode.error";
 
     /**
-     * Fired before a job process begins
-     *
-     * Listeners receive instance of TranscodeEvent
-     */
-    const JOB_BEFORE = "job.before";
-
-    /**
-     * Fired after a job process completes
-     *
-     * Listeners receive instance of TranscodeEvent
-     */
-    const JOB_AFTER = "job.after";
-
-    /**
-     * Fired when an error is encountered during a job
-     *
-     * Listeners receive instance of TranscodeEvent
-     */
-    const JOB_ERROR = "job.error";
-
-    /**
      * Fired when a new file has been created by the Transcoder
      *
      * Listeners receive instance of FileEvent

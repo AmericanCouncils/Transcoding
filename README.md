@@ -31,7 +31,6 @@ Using the Transcoder by its self is simple, as it has no dependencies.  It can a
 	// ... register presets & adapters ... 
 	$transcoder->registerAdapter(new MyCustomFFmpegAdapter("/path/to/ffmpeg"));
 	$transcoder->registerPreset(new FFmpeg/WebmHDPreset);
-	$transcoder->registerJob(new FFmpeg/MyHtml5VideoJob);
 	
 	//transcode one file using a preset
 	$newFile = $transcoder->transcodeWithPreset($inputFilePath, 'webm-hd', $outputFilePath);
@@ -176,6 +175,3 @@ The Transcoder is also an instance of of the Symfony `EventDispatcher`.  It fire
 
 > TODO: define/explain all the events
 
-## Development ##
-
-See `TODO.md` for an overview of where development is headed with this library.
