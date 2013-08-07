@@ -25,7 +25,7 @@
     "require-dev" : {
         "symfony/process": ">=2.1, <2.4"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "target-dir": "AC/Component/Transcoding",
     "autoload": {
         "psr-0": { "AC\\Component\\Transcoding": "" }
