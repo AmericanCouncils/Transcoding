@@ -1,7 +1,7 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
-use AC\Component\Transcoding\Event\TranscodeEvents;
+namespace AC\Transcoding\Tests\Mock;
+use AC\Transcoding\Event\TranscodeEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DummySubscriber implements EventSubscriberInterface

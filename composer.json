@@ -26,8 +26,8 @@
         "symfony/process": ">=2.1, <2.4"
     },
     "minimum-stability": "stable",
-    "target-dir": "AC/Component/Transcoding",
+    "target-dir": "AC/Transcoding",
     "autoload": {
-        "psr-0": { "AC\\Component\\Transcoding": "" }
+        "psr-0": { "AC\\Transcoding": "" }
     }
 }

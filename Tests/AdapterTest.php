@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests;
-use \AC\Component\Transcoding\Adapter;
-use \AC\Component\Transcoding\File;
-use \AC\Component\Transcoding\Preset;
-use \AC\Component\Transcoding\FileHandlerDefinition;
+namespace AC\Transcoding\Tests;
+use \AC\Transcoding\Adapter;
+use \AC\Transcoding\File;
+use \AC\Transcoding\Preset;
+use \AC\Transcoding\FileHandlerDefinition;
 
 class AdapterTest extends \PHPUnit_Framework_TestCase
 {

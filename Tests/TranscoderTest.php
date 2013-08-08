@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests;
-use AC\Component\Transcoding\Transcoder;
-use AC\Component\Transcoding\Tests\Mock\DummySubscriber;
+namespace AC\Transcoding\Tests;
+use AC\Transcoding\Transcoder;
+use AC\Transcoding\Tests\Mock\DummySubscriber;
 
 class TranscoderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,8 +10,8 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
     protected function getTranscoder()
     {
         $t = new Transcoder;
-        $t->registerAdapter(new \AC\Component\Transcoding\Tests\Mock\PhpTextAdapter);
-        $t->registerPreset(new \AC\Component\Transcoding\Tests\Mock\TextToLowerCasePreset);
+        $t->registerAdapter(new \AC\Transcoding\Tests\Mock\PhpTextAdapter);
+        $t->registerPreset(new \AC\Transcoding\Tests\Mock\TextToLowerCasePreset);
 
         return $t;
     }
@@ -28,7 +28,7 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
     {
         $t = new Transcoder;
         $this->assertNotNull($t);
-        $this->assertInstanceOf('\AC\Component\Transcoding\Transcoder', $t);
+        $this->assertInstanceOf('\AC\Transcoding\Transcoder', $t);
     }
 
     public function testHasRegisterGetAndRemovePreset()
@@ -40,7 +40,7 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($t->hasPreset('test_preset'));
         $this->assertSame(1, count($t->getPresets()));
         $p = $t->getPreset('test_preset');
-        $this->assertInstanceOf('AC\Component\Transcoding\Tests\Mock\DummyPreset', $p);
+        $this->assertInstanceOf('AC\Transcoding\Tests\Mock\DummyPreset', $p);
         $t->removePreset('test_preset');
         $this->assertFalse($t->hasPreset('test_preset'));
         $this->assertSame(0, count($t->getPresets()));
@@ -55,7 +55,7 @@ class TranscoderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($t->hasAdapter('test_adapter'));
         $this->assertSame(1, count($t->getAdapters()));
         $p = $t->getAdapter('test_adapter');
-        $this->assertInstanceOf('AC\Component\Transcoding\Tests\Mock\DummyAdapter', $p);
+        $this->assertInstanceOf('AC\Transcoding\Tests\Mock\DummyAdapter', $p);
         $t->removeAdapter('test_adapter');
         $this->assertFalse($t->hasAdapter('test_adapter'));
         $this->assertSame(0, count($t->getAdapters()));

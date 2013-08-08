@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
 /**
  * FileHandlerDefinition's define valid input/output file type properties for a preset and/or adapter.  The FileHandlerDefinition is checked by the Transcoder before executing.

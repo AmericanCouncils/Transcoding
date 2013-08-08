@@ -12,7 +12,7 @@ The Transcoding component consists of several parts.
 
 3. Third are the `Preset` classes, which provide groupings of options for an `Adapter` to use when implementing its transcode logic.  They can also put restrictions on the types of input/output files they are allowed to handle.
 
-4. Fourth are `File` instances.  They are a thin extension of PHP's standard `SplFileObject` class.  These, in conjunction with `Preset` instances, are what `Adapters` take as input.  If the `Adapter` returns a file, it should also be an instance of `AC\Component\Transcoding\File`.
+4. Fourth are `File` instances.  They are a thin extension of PHP's standard `SplFileObject` class.  These, in conjunction with `Preset` instances, are what `Adapters` take as input.  If the `Adapter` returns a file, it should also be an instance of `AC\Transcoding\File`.
 
 5. Fifth are `FileHandlerDefinition` instances.  These can be specified by Adapters, as well as Presets, and define what types of files are allowable as both input and output.  These instances are used internally by the `Transcoder` to ensure valid input/output and to assist in building a valid output file path if none is specified, or to catch an invalid path if provided, before it gets to the adapter for the transcode process.
 
@@ -26,7 +26,7 @@ The Transcoder does the work of standardizing the transcoding input and output. 
 
 Using the Transcoder by its self is simple, as it has no dependencies.  It can accept presets/adapters from anywhere, some of which may have their own dependencies if necessary.
 
-	$transcoder = new AC\Component\Transcoding\Transcoder;
+	$transcoder = new AC\Transcoding\Transcoder;
 	
 	// ... register presets & adapters ... 
 	$transcoder->registerAdapter(new MyCustomFFmpegAdapter("/path/to/ffmpeg"));
@@ -62,9 +62,9 @@ Adapters can be fairly simple, or quite complex.  The adapters included in the l
 All adapters receive input in the same way - they simply take an input file object, a string output path, and a `Preset` instance for use during the transcode process.  Generally, adapters aren't used directly, but the `Transcoder` will call passing along registered presets, and testing for valid input/output based on the preset definition.  Below is an example template for a very simple custom adapter.  For more detailed documentation on writing an adapter, see the `README.md` in `adapters/`.
 
 	<?php
-	use AC\Component\Transcoding\Adapter;
-	use AC\Component\Transcoding\File;
-	use AC\Component\Transcoding\Preset;
+	use AC\Transcoding\Adapter;
+	use AC\Transcoding\File;
+	use AC\Transcoding\Preset;
 	
 	class FooAdapter extends Adapter {
 		protected $name = 'foo';
@@ -81,9 +81,9 @@ All adapters receive input in the same way - they simply take an input file obje
 	
 #### Implementing command-line tools ####
 
-Many file conversion tools are available as command line executables.  Writing code to make executing command line processes safe and consistent accross environments has already been done well with the `Symfony\Process` component, which is provided with this library.  If you want to implement a tool that requires using the command line, we highly recommend using this library rather than writing custom code.  Read more on the `Symfony\Process` component [here](https://github.com/symfony/Process).
+Many file conversion tools are available as command line executables.  Writing code to make executing command line processes safe and consistent accross environments has already been done well with the `Symfony\Component\Process` component, which is provided with this library.  If you want to implement a tool that requires using the command line, we highly recommend using this library rather than writing custom code.  Read more on the `Symfony\Component\Process` component [here](https://github.com/symfony/Process).
 
-For example, the FFmpeg and Handbrake adapters use the `Symfony\Process` component to actually execute its command line process.  The general flow goes something like the following:
+For example, the FFmpeg and Handbrake adapters use the `Symfony\Component\Process` component to actually execute its command line process.  The general flow goes something like the following:
 	
 	//method of an adapter class
 	public function transcodeFile(File $inFile, Preset $preset, $outFilePath) {
@@ -118,7 +118,7 @@ For more specific documentation and a usable template, see the `README.md` in `p
 Presets shouldn't have dependencies, since they are really just a mechanism for bundling options which will be passed to an adapter.  You can declare/register presets in two ways:
 
 	//instantiate inline preset
-	$transcoder->registerPreset(new \AC\Component\Transcoding\Preset('preset_name', 'required_adapter_name', array(/* preset options */), array(/* FileHandlerDefinition options */)));
+	$transcoder->registerPreset(new \AC\Transcoding\Preset('preset_name', 'required_adapter_name', array(/* preset options */), array(/* FileHandlerDefinition options */)));
 	
 	//pre-defined preset which extends the Preset class above and defines it's settings internally
 	$transcoder->registerPreset(new Mp4_HD_720Preset);
@@ -129,9 +129,9 @@ A preset can be declared in two ways.  You may create one by instantiating the p
 
     <?php
 
-    namespace AC\Component\Transcoding\Preset\Handbrake;
+    namespace AC\Transcoding\Preset\Handbrake;
 
-    use AC\Component\Transcoding\Preset;
+    use AC\Transcoding\Preset;
 
     /**
      * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic

@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\FFmpeg;
+namespace AC\Transcoding\Preset\FFmpeg;
 
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\FileHandlerDefinition;
+use AC\Transcoding\Preset;
+use AC\Transcoding\FileHandlerDefinition;
 
 /**
  * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#classic

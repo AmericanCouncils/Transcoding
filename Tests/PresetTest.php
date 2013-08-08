@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests;
-use \AC\Component\Transcoding\File;
-use \AC\Component\Transcoding\Preset;
-use \AC\Component\Transcoding\FileHandlerDefinition;
+namespace AC\Transcoding\Tests;
+use \AC\Transcoding\File;
+use \AC\Transcoding\Preset;
+use \AC\Transcoding\FileHandlerDefinition;
 
 class PresetTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,19 +16,19 @@ class PresetTest extends \PHPUnit_Framework_TestCase
 
     public function testInstatiateDynamic2()
     {
-        $this->setExpectedException('AC\Component\Transcoding\Exception\InvalidPresetException');
+        $this->setExpectedException('AC\Transcoding\Exception\InvalidPresetException');
         $p = new Preset();
     }
 
     public function testInstatiateDynamic3()
     {
-        $this->setExpectedException('AC\Component\Transcoding\Exception\InvalidPresetException');
+        $this->setExpectedException('AC\Transcoding\Exception\InvalidPresetException');
         $p = new Preset('foo');
     }
 
     public function testInstantiateExtended1()
     {
-        $this->setExpectedException('AC\Component\Transcoding\Exception\InvalidPresetException');
+        $this->setExpectedException('AC\Transcoding\Exception\InvalidPresetException');
         $p = new Mock\InvalidDummyPreset;
     }
 
@@ -179,7 +179,7 @@ class PresetTest extends \PHPUnit_Framework_TestCase
         $p = new Mock\DummyPreset;
         $p->getOutputDefinition()->setRequiredExtension('mp3');
         $outputPath = '/foo/stuff.mp4';
-        $this->setExpectedException("AC\Component\Transcoding\Exception\InvalidInputException");
+        $this->setExpectedException("AC\Transcoding\Exception\InvalidInputException");
         $p->generateOutputPath($f, $outputPath);
     }
 
@@ -218,7 +218,7 @@ class PresetTest extends \PHPUnit_Framework_TestCase
         $f = new File(__FILE__);
         $p = new Mock\DummyPreset2;
         $outputPath = __DIR__;
-        $this->setExpectedException("AC\Component\Transcoding\Exception\InvalidPresetException");
+        $this->setExpectedException("AC\Transcoding\Exception\InvalidPresetException");
         $p->generateOutputPath($f, $outputPath);
     }
 
@@ -248,7 +248,7 @@ class PresetTest extends \PHPUnit_Framework_TestCase
         $p->getOutputDefinition()->setRequiredType('directory');
 
         $outputPath = '/foo.mp3';
-        $this->setExpectedException("AC\Component\Transcoding\Exception\InvalidInputException");
+        $this->setExpectedException("AC\Transcoding\Exception\InvalidInputException");
         $p->generateOutputPath($f, $outputPath);
     }
 

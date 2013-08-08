@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\Handbrake;
+namespace AC\Transcoding\Preset\Handbrake;
 
-use AC\Component\Transcoding\Preset;
+use AC\Transcoding\Preset;
 
 /**
  * For more information on this preset please visit this link: https://trac.handbrake.fr/wiki/BuiltInPresets#appletv-old

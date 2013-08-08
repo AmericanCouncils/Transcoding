@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
 /**
  * An extension of SplFileObject, File instances are used as input/output for the Transcoder.  They mostly extend

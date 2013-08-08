@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Event;
+namespace AC\Transcoding\Event;
 
-use AC\Component\Transcoding\Adapter;
+use AC\Transcoding\Adapter;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

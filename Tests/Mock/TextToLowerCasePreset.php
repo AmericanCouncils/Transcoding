@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\FileHandlerDefinition;
+namespace AC\Transcoding\Tests\Mock;
+use AC\Transcoding\Preset;
+use AC\Transcoding\FileHandlerDefinition;
 
 /**
  * A very simple preset, for a very simple adapter, to illustrate how writing a preset works.  This will be deleted once we have real Preset\Handbrake that do useful things.

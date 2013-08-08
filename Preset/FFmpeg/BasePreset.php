@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\FFmpeg;
+namespace AC\Transcoding\Preset\FFmpeg;
 
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\FileHandlerDefinition;
+use AC\Transcoding\Preset;
+use AC\Transcoding\FileHandlerDefinition;
 
 abstract class BasePreset extends Preset
 {

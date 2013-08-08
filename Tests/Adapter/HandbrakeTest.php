@@ -1,11 +1,11 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Adapter;
+namespace AC\Transcoding\Tests\Adapter;
 
-use AC\Component\Transcoding\Transcoder;
-use AC\Component\Transcoding\File;
-use AC\Component\Transcoding\Adapter\HandbrakeAdapter;
-use AC\Component\Transcoding\Preset\Handbrake\iPhoneLegacyPreset;
+use AC\Transcoding\Transcoder;
+use AC\Transcoding\File;
+use AC\Transcoding\Adapter\HandbrakeAdapter;
+use AC\Transcoding\Preset\Handbrake\iPhoneLegacyPreset;
 
 class HandbrakeTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests;
-use \AC\Component\Transcoding\FileHandlerDefinition;
-use \AC\Component\Transcoding\File;
+namespace AC\Transcoding\Tests;
+use \AC\Transcoding\FileHandlerDefinition;
+use \AC\Transcoding\File;
 
 class FileHandlerDefinitionTest extends \PHPUnit_Framework_TestCase
 {

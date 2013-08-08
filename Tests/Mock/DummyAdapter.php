@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
+namespace AC\Transcoding\Tests\Mock;
 
-use AC\Component\Transcoding\Adapter;
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\File;
+use AC\Transcoding\Adapter;
+use AC\Transcoding\Preset;
+use AC\Transcoding\File;
 
 class DummyAdapter extends Adapter
 {

@@ -1,5 +1,5 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
+namespace AC\Transcoding\Tests\Mock;
 
-class InvalidDummyPreset extends \AC\Component\Transcoding\Preset {}
+class InvalidDummyPreset extends \AC\Transcoding\Preset {}

@@ -1,7 +1,7 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests;
-use \AC\Component\Transcoding\File;
+namespace AC\Transcoding\Tests;
+use \AC\Transcoding\File;
 
 class FileTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
-use AC\Component\Transcoding\Event\TranscodeEvents;
-use AC\Component\Transcoding\Event\TranscodeEvent;
-use AC\Component\Transcoding\Event\FileEvent;
+use AC\Transcoding\Event\TranscodeEvents;
+use AC\Transcoding\Event\TranscodeEvent;
+use AC\Transcoding\Event\FileEvent;
 
 /**
  * Main transcoding class.  Standardizes input/output before executing a transcode process via an adapter.
@@ -112,12 +112,12 @@ class Transcoder
     /**
      * The core method of the transcode process.  Takes file input, validates, runs a transcode process, validates return, and returns file output.
      *
-     * @param  mixed  $inFile       - if a string filepath is given instead of an instance of \AC\Component\Transcoding\File, then a new File instance will be created automatically
-     * @param  mixed  $preset       - if a string is given instead of an instance of \AC\Component\Transcoding\Preset, then it will look for a Preset with a name matching the received string
+     * @param  mixed  $inFile       - if a string filepath is given instead of an instance of \AC\Transcoding\File, then a new File instance will be created automatically
+     * @param  mixed  $preset       - if a string is given instead of an instance of \AC\Transcoding\Preset, then it will look for a Preset with a name matching the received string
      * @param  string $outFile      - an optional output file path, even if provided explicity, the Transcoder will validate and process it before starting a transcode process
      * @param  string $conflictMode - flag for what to do if an output file already exists at the given output path
      * @param  string $failMode     - flag for what to do with the output file(s) on a failed transcode
-     * @return File   - \AC\Component\Transcoding\File instance for newly created file
+     * @return File   - \AC\Transcoding\File instance for newly created file
      */
     public function transcodeWithPreset($inFile, $preset, $outFile = false, $conflictMode = self::ONCONFLICT_INCREMENT, $dirMode = self::ONDIR_EXCEPTION, $failMode = self::ONFAIL_DELETE)
     {
@@ -180,7 +180,7 @@ class Transcoder
 
             //validate return
             if (!$return instanceof File) {
-                throw new Exception\InvalidOutputException("Adapters must return an instance of AC\Component\Transcoding\File, or throw an exception upon error.");
+                throw new Exception\InvalidOutputException("Adapters must return an instance of AC\Transcoding\File, or throw an exception upon error.");
             }
             $preset->validateOutputFile($return);
             $adapter->validateOutputFile($return);
@@ -215,13 +215,13 @@ class Transcoder
     /**
      * Transcode a file with a specific adapter directly.  Internally builds a dynamic preset with the specified options.
      *
-     * @param  mixed                          $inFile       - either string filepath or instance of \AC\Component\Transcoding\File
-     * @param  string                         $adapterName  - string name of adapter to use
-     * @param  array                          $options      - key/val option hash to pass to adapter
-     * @param  string                         $outFile      - optional output file path, if not provided will be derived automatically by the Transcoder
-     * @param  string                         $conflictMode - flag for how to handle output file conflicts
-     * @param  string                         $failMode     - flag for how to handle failed transcodes
-     * @return \AC\Component\Transcoding\File
+     * @param  mixed                $inFile       - either string filepath or instance of \AC\Transcoding\File
+     * @param  string               $adapterName  - string name of adapter to use
+     * @param  array                $options      - key/val option hash to pass to adapter
+     * @param  string               $outFile      - optional output file path, if not provided will be derived automatically by the Transcoder
+     * @param  string               $conflictMode - flag for how to handle output file conflicts
+     * @param  string               $failMode     - flag for how to handle failed transcodes
+     * @return \AC\Transcoding\File
      */
     public function transcodeWithAdapter($inFile, $adapterName, $options = array(), $outFile = false, $conflictMode = self::ONCONFLICT_INCREMENT, $dirMode = self::ONDIR_EXCEPTION, $failMode = self::ONFAIL_DELETE)
     {
@@ -443,9 +443,9 @@ class Transcoder
      *
      * This will also call the corresponding `Adapter::cleanFailedTranscode()` method for the adapter that was used.
      *
-     * @param  AC\Component\Transcoding\Adapter $adapter
-     * @param  string                           $outputFilePath
-     * @param  string                           $failMode
+     * @param  AC\Transcoding\Adapter $adapter
+     * @param  string                 $outputFilePath
+     * @param  string                 $failMode
      * @return void
      */
     protected function cleanFailedTranscode(Adapter $adapter, $outputFilePath, $failMode)
@@ -483,8 +483,8 @@ class Transcoder
     /**
      * Return an adapter instance by key
      *
-     * @param  string                           $key
-     * @return AC\Component\Transcoding\Adapter on success, throws exception if not found
+     * @param  string                 $key
+     * @return AC\Transcoding\Adapter on success, throws exception if not found
      */
     public function getAdapter($key)
     {
@@ -549,8 +549,8 @@ class Transcoder
     /**
      * Get a preset instance with the given key
      *
-     * @param  string                          $key
-     * @return AC\Component\Transcoding\Preset
+     * @param  string                $key
+     * @return AC\Transcoding\Preset
      */
     public function getPreset($key)
     {

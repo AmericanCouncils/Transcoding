@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding\Event;
+namespace AC\Transcoding\Event;
 
 /**
  * Documents the events fired by the Transcoder

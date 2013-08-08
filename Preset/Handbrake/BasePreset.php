@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\Handbrake;
+namespace AC\Transcoding\Preset\Handbrake;
 
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\FileHandlerDefinition;
-use AC\Component\Transcoding\MimeMap;
+use AC\Transcoding\Preset;
+use AC\Transcoding\FileHandlerDefinition;
+use AC\Transcoding\MimeMap;
 
 abstract class BasePreset extends Preset
 {

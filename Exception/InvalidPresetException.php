@@ -1,4 +1,4 @@
 <?php
-namespace AC\Component\Transcoding\Exception;
+namespace AC\Transcoding\Exception;
 
 class InvalidPresetException extends \Exception {}

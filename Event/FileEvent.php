@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Component\Transcoding\Event;
+namespace AC\Transcoding\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use AC\Component\Transcoding\File;
+use AC\Transcoding\File;
 
 /**
  * Fired any time a file operation has taken place.

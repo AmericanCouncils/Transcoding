@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
 /**
  * A Preset is basically a collection of options which are used by an Adapter to do some processing.
@@ -43,14 +43,14 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     /**
      * FileHandlerDefinition instance built during __construct(); that describes input file restrictions.
      *
-     * @var \AC\Component\Transcoding\FileHandlerDefinition
+     * @var \AC\Transcoding\FileHandlerDefinition
      */
     protected $inputDefinition = false;
 
     /**
      * FileHandlerDefinition instance built during __construct(); that describes output file restrictions.
      *
-     * @var \AC\Component\Transcoding\FileHandlerDefinition
+     * @var \AC\Transcoding\FileHandlerDefinition
      */
     protected $outputDefinition = false;
 
@@ -383,7 +383,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     /**
      * Return input FileHandlerDefinition
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     public function getInputDefinition()
     {
@@ -393,7 +393,7 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     /**
      * Return output FileHandlerDefinition
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     public function getOutputDefinition()
     {

@@ -1,5 +1,5 @@
 <?php
 
-namespace AC\Component\Transcoding\Exception;
+namespace AC\Transcoding\Exception;
 
 class PresetNotFoundException extends \InvalidArgumentException {}

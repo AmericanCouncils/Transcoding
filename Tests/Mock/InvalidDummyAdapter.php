@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
+namespace AC\Transcoding\Tests\Mock;
 
-use AC\Component\Transcoding\Adapter;
+use AC\Transcoding\Adapter;
 
 class InvalidDummyAdapter extends Adapter
 {

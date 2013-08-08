@@ -1,12 +1,12 @@
 <?php
 
-namespace AC\Component\Transcoding\Adapter;
+namespace AC\Transcoding\Adapter;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
-use AC\Component\Transcoding\Adapter;
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\File;
+use AC\Transcoding\Adapter;
+use AC\Transcoding\Preset;
+use AC\Transcoding\File;
 
 /**
  * An abstract CLI adapter.  Extending classes just need to return a process builder for the command they want to run, and define custom

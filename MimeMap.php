@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
 class MimeMap
 {

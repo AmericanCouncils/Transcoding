@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Component\Transcoding\Preset\FFmpeg;
+namespace AC\Transcoding\Preset\FFmpeg;
 
-use AC\Component\Transcoding\Preset;
+use AC\Transcoding\Preset;
 
 class AudioCompression128kPreset extends BasePreset
 {

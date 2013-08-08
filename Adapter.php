@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Component\Transcoding;
+namespace AC\Transcoding;
 
-use AC\Component\Transcoding\Event\MessageEvent;
-use AC\Component\Transcoding\Event\TranscodeEvents;
+use AC\Transcoding\Event\MessageEvent;
+use AC\Transcoding\Event\TranscodeEvents;
 
 /**
  * This is the base adapter class all other should extend.
@@ -37,14 +37,14 @@ abstract class Adapter
     /**
      * Instance of FileDefinitionHandler used to restrict input formats.
      *
-     * @var \AC\Component\Transcoding\FileDefinitionHandler
+     * @var \AC\Transcoding\FileDefinitionHandler
      */
     protected $inputDefinition = false;
 
     /**
      * Instance of FileDefinitionHandler used to define allowed output formats.
      *
-     * @var \AC\Component\Transcoding\FileDefinitionHandler
+     * @var \AC\Transcoding\FileDefinitionHandler
      */
     protected $outputDefinition = false;
 
@@ -72,7 +72,7 @@ abstract class Adapter
     /**
      * Return a custom FileHandlerDefinition for input restriction.
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     protected function buildInputDefinition()
     {
@@ -82,7 +82,7 @@ abstract class Adapter
     /**
      * Return a custom FileHandlerDefinition for output restriction.
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     protected function buildOutputDefinition()
     {
@@ -92,7 +92,7 @@ abstract class Adapter
     /**
      * Get the input FileHandlerDefinition
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     public function getInputDefinition()
     {
@@ -106,7 +106,7 @@ abstract class Adapter
     /**
      * Get the output FileHandlerDefinition
      *
-     * @return AC\Component\Transcoding\FileHandlerDefinition
+     * @return AC\Transcoding\FileHandlerDefinition
      */
     public function getOutputDefinition()
     {
@@ -120,10 +120,10 @@ abstract class Adapter
     /**
      * Transcodes a file, given a preset and an output path.
      *
-     * @param  File                          $file        - instance of AC\Component\Transcoding\File
-     * @param  Preset                        $preset      - instance of AC\Component\Transcoding\Preset
-     * @param  string                        $outFilePath - string output file path (must be valid)
-     * @return AC\Component\Transcoding\File on success, exception thrown otherwise
+     * @param  File                $file        - instance of AC\Transcoding\File
+     * @param  Preset              $preset      - instance of AC\Transcoding\Preset
+     * @param  string              $outFilePath - string output file path (must be valid)
+     * @return AC\Transcoding\File on success, exception thrown otherwise
      */
     public function transcodeFile(File $file, Preset $preset, $outFilePath)
     {

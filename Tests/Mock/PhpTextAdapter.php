@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Component\Transcoding\Tests\Mock;
-use AC\Component\Transcoding\Preset;
-use AC\Component\Transcoding\Adapter;
-use AC\Component\Transcoding\File;
-use AC\Component\Transcoding\FileHandlerDefinition;
+namespace AC\Transcoding\Tests\Mock;
+use AC\Transcoding\Preset;
+use AC\Transcoding\Adapter;
+use AC\Transcoding\File;
+use AC\Transcoding\FileHandlerDefinition;
 
 /**
  * A very simple adapter to illustrate how writing an adapter should work.
