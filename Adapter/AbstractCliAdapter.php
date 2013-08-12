@@ -102,7 +102,7 @@ abstract class AbstractCliAdapter extends Adapter
 
         //get the assembled process
         $process = $builder->getProcess();
-
+        
         //set the dynamic callback, if interactive is enabled
         $adapter = $this;
         $processBufferCallback = (!$this->stream_buffer) ? null : function($type, $buffer) use ($adapter) {
@@ -114,6 +114,7 @@ abstract class AbstractCliAdapter extends Adapter
         };
 
         //run the process, pass feedback as messages to the adapter
+        $this->info(sprintf('Running command <info>[%s]</info> from <info>[%s]</info>', $process->getCommandLine(), get_class($this)));
         $process->run($processBufferCallback);
 
         //check for error status return

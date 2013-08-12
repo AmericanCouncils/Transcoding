@@ -12,7 +12,7 @@ class SoundFromVideoPreset extends BasePreset
 {
     protected $key = "ffmpeg.sound_from_video";
     protected $name = "Sound from Video Preset";
-    protected $description = "A ffmpeg preset that takes the audio from a video and transmits it to an audio file";
+    protected $description = "A ffmpeg preset that takes the audio from a video and exports it to an audio file";
 
     /**
      * Specify the options for this specific preset

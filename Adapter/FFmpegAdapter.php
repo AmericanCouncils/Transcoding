@@ -74,10 +74,10 @@ class FFmpegAdapter extends AbstractCliAdapter
 
         //add preset options
         foreach ($preset->getOptions() as $key => $value) {
-            if (!empty($key)) {
+            if (!is_null($key)) {
                 $options[] = $key;
             }
-            if (!empty($value)) {
+            if (!is_null($value)) {
                 $options[] = $value;
             }
         }
