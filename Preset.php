@@ -452,12 +452,12 @@ class Preset implements \ArrayAccess, \Serializable, \IteratorAggregate
     {
         return $this->options;
     }
-    
+
     /**
      * Merge a set of options into the current options.  New ones override previously set ones in cases
      * of conflict.
      *
-     * @param array $ops 
+     * @param array $ops
      */
     public function mergeOptions(array $ops)
     {

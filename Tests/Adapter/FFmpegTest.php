@@ -5,7 +5,7 @@ namespace AC\Transcoding\Tests\Adapter;
 use AC\Transcoding\Transcoder;
 use AC\Transcoding\File;
 use AC\Transcoding\Adapter\FFmpegAdapter;
-use AC\Transcoding\Preset\FFmpeg\AudioCompression32kPreset;
+use AC\Transcoding\Preset\FFmpeg\SoundFromVideoPreset;
 
 class FFmpegTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,8 +32,8 @@ class FFmpegTest extends \PHPUnit_Framework_TestCase
         $inPath = __DIR__."/../test_files/foo.txt";
         $outPath = "/out.mp4";
 
-        $expected = sprintf("'/good/path' '-i' '%s' '-ab' '32k' '%s'", $inPath, $outPath);
+        $expected = sprintf("'/good/path' '-i' '%s' '-vn' '' '-ar' '44100' '-ac' '2' '-ab' '192' '-f' 'mp3' '%s'", $inPath, $outPath);
 
-        $this->assertSame($expected, $a->buildProcess(new File($inPath), new AudioCompression32kPreset(), $outPath)->getProcess()->getCommandLine());
+        $this->assertSame($expected, $a->buildProcess(new File($inPath), new SoundFromVideoPreset(), $outPath)->getProcess()->getCommandLine());
     }
 }

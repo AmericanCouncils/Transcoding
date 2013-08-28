@@ -102,7 +102,7 @@ abstract class AbstractCliAdapter extends Adapter
 
         //get the assembled process
         $process = $builder->getProcess();
-        
+
         //set the dynamic callback, if interactive is enabled
         $adapter = $this;
         $processBufferCallback = (!$this->stream_buffer) ? null : function($type, $buffer) use ($adapter) {
@@ -119,7 +119,7 @@ abstract class AbstractCliAdapter extends Adapter
 
         //check for error status return
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getExitCodeText());
+            throw new \RuntimeException(sprintf("Command failure (%s)[%s]: %s", $process->getExitCode(), $process->getCommandLine(), $process->getErrorOutput()));
         }
 
         //return newly created file
