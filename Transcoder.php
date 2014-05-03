@@ -3,6 +3,7 @@
 namespace AC\Transcoding;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\Event;
 use AC\Transcoding\Event\TranscodeEvents;
 use AC\Transcoding\Event\TranscodeEvent;
@@ -100,7 +101,7 @@ class Transcoder
      *
      * @param EventDispatcher $dispatcher
      */
-    public function __construct(EventDispatcher $dispatcher = null)
+    public function __construct(EventDispatcherInterface $dispatcher = null)
     {
         $this->dispatcher = $dispatcher;
 
